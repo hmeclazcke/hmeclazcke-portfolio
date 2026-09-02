@@ -18,9 +18,9 @@ Keep this file short and current.
 
 **Current phase:** Phase 1 — Static Portfolio
 
-**Active specification:** None — SPEC-002 is complete
+**Active specification:** SPEC-003 — Portfolio Data Model
 
-**Workflow stage:** Ready for the next approved specification
+**Workflow stage:** Implementation
 
 ---
 
@@ -36,7 +36,7 @@ Keep this file short and current.
 
 ## Current Objective
 
-Select and approve the next specification before implementation begins.
+Create the SPEC-003 implementation plan.
 
 ---
 
@@ -92,7 +92,7 @@ For complete architectural detail, consult `docs/architecture.md`.
 
 ## Next Step
 
-Select the next approved Phase 1 specification. Do not begin implementation until its specification, plan, and tasks are approved.
+Implement SPEC-003 following the approved tasks.md in dependency order.
 
 ---
 
