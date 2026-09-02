@@ -426,6 +426,49 @@ The current SPEC-001 plan uses Node.js 24 LTS as its development baseline.
 
 ---
 
+## Fontsource Variable Fonts
+
+**Classification:** Primary project documentation
+**Source:** Fontsource Variable Fonts documentation
+**Domain:** fontsource.org
+
+**Used for:**
+
+- self-hosting the Space Grotesk Variable and JetBrains Mono Variable font assets through npm;
+- selecting a normal weight-axis Latin subset; and
+- retaining local system-font fallbacks without a runtime font CDN.
+
+---
+
+## Primer Design Tokens
+
+**Classification:** Reference design-system documentation
+**Source:** GitHub Primer color usage documentation
+**Domain:** primer.style
+
+**Used for:**
+
+- distinguishing raw values from functional semantic visual roles; and
+- keeping component-specific visual tokens minimal.
+
+Primer is a reference only; Primer packages are not a project dependency.
+
+---
+
+## Carbon Color Tokens
+
+**Classification:** Reference design-system documentation
+**Source:** Carbon Design System color overview
+**Domain:** carbondesignsystem.com
+
+**Used for:**
+
+- applying role-based color tokens to a dark layered-surface foundation.
+
+Carbon is a reference only; Carbon packages are not a project dependency.
+
+---
+
 # Accessibility and Web Quality
 
 ## WCAG 2.2
@@ -446,6 +489,31 @@ The current SPEC-001 plan uses Node.js 24 LTS as its development baseline.
 **Project interpretation:**
 
 Accessibility requirements should be introduced and validated through the relevant frontend specifications rather than treated as an afterthought during final polishing.
+
+---
+
+## MDN `prefers-reduced-motion`
+
+**Classification:** Primary web-platform documentation
+**Source:** MDN Web Docs
+**Domain:** developer.mozilla.org
+
+**Used for:**
+
+- CSS handling that substantially reduces non-essential motion when a user requests it.
+
+---
+
+## axe-core
+
+**Classification:** Primary project documentation
+**Source:** Deque axe-core documentation
+**Domain:** github.com/dequelabs/axe-core
+
+**Used for:**
+
+- focused automated accessibility checks in the existing Vitest and jsdom environment; and
+- documenting that jsdom cannot reliably evaluate axe-core's `color-contrast` rule.
 
 ---
 

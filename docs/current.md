@@ -14,9 +14,9 @@ It is not a changelog, roadmap, specification, or implementation journal. Detail
 
 **Current phase:** Phase 1 — Static Portfolio
 
-**Active specification:** SPEC-004 — Site Shell and Visual Foundation
+**Active specification:** None; SPEC-004 — Site Shell and Visual Foundation is complete
 
-**Workflow stage:** Implementation
+**Workflow stage:** Specification selection
 
 ---
 
@@ -41,9 +41,10 @@ Select and approve the next specification before implementation begins.
 - Project governance, authoritative documentation, and the React/TypeScript/Vite static frontend foundation are established.
 - SPEC-002 is complete: the Pages workflow has validated, built, and deployed the frontend at `https://hmeclazcke.github.io/hmeclazcke-portfolio/`.
 - SPEC-003 is complete: repository-root canonical Technology, Context, and Relationship JSON data is structurally and semantically validated through `npm run validate:data`, consumed through a static frontend data boundary, and gated in the existing Pages workflow.
+- SPEC-004 is complete: the public static frontend has an approved responsive, dark-first semantic shell, centralized visual tokens, local variable-font assets, focused automated accessibility coverage, and reusable readable/wide/full main-content widths.
 
 ---
 
 ## Next Step
 
-Implement SPEC-004 tasks T001–T029 in dependency order until the mandatory `PORTFOLIO OWNER VISUAL APPROVAL REQUIRED` checkpoint.
+Create and approve the next specification before implementation begins; SPEC-005 — Home is the next planned Phase 1 capability.

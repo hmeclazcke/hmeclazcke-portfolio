@@ -1,0 +1,12 @@
+.footer {
+  position: relative;
+  z-index: 1;
+  padding: var(--space-4) clamp(1.25rem, 5vw, 4rem);
+}
+
+.rule {
+  width: min(100%, var(--content-width-wide));
+  height: 1px;
+  margin-inline: auto;
+  background: var(--color-border-subtle);
+}

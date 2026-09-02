@@ -1,0 +1,51 @@
+:root {
+  --raw-graphite-canvas: #07110e;
+  --raw-graphite-surface: #0d1916;
+  --raw-graphite-elevated: #13231e;
+  --raw-green-deep: #27433a;
+  --raw-green-muted: #4e7767;
+  --raw-neutral-light: #f2f7f4;
+  --raw-neutral-muted: #b5c7c0;
+  --raw-green-luminous: #63f2a6;
+  --raw-amber: #f5b971;
+  --raw-lime-focus: #d6ff70;
+  --raw-green-selection: #1d4d3a;
+
+  --color-bg-canvas: var(--raw-graphite-canvas);
+  --color-bg-surface: var(--raw-graphite-surface);
+  --color-bg-surface-elevated: var(--raw-graphite-elevated);
+  --color-text-primary: var(--raw-neutral-light);
+  --color-text-muted: var(--raw-neutral-muted);
+  --color-border-subtle: var(--raw-green-deep);
+  --color-border-strong: var(--raw-green-muted);
+  --color-accent-primary: var(--raw-green-luminous);
+  --color-accent-secondary: var(--raw-amber);
+  --color-focus: var(--raw-lime-focus);
+  --color-selection: var(--raw-green-selection);
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2.5rem;
+
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+
+  --shadow-surface: 0 1rem 2.5rem rgb(0 0 0 / 24%);
+  --shadow-accent: 0 0 1.25rem rgb(99 242 166 / 14%);
+
+  --content-width-readable: 42rem;
+  --content-width-wide: 80rem;
+
+  --font-sans: "Space Grotesk Variable", "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono Variable", "Cascadia Code", monospace;
+
+  --font-size-meta: 0.75rem;
+  --font-size-body: 1rem;
+  --font-size-heading-2: clamp(1.5rem, 3vw, 2rem);
+  --font-size-heading-1: clamp(2.25rem, 5vw, 4rem);
+  --font-size-identity: clamp(1.25rem, 2.5vw, 1.75rem);
+}

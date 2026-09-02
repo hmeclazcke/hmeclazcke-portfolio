@@ -175,6 +175,8 @@ When user-facing UI exists, applicable validation should include:
 
 Automated accessibility tooling may supplement, but does not replace, meaningful behavioral review.
 
+The current frontend test suite includes a focused `axe-core` check for the rendered shell. Its jsdom invocation disables only `color-contrast`, which axe-core documents as unreliable in jsdom. Rendered-browser review remains required for actual contrast, keyboard focus, text resizing, reduced-motion, atmosphere, and responsive behavior.
+
 ---
 
 ## Documentation

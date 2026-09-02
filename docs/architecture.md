@@ -130,6 +130,12 @@ The Phase 1 frontend foundation is a client-side React single-page application u
 
 This foundation produces a static artifact and does not require a backend. A framework with server-side capabilities is not justified by the current Phase 1 requirements.
 
+### Site Shell and Visual Foundation
+
+SPEC-004 establishes a small, reusable public shell composed of semantic header, main, and footer regions. It uses native CSS: document-level base behavior and shared CSS custom properties live in global styles, while shell-specific layout and decoration live in neighboring CSS Modules. The visual vocabulary is a compact semantic token layer over raw values so future sections can reuse background, surface, text, border, accent, focus, spacing, typography, and content-width roles without importing a component library. `SiteShell` defaults to a readable main-content width and allows future callers to select wide or full content widths without changing the shell itself.
+
+The Phase 1 shell is intentionally dark-first and static. Space Grotesk and JetBrains Mono are bundled from local Fontsource packages; no runtime font CDN, backend, navigation, or portfolio-data presentation is required. The technical font is limited to accent use, while readable content uses the primary sans-serif family.
+
 ---
 
 ## Portfolio Data
@@ -374,6 +380,8 @@ The following decisions are currently established:
 - The project is a monorepo.
 - The monorepo does not imply a single deployment unit; frontend and backend may be built and deployed independently.
 - The Phase 1 frontend is a React single-page application using TypeScript and Vite.
+- The Phase 1 shell uses native CSS, semantic custom-property tokens, and focused CSS Modules; it does not use a styling framework or component library.
+- The Phase 1 visual foundation self-hosts its selected variable fonts in the static frontend artifact.
 - npm is the frontend package manager, with Node.js 24 LTS as the development baseline.
 - Project documentation is maintained under `docs/`.
 - Portfolio-owned structured data is kept conceptually separate from presentation code.
