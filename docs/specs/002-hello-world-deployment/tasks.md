@@ -28,13 +28,13 @@ Remote and public validation are intentionally separated from local implementati
 
 Add only the approved walking-skeleton content while preserving the semantic application root and no final design or portfolio functionality.
 
-- [ ] T001 [US1] Update `frontend/src/App.test.tsx` first with behavioral expectations for the accessible application root, a visible `Hello, world!` heading, and a visible short Lorem Ipsum paragraph.
+- [x] T001 [US1] Update `frontend/src/App.test.tsx` first with behavioral expectations for the accessible application root, a visible `Hello, world!` heading, and a visible short Lorem Ipsum paragraph.
 
-- [ ] T002 [US1] Run `npm run test:run` from `frontend/` and confirm that the updated test fails for the expected missing visible-content behavior before changing production code.
+- [x] T002 [US1] Run `npm run test:run` from `frontend/` and confirm that the updated test fails for the expected missing visible-content behavior before changing production code.
 
-- [ ] T003 [US1] Update `frontend/src/App.tsx` with only semantic markup required to render one `Hello, world!` `h1` and one short Lorem Ipsum `p` inside the existing `main` landmark; do not add styling, navigation, routing, design tokens, or later-spec functionality.
+- [x] T003 [US1] Update `frontend/src/App.tsx` with only semantic markup required to render one `Hello, world!` `h1` and one short Lorem Ipsum `p` inside the existing `main` landmark; do not add styling, navigation, routing, design tokens, or later-spec functionality.
 
-- [ ] T004 [US1] Re-run `npm run test:run` from `frontend/` and confirm that the updated behavioral test passes.
+- [x] T004 [US1] Re-run `npm run test:run` from `frontend/` and confirm that the updated behavioral test passes.
 
 **Checkpoint:** The local application exposes only the minimal visible walking-skeleton content and its test is green.
 
@@ -46,11 +46,11 @@ Add only the approved walking-skeleton content while preserving the semantic app
 
 Make the Vite static artifact resolve correctly at the configured GitHub Pages project-site path without introducing routing.
 
-- [ ] T005 [US1] Configure `frontend/vite.config.ts` with the production Vite base path `/hmeclazcke-portfolio/`, without adding routing or changing the static, backend-independent architecture.
+- [x] T005 [US1] Configure `frontend/vite.config.ts` with the production Vite base path `/hmeclazcke-portfolio/`, without adding routing or changing the static, backend-independent architecture.
 
-- [ ] T006 [US1] Run `npm run test:run` and `npm run build` from `frontend/` after the base-path change; confirm both pass.
+- [x] T006 [US1] Run `npm run test:run` and `npm run build` from `frontend/` after the base-path change; confirm both pass.
 
-- [ ] T007 [US1] Inspect `frontend/dist/index.html` and generated asset references after the build; confirm production asset URLs use the `/hmeclazcke-portfolio/` project-site path and no route-specific behavior was introduced.
+- [x] T007 [US1] Inspect `frontend/dist/index.html` and generated asset references after the build; confirm production asset URLs use the `/hmeclazcke-portfolio/` project-site path and no route-specific behavior was introduced.
 
 **Checkpoint:** The local production artifact is compatible with the GitHub Pages project-site path.
 
@@ -62,15 +62,15 @@ Make the Vite static artifact resolve correctly at the configured GitHub Pages p
 
 Define the source-controlled Pages workflow that validates, builds, uploads, and deploys only validated static output.
 
-- [ ] T008 [US2] Create `.github/workflows/deploy-pages.yml` with triggers for pushes to `main` and `workflow_dispatch`, running on `ubuntu-latest` with Node.js 24.
+- [x] T008 [US2] Create `.github/workflows/deploy-pages.yml` with triggers for pushes to `main` and `workflow_dispatch`, running on `ubuntu-latest` with Node.js 24.
 
-- [ ] T009 [US2] Configure the workflow build/validation job in `.github/workflows/deploy-pages.yml` to use `actions/checkout@v7`, `actions/configure-pages@v5`, `actions/setup-node@v7`, `npm ci` from `frontend/`, and the required frontend commands in order: `npm run format:check`, `npm run lint`, `npm run typecheck`, `npm run test:run`, and `npm run build`.
+- [x] T009 [US2] Configure the workflow build/validation job in `.github/workflows/deploy-pages.yml` to use `actions/checkout@v7`, `actions/configure-pages@v5`, `actions/setup-node@v7`, `npm ci` from `frontend/`, and the required frontend commands in order: `npm run format:check`, `npm run lint`, `npm run typecheck`, `npm run test:run`, and `npm run build`.
 
-- [ ] T010 [US2] Configure the build job to upload only `frontend/dist/` using `actions/upload-pages-artifact@v4`, and configure least-privilege build permissions for repository contents read access and required Pages access.
+- [x] T010 [US2] Configure the build job to upload only `frontend/dist/` using `actions/upload-pages-artifact@v4`, and configure least-privilege build permissions for repository contents read access and required Pages access.
 
-- [ ] T011 [US2] Configure a separate deployment job in `.github/workflows/deploy-pages.yml` that uses `needs: build`, the `github-pages` environment, `actions/deploy-pages@v4`, a deployment-step identifier, exposed `page_url`, and only the Pages/OIDC permissions required for deployment.
+- [x] T011 [US2] Configure a separate deployment job in `.github/workflows/deploy-pages.yml` that uses `needs: build`, the `github-pages` environment, `actions/deploy-pages@v4`, a deployment-step identifier, exposed `page_url`, and only the Pages/OIDC permissions required for deployment.
 
-- [ ] T012 [US2] Configure the standard Pages deployment concurrency policy in `.github/workflows/deploy-pages.yml` with group `pages` and `cancel-in-progress: false`, without introducing secrets, tokens, custom deployment services, or unrelated workflows.
+- [x] T012 [US2] Configure the standard Pages deployment concurrency policy in `.github/workflows/deploy-pages.yml` with group `pages` and `cancel-in-progress: false`, without introducing secrets, tokens, custom deployment services, or unrelated workflows.
 
 **Checkpoint:** The workflow structure makes deployment dependent on a successful validated build and uploads only the static Pages artifact.
 
@@ -82,15 +82,15 @@ Define the source-controlled Pages workflow that validates, builds, uploads, and
 
 Prove the local implementation and source-controlled workflow are ready for the user to commit and push, while explicitly withholding all remote completion claims.
 
-- [ ] T013 [US2] Run the complete applicable frontend quality-gate sequence from `frontend/`: `npm run format:check`, `npm run lint`, `npm run typecheck`, `npm run test:run`, and `npm run build`.
+- [x] T013 [US2] Run the complete applicable frontend quality-gate sequence from `frontend/`: `npm run format:check`, `npm run lint`, `npm run typecheck`, `npm run test:run`, and `npm run build`.
 
-- [ ] T014 [US1] Verify the generated `frontend/dist/` artifact is static, contains the approved visible content, and uses repository-project-path asset references.
+- [x] T014 [US1] Verify the generated `frontend/dist/` artifact is static, contains the approved visible content, and uses repository-project-path asset references.
 
-- [ ] T015 [US2] Review `.github/workflows/deploy-pages.yml` against the approved plan: triggers, Node version, reproducible install, action versions, commands, permissions, artifact path, job dependency, environment, output, and concurrency policy.
+- [x] T015 [US2] Review `.github/workflows/deploy-pages.yml` against the approved plan: triggers, Node version, reproducible install, action versions, commands, permissions, artifact path, job dependency, environment, output, and concurrency policy.
 
-- [ ] T016 Perform a SPEC-002 scope-drift review confirming that no final design, routing, portfolio data, graph functionality, GitHub API, backend, OpenAPI, MCP, authentication, persistence, custom domain, analytics, or unrelated automation was introduced.
+- [x] T016 Perform a SPEC-002 scope-drift review confirming that no final design, routing, portfolio data, graph functionality, GitHub API, backend, OpenAPI, MCP, authentication, persistence, custom domain, analytics, or unrelated automation was introduced.
 
-- [ ] T017 Review the current repository diff for accidental or unrelated changes and report any issue before remote validation begins.
+- [x] T017 Review the current repository diff for accidental or unrelated changes and report any issue before remote validation begins.
 
 ## USER COMMIT/PUSH REQUIRED
 
