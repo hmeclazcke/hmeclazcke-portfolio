@@ -5,6 +5,10 @@
     "lib": ["ES2023", "DOM"],
     "module": "esnext",
     "types": ["vite/client"],
+    "paths": {
+      "@portfolio-data/*": ["../data/*"]
+    },
+    "resolveJsonModule": true,
     "allowArbitraryExtensions": true,
     "skipLibCheck": true,
 

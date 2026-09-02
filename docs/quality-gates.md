@@ -210,7 +210,7 @@ For Phase 1, this may include:
 
 A local build alone is not sufficient evidence that a deployment specification is complete.
 
-The implemented SPEC-002 Pages workflow runs `npm ci`, then `npm run format:check`, `npm run lint`, `npm run typecheck`, `npm run test:run`, and `npm run build` from `frontend/`. Only a successful build job uploads `frontend/dist/`; the dependent deployment job then publishes that artifact to GitHub Pages. Deployment validation requires a successful real workflow run and a successful public HTTPS and project-path asset check, in addition to the local gates.
+The implemented Pages workflow runs `npm ci`, then `npm run format:check`, `npm run lint`, `npm run typecheck`, `npm run validate:data`, `npm run test:run`, and `npm run build` from `frontend/`. Only a successful build job uploads `frontend/dist/`; the dependent deployment job then publishes that artifact to GitHub Pages. Deployment validation requires a successful real workflow run and a successful public HTTPS and project-path asset check, in addition to the local gates.
 
 For future backend capabilities, backend deployment will have its own applicable gates and must remain independent from the static frontend deployment.
 
@@ -288,6 +288,7 @@ Run frontend commands from `frontend/`.
 - `npm run format:check`: verify formatting without modifying files; required for frontend changes.
 - `npm run lint`: run ESLint static source validation; required for frontend changes.
 - `npm run typecheck`: run the TypeScript compiler without producing a build artifact; required for frontend changes.
+- `npm run validate:data`: validate canonical portfolio JSON structurally and across collections; required whenever canonical data or its validation boundary changes, and enforced in the Pages build job before tests and production build.
 - `npm run test:run`: run the complete Vitest suite once and exit; required for frontend changes with applicable tests.
 - `npm run build`: produce the Vite static production artifact; required when frontend production output is affected and for frontend specification completion.
 

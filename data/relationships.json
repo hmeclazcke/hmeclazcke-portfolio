@@ -1,0 +1,14 @@
+[
+  { "id": "java-unitech", "technologyId": "java", "contextId": "unitech", "meanings": ["used"] },
+  { "id": "java-teracode", "technologyId": "java", "contextId": "teracode", "meanings": ["used"] },
+  { "id": "react-teracode", "technologyId": "react", "contextId": "teracode", "meanings": ["used"] },
+  { "id": "react-hmeclazcke-portfolio", "technologyId": "react", "contextId": "hmeclazcke-portfolio", "meanings": ["used"] },
+  { "id": "java-reactive-rag-document-processor", "technologyId": "java", "contextId": "reactive-rag-document-processor", "meanings": ["used"] },
+  { "id": "c-personal-projects", "technologyId": "c", "contextId": "personal-projects", "meanings": ["used"] },
+  { "id": "basic-personal-projects", "technologyId": "basic", "contextId": "personal-projects", "meanings": ["used"] },
+  { "id": "c-unicen", "technologyId": "c", "contextId": "unicen", "meanings": ["learned"] },
+  { "id": "java-unicen", "technologyId": "java", "contextId": "unicen", "meanings": ["learned"] },
+  { "id": "oracle-unicen", "technologyId": "oracle", "contextId": "unicen", "meanings": ["learned"] },
+  { "id": "smalltalk-unicen", "technologyId": "smalltalk", "contextId": "unicen", "meanings": ["learned"] },
+  { "id": "basic-iac", "technologyId": "basic", "contextId": "iac", "meanings": ["learned"] }
+]

@@ -13,11 +13,13 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "typecheck": "tsc -b",
+    "validate:data": "node scripts/validate-portfolio-data.mjs",
     "test": "vitest",
     "test:run": "vitest run",
     "preview": "vite preview"
   },
   "dependencies": {
+    "ajv": "^8.20.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
   },

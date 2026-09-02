@@ -292,6 +292,33 @@ TypeScript is used as a static type-checking layer for frontend JavaScript devel
 
 ---
 
+## JSON Schema Draft 2020-12
+
+**Classification:** Primary standard
+
+**Source:** JSON Schema Draft 2020-12 specification
+**Domain:** json-schema.org
+
+**Used for:**
+
+- structural contracts for canonical portfolio JSON collections;
+- controlled canonical data values and prohibited undeclared fields.
+
+---
+
+## Ajv
+
+**Classification:** Primary project documentation
+
+**Source:** Ajv documentation
+**Domain:** ajv.js.org
+
+**Used for:**
+
+- Node-based Draft 2020-12 validation of canonical portfolio data.
+
+---
+
 ## Vite Documentation
 
 **Classification:** Primary

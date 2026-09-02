@@ -1,0 +1,9 @@
+[
+  { "id": "java", "name": "Java", "category": "language", "relevance": "current" },
+  { "id": "react", "name": "React", "category": "framework", "relevance": "current" },
+  { "id": "basic", "name": "BASIC", "category": "language", "relevance": "historical" },
+  { "id": "visual-basic", "name": "Visual Basic", "category": "language", "relevance": "historical" },
+  { "id": "c", "name": "C", "category": "language" },
+  { "id": "oracle", "name": "Oracle", "category": "database" },
+  { "id": "smalltalk", "name": "Smalltalk", "category": "language" }
+]

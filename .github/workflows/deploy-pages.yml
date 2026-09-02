@@ -40,6 +40,9 @@ jobs:
       - name: Type check
         run: npm run typecheck
 
+      - name: Validate canonical portfolio data
+        run: npm run validate:data
+
       - name: Run tests
         run: npm run test:run
 

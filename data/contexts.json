@@ -1,0 +1,21 @@
+[
+  { "id": "unitech", "name": "Unitech", "type": "professional" },
+  { "id": "teracode", "name": "TeraCode", "type": "professional" },
+  { "id": "unicen", "name": "UNICEN", "type": "learning" },
+  { "id": "iac", "name": "IAC", "type": "learning" },
+  {
+    "id": "hmeclazcke-portfolio",
+    "name": "hmeclazcke-portfolio",
+    "type": "portfolio"
+  },
+  {
+    "id": "reactive-rag-document-processor",
+    "name": "Reactive RAG Document Processor",
+    "type": "portfolio"
+  },
+  {
+    "id": "personal-projects",
+    "name": "Personal Projects",
+    "type": "personal-project"
+  }
+]

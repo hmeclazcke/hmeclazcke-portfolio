@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hmeclazcke.github.io/hmeclazcke-portfolio/schema/technologies.schema.json",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["id", "name", "category"],
+    "properties": {
+      "id": { "type": "string", "minLength": 1 },
+      "name": { "type": "string", "minLength": 1 },
+      "category": {
+        "enum": ["language", "framework", "database", "tool", "platform", "protocol", "methodology", "other"]
+      },
+      "relevance": { "enum": ["current", "historical"] }
+    }
+  }
+}

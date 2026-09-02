@@ -136,7 +136,7 @@ This foundation produces a static artifact and does not require a backend. A fra
 
 Project-owned portfolio information must be modeled separately from UI components.
 
-Expected concepts include:
+Implemented canonical concepts include:
 
 - technologies;
 - companies or professional contexts;
@@ -182,9 +182,9 @@ The model must allow the application to distinguish concepts such as:
 
 These distinctions must be represented as data rather than inferred only from visual presentation.
 
-The exact schema and storage format remain undecided.
+The canonical source is three version-controlled root JSON collections: `data/technologies.json`, `data/contexts.json`, and `data/relationships.json`. Their Draft 2020-12 JSON Schemas live under `data/schema/`. Structural validation uses Ajv in the frontend tooling area, followed by cross-file checks for stable identities, endpoint references, duplicate associations, and canonical relationship-meaning ordering.
 
-A simple version-controlled structured representation should be preferred initially if it satisfies the approved requirements.
+The frontend statically imports the same root collections through `frontend/src/data/portfolio-data.ts`. Vite and TypeScript resolve the root data directory at build time, so the deployed static artifact has no runtime HTTP, GitHub, or backend dependency for canonical portfolio facts. The data boundary contains no graph-library or presentation metadata.
 
 Persistence infrastructure must not be introduced until the product requires it.
 
