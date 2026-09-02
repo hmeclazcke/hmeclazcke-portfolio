@@ -189,3 +189,24 @@ Examples:
 - `backend/AGENTS.md`
 
 More specific instructions must remain compatible with the project-wide rules defined here.
+
+---
+
+## Public Documentation
+
+- Treat `docs/` as the authoritative source for product, architecture, roadmap, specifications, and project status.
+- Treat the root `README.md` as the public entry point to the repository, not as a separate source of truth.
+- Keep the README consistent with the authoritative project documentation.
+- Update the README when a completed change materially affects what an external reader should know, such as:
+  - project capabilities or features;
+  - supported technologies;
+  - architecture at a high level;
+  - setup or execution instructions;
+  - deployment or usage;
+  - project maturity or meaningful milestones.
+- Do not update the README for trivial internal changes, temporary implementation details, or work that is not yet complete.
+- Before updating the README, consult the relevant authoritative documents under `docs/`; do not infer project status from code alone when documentation exists.
+- If the README conflicts with authoritative documentation, do not silently choose one. Report the inconsistency and resolve the authoritative documentation first.
+- Do not introduce new product requirements, architectural decisions, roadmap commitments, or project status solely in the README.
+- Keep the README concise and useful to an external reader. Link to detailed documentation instead of duplicating it.
+- Do not expose agent instructions, internal planning notes, temporary status notes, or unfinished specifications in the README.
