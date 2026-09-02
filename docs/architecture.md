@@ -338,6 +338,8 @@ The Phase 1 frontend will be deployed statically to GitHub Pages. It must remain
 
 Phase 1 deployment will use GitHub Actions to build the frontend, produce the static deployment artifact, and deploy that artifact to GitHub Pages.
 
+The implemented deployment boundary is `.github/workflows/deploy-pages.yml`: its build job validates and builds the frontend, uploads only `frontend/dist/`, and its dependent deployment job publishes that artifact to the `github-pages` environment. The GitHub Pages project site is served from `https://hmeclazcke.github.io/hmeclazcke-portfolio/`; the Vite production base path keeps assets under `/hmeclazcke-portfolio/`.
+
 Frontend and backend may be built and deployed independently. Any future backend must be deployed separately from GitHub Pages, which hosts the static frontend only. Server-side infrastructure should only be deployed once a feature genuinely requires server-side execution.
 
 The future backend hosting provider remains undecided. Detailed GitHub Actions workflow configuration, frontend base-path and routing configuration, and build commands belong in the relevant specification and plan.

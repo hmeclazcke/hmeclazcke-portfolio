@@ -18,9 +18,9 @@ Keep this file short and current.
 
 **Current phase:** Phase 1 — Static Portfolio
 
-**Active specification:** SPEC-002 — Hello World Deployment
+**Active specification:** None — SPEC-002 is complete
 
-**Workflow stage:** Implementation
+**Workflow stage:** Ready for the next approved specification
 
 ---
 
@@ -36,7 +36,7 @@ Keep this file short and current.
 
 ## Current Objective
 
-Complete SPEC-002 — Hello World Deployment.
+Select and approve the next specification before implementation begins.
 
 ---
 
@@ -92,7 +92,7 @@ For complete architectural detail, consult `docs/architecture.md`.
 
 ## Next Step
 
-Implement SPEC-002 by following `docs/specs/002-hello-world-deployment/tasks.md` in order until the `USER COMMIT/PUSH REQUIRED` checkpoint.
+Select the next approved Phase 1 specification. Do not begin implementation until its specification, plan, and tasks are approved.
 
 ---
 
@@ -100,14 +100,13 @@ Implement SPEC-002 by following `docs/specs/002-hello-world-deployment/tasks.md`
 
 The next planned milestone is:
 
-**SPEC-002 — Hello World Deployment**
+**SPEC-003 — Portfolio Data Model**
 
-Its purpose is to validate the complete delivery path with a minimal public page containing:
+SPEC-002 is complete: its GitHub Actions workflow successfully validated, built, and deployed the static frontend to GitHub Pages at:
 
-- `Hello, world!`
-- Lorem Ipsum content
+`https://hmeclazcke.github.io/hmeclazcke-portfolio/`
 
-The milestone must validate the frontend build, GitHub Actions workflow, and GitHub Pages deployment before real portfolio features are built.
+The next specification must remain within its approved scope and follow the repository SDD workflow.
 
 ---
 

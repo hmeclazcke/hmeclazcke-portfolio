@@ -106,13 +106,13 @@ Tasks T018 through T035 MUST remain unchecked at this checkpoint. SPEC-002 remai
 
 Verify the actual remote workflow rather than inferring remote success from local commands or workflow source.
 
-- [ ] T018 [US2] After the user confirms a commit and push to `main` and explicitly asks to continue, identify the corresponding real GitHub Actions workflow run for `.github/workflows/deploy-pages.yml`.
+- [x] T018 [US2] After the user confirms a commit and push to `main` and explicitly asks to continue, identify the corresponding real GitHub Actions workflow run for `.github/workflows/deploy-pages.yml`.
 
-- [ ] T019 [US2] Verify the observed workflow build job completed successfully, used the required frontend validation/build sequence, and uploaded the generated Pages artifact.
+- [x] T019 [US2] Verify the observed workflow build job completed successfully, used the required frontend validation/build sequence, and uploaded the generated Pages artifact.
 
-- [ ] T020 [US2] Verify the observed deployment job ran only after the successful build job, completed successfully, and reported the configured GitHub Pages deployment URL.
+- [x] T020 [US2] Verify the observed deployment job ran only after the successful build job, completed successfully, and reported the configured GitHub Pages deployment URL.
 
-- [ ] T021 [US2] Verify deployment-gating evidence: the workflow job dependency prevents the deployment job from running after a failed build or required prior step; if the observed remote run fails, record the failure and leave dependent deployment/public-validation tasks incomplete rather than claiming success.
+- [x] T021 [US2] Verify deployment-gating evidence: the workflow job dependency prevents the deployment job from running after a failed build or required prior step; if the observed remote run fails, record the failure and leave dependent deployment/public-validation tasks incomplete rather than claiming success.
 
 **Checkpoint:** A real GitHub Actions run provides evidence that only a validated static artifact can reach the deployment job.
 
@@ -124,13 +124,13 @@ Verify the actual remote workflow rather than inferring remote success from loca
 
 Verify the actual deployed site over HTTPS at the expected public URL.
 
-- [ ] T022 [US3] Verify that `https://hmeclazcke.github.io/hmeclazcke-portfolio/` is publicly reachable through HTTPS and returns a successful page response.
+- [x] T022 [US3] Verify that `https://hmeclazcke.github.io/hmeclazcke-portfolio/` is publicly reachable through HTTPS and returns a successful page response.
 
-- [ ] T023 [US3] Verify the public page visibly renders `Hello, world!` and the approved short Lorem Ipsum paragraph.
+- [x] T023 [US3] Verify the public page visibly renders `Hello, world!` and the approved short Lorem Ipsum paragraph.
 
-- [ ] T024 [US3] Verify the public page's Vite assets load successfully from `/hmeclazcke-portfolio/` and that the deployed page has no dependency on a project backend.
+- [x] T024 [US3] Verify the public page's Vite assets load successfully from `/hmeclazcke-portfolio/` and that the deployed page has no dependency on a project backend.
 
-- [ ] T025 [US3] Record the public-validation method: retain direct-browser evidence from T022 through T024 when available, or obtain equivalent verifiable evidence when it is not. If neither form of evidence is available, leave T022 through T025 incomplete, report the limitation, and do not mark SPEC-002 done.
+- [x] T025 [US3] Record the public-validation method: retain direct-browser evidence from T022 through T024 when available, or obtain equivalent verifiable evidence when it is not. If neither form of evidence is available, leave T022 through T025 incomplete, report the limitation, and do not mark SPEC-002 done.
 
 **Checkpoint:** The real public Pages deployment, content, asset path, HTTPS availability, and backend independence are evidenced.
 
@@ -142,15 +142,15 @@ Verify the actual deployed site over HTTPS at the expected public URL.
 
 Update authoritative documentation only after remote and public deployment evidence supports the actual state.
 
-- [ ] T026 [US3] Update `README.md` with the verified live URL `https://hmeclazcke.github.io/hmeclazcke-portfolio/` only after T022 through T024 are complete.
+- [x] T026 [US3] Update `README.md` with the verified live URL `https://hmeclazcke.github.io/hmeclazcke-portfolio/` only after T022 through T024 are complete.
 
-- [ ] T027 Update `docs/architecture.md` with the implemented GitHub Actions-to-GitHub Pages static deployment boundary only after remote deployment and public validation succeed.
+- [x] T027 Update `docs/architecture.md` with the implemented GitHub Actions-to-GitHub Pages static deployment boundary only after remote deployment and public validation succeed.
 
-- [ ] T028 Update `docs/quality-gates.md` with the actual CI/CD validation and deployment behavior only after the corresponding remote workflow has succeeded.
+- [x] T028 Update `docs/quality-gates.md` with the actual CI/CD validation and deployment behavior only after the corresponding remote workflow has succeeded.
 
-- [ ] T029 Update the SPEC-002 entry in `docs/roadmap.md` to reflect its actual state only when completion evidence justifies the update.
+- [x] T029 Update the SPEC-002 entry in `docs/roadmap.md` to reflect its actual state only when completion evidence justifies the update.
 
-- [ ] T030 Update `docs/current.md` with the actual SPEC-002 workflow state and immediate next step, preserving the Current Development Environment section.
+- [x] T030 Update `docs/current.md` with the actual SPEC-002 workflow state and immediate next step, preserving the Current Development Environment section.
 
 **Checkpoint:** Public-facing and authoritative documentation reflect verified deployment facts rather than intended behavior.
 
@@ -162,15 +162,15 @@ Update authoritative documentation only after remote and public deployment evide
 
 Prove the implementation satisfies the approved specification without scope drift and only then permit SPEC-002 completion.
 
-- [ ] T031 Review the resulting implementation against every functional requirement FR-001 through FR-015 in `docs/specs/002-hello-world-deployment/spec.md`.
+- [x] T031 Review the resulting implementation against every functional requirement FR-001 through FR-015 in `docs/specs/002-hello-world-deployment/spec.md`.
 
-- [ ] T032 Review the resulting implementation against every success criterion SC-001 through SC-007 in `docs/specs/002-hello-world-deployment/spec.md`.
+- [x] T032 Review the resulting implementation against every success criterion SC-001 through SC-007 in `docs/specs/002-hello-world-deployment/spec.md`.
 
-- [ ] T033 Perform a final scope-drift review confirming that no SPEC-003 or later functionality was introduced.
+- [x] T033 Perform a final scope-drift review confirming that no SPEC-003 or later functionality was introduced.
 
-- [ ] T034 Review the final repository diff for unrelated or accidental changes and report any issue before declaring SPEC-002 complete.
+- [x] T034 Review the final repository diff for unrelated or accidental changes and report any issue before declaring SPEC-002 complete.
 
-- [ ] T035 Confirm all local, remote workflow, and public deployment validation evidence is successful; leave SPEC-002 `in-progress` and report the specific incomplete evidence if any required validation could not be performed.
+- [x] T035 Confirm all local, remote workflow, and public deployment validation evidence is successful; leave SPEC-002 `in-progress` and report the specific incomplete evidence if any required validation could not be performed.
 
 **Checkpoint:** SPEC-002 may be marked complete only after all required local, remote, public, documentation, and scope-validation tasks are complete.
 

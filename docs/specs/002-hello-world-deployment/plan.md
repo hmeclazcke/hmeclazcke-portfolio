@@ -110,7 +110,7 @@ The `build` job will run npm commands using `frontend/` as its working directory
 
 Grant only the permissions needed by the relevant job:
 
-- build: `contents: read` and `pages: write` for source checkout and Pages configuration/artifact preparation;
+- build: `contents: read` for source checkout, Pages configuration, and artifact preparation;
 - deploy: `pages: write` and `id-token: write` for GitHub Pages deployment with OIDC.
 
 No repository secret, personal access token, custom deployment token, or third-party deployment service is used.

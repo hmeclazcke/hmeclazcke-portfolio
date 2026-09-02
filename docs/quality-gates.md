@@ -210,6 +210,8 @@ For Phase 1, this may include:
 
 A local build alone is not sufficient evidence that a deployment specification is complete.
 
+The implemented SPEC-002 Pages workflow runs `npm ci`, then `npm run format:check`, `npm run lint`, `npm run typecheck`, `npm run test:run`, and `npm run build` from `frontend/`. Only a successful build job uploads `frontend/dist/`; the dependent deployment job then publishes that artifact to GitHub Pages. Deployment validation requires a successful real workflow run and a successful public HTTPS and project-path asset check, in addition to the local gates.
+
 For future backend capabilities, backend deployment will have its own applicable gates and must remain independent from the static frontend deployment.
 
 ---

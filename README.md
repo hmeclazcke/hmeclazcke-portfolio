@@ -2,6 +2,10 @@
 
 An interactive technical portfolio with an established static frontend foundation.
 
+## Live site
+
+https://hmeclazcke.github.io/hmeclazcke-portfolio/
+
 ## Frontend development
 
 Prerequisite: Node.js 24 LTS (npm is included).
