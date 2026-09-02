@@ -14,9 +14,9 @@ It is not a changelog, roadmap, specification, or implementation journal. Detail
 
 **Current phase:** Phase 1 — Static Portfolio
 
-**Active specification:** None
+**Active specification:** SPEC-004 — Site Shell and Visual Foundation
 
-**Workflow stage:** SPEC-003 complete
+**Workflow stage:** Implementation
 
 ---
 
@@ -46,4 +46,4 @@ Select and approve the next specification before implementation begins.
 
 ## Next Step
 
-Plan the next approved Phase 1 specification. It must remain within its approved scope and follow the repository SDD workflow.
+Implement SPEC-004 tasks T001–T029 in dependency order until the mandatory `PORTFOLIO OWNER VISUAL APPROVAL REQUIRED` checkpoint.
