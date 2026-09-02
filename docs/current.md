@@ -18,9 +18,9 @@ Keep this file short and current.
 
 **Current phase:** Phase 1 — Static Portfolio
 
-**Active specification:** None
+**Active specification:** SPEC-002 — Hello World Deployment
 
-**Workflow stage:** SPEC-001 complete
+**Workflow stage:** Implementation
 
 ---
 
@@ -36,7 +36,7 @@ Keep this file short and current.
 
 ## Current Objective
 
-SPEC-001 — Project Foundation is implemented and validated.
+Complete SPEC-002 — Hello World Deployment.
 
 ---
 
@@ -92,7 +92,7 @@ For complete architectural detail, consult `docs/architecture.md`.
 
 ## Next Step
 
-Select and approve the next specification before implementation begins.
+Implement SPEC-002 by following `docs/specs/002-hello-world-deployment/tasks.md` in order until the `USER COMMIT/PUSH REQUIRED` checkpoint.
 
 ---
 
