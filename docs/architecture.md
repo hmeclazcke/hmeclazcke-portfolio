@@ -126,13 +126,9 @@ Expected product responsibilities include:
 - Contact and links to external profiles.
 - Presentation of how the portfolio itself was engineered.
 
-The frontend technology is not yet finalized.
+The Phase 1 frontend foundation is a client-side React single-page application using TypeScript and Vite. npm is the package manager, and Node.js 24 LTS is the development baseline.
 
-A React-based solution is expected to be evaluated.
-
-The choice between a client-side React application and a framework such as Next.js must be based on actual requirements such as rendering strategy, routing, deployment, SEO, and server-side capabilities rather than preference alone.
-
-No frontend framework decision should be considered final until documented through the relevant specification and plan.
+This foundation produces a static artifact and does not require a backend. A framework with server-side capabilities is not justified by the current Phase 1 requirements.
 
 ---
 
@@ -375,6 +371,8 @@ The following decisions are currently established:
 
 - The project is a monorepo.
 - The monorepo does not imply a single deployment unit; frontend and backend may be built and deployed independently.
+- The Phase 1 frontend is a React single-page application using TypeScript and Vite.
+- npm is the frontend package manager, with Node.js 24 LTS as the development baseline.
 - Project documentation is maintained under `docs/`.
 - Portfolio-owned structured data is kept conceptually separate from presentation code.
 - The technology graph is driven by structured relationship data.
@@ -398,7 +396,6 @@ The following decisions are currently established:
 
 The following decisions intentionally remain unresolved:
 
-- React SPA vs Next.js or another React-based architecture.
 - Graph visualization library.
 - Exact portfolio data schema and file format.
 - GitHub integration strategy and caching requirements.

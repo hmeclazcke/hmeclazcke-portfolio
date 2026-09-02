@@ -280,34 +280,16 @@ Temporary inability to execute a gate must not be represented as a successful ga
 
 ## Current Gate Commands
 
-No project-specific gate commands are established yet.
+Run frontend commands from `frontend/`.
 
-They will be added incrementally as the relevant tooling is introduced.
+- `npm run format`: apply Prettier formatting before validation when source formatting has changed.
+- `npm run format:check`: verify formatting without modifying files; required for frontend changes.
+- `npm run lint`: run ESLint static source validation; required for frontend changes.
+- `npm run typecheck`: run the TypeScript compiler without producing a build artifact; required for frontend changes.
+- `npm run test:run`: run the complete Vitest suite once and exit; required for frontend changes with applicable tests.
+- `npm run build`: produce the Vite static production artifact; required when frontend production output is affected and for frontend specification completion.
 
-Expected categories include:
-
-```text
-Frontend:
-- format
-- lint
-- typecheck
-- test
-- production build
-
-Backend:
-- format
-- compile
-- unit tests
-- integration tests
-- architecture checks
-- package/build
-
-Project:
-- documentation validation
-- deployment validation
-```
-
-Do not invent commands before the corresponding tooling exists.
+`npm run dev` and `npm run preview` support local development and local static-artifact inspection respectively; they do not replace the corresponding validation gates.
 
 ---
 

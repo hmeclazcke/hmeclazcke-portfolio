@@ -16,11 +16,11 @@ Keep this file short and current.
 
 **Name:** hmeclazcke-portfolio
 
-**Current phase:** Pre-Development Foundation
+**Current phase:** Phase 1 — Static Portfolio
 
-**Active specification:** SPEC-001 — Project Foundation
+**Active specification:** None
 
-**Workflow stage:** Implementation
+**Workflow stage:** SPEC-001 complete
 
 ---
 
@@ -36,9 +36,7 @@ Keep this file short and current.
 
 ## Current Objective
 
-Create the task decomposition for the approved SPEC-001 — Project Foundation.
-
-The next artifact is `docs/specs/001-project-foundation/tasks.md`.
+SPEC-001 — Project Foundation is implemented and validated.
 
 ---
 
@@ -64,6 +62,11 @@ The following project-level artifacts have been established:
 - `docs/quality-gates.md`
   - Defines project-wide completion and validation requirements.
 
+- `frontend/`
+  - React + TypeScript + Vite static frontend foundation.
+  - npm-managed dependencies, Vitest, React Testing Library, jsdom, ESLint, and Prettier.
+  - Independent local development, static build, and local preview without a project backend.
+
 ---
 
 ## Current Architectural Direction
@@ -81,6 +84,7 @@ The following decisions are already established and should not be re-decided wit
 - LinkedIn remains the destination for detailed professional experience.
 - OpenAPI will be introduced only when an application-owned API boundary exists.
 - MCP will be introduced only for a justified agent/tool integration use case.
+- The frontend is a React SPA using TypeScript and Vite, with npm and Node.js 24 LTS as its baseline.
 
 For complete architectural detail, consult `docs/architecture.md`.
 
@@ -88,27 +92,13 @@ For complete architectural detail, consult `docs/architecture.md`.
 
 ## Next Step
 
-Implement:
-
-**SPEC-001 — Project Foundation**
-
-Expected artifacts:
-
-```text
-docs/specs/
-└── 001-project-foundation/
-    ├── spec.md
-    ├── plan.md
-    └── tasks.md
-```
-
-Implement SPEC-001 by following `docs/specs/001-project-foundation/tasks.md` in order.
+Select and approve the next specification before implementation begins.
 
 ---
 
 ## Following Milestone
 
-After SPEC-001 is completed, proceed to:
+The next planned milestone is:
 
 **SPEC-002 — Hello World Deployment**
 
