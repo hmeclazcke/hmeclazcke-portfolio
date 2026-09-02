@@ -18,17 +18,27 @@ Keep this file short and current.
 
 **Current phase:** Pre-Development Foundation
 
-**Active specification:** None
+**Active specification:** SPEC-001 — Project Foundation
 
-**Workflow stage:** Project documentation and SDD foundation
+**Workflow stage:** Implementation
+
+---
+
+## Current Development Environment
+
+- AI coding agent: OpenAI Codex CLI
+- Model: GPT-5.6 Terra
+- Reasoning effort: Medium
+- IDE: IntelliJ IDEA
+- Terminal: PowerShell
 
 ---
 
 ## Current Objective
 
-Complete the initial project documentation and development governance required before starting implementation.
+Create the task decomposition for the approved SPEC-001 — Project Foundation.
 
-The next major milestone is to begin Phase 1 — Static Portfolio.
+The next artifact is `docs/specs/001-project-foundation/tasks.md`.
 
 ---
 
@@ -78,7 +88,7 @@ For complete architectural detail, consult `docs/architecture.md`.
 
 ## Next Step
 
-Create and refine:
+Implement:
 
 **SPEC-001 — Project Foundation**
 
@@ -92,7 +102,7 @@ docs/specs/
     └── tasks.md
 ```
 
-The specification must be defined before implementation begins.
+Implement SPEC-001 by following `docs/specs/001-project-foundation/tasks.md` in order.
 
 ---
 

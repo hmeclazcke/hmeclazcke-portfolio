@@ -45,6 +45,7 @@ The intended documentation structure is:
 - `docs/roadmap.md`: high-level project phases.
 - `docs/quality-gates.md`: project-wide completion and validation rules.
 - `docs/current.md`: current development state and active work.
+- `docs/references.md`: curated external sources, standards, and reference implementations used to inform project decisions.
 - `docs/specs/`: feature specifications, plans, and tasks.
 
 Treat these documents as project sources of truth once they exist.
