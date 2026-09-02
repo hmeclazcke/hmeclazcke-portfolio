@@ -39,14 +39,16 @@ Keep `Hernán Meclazcke` and `hmeclazcke` in the existing header, where they alr
 The page-wide hierarchy is therefore:
 
 1. header: primary identity and secondary technical handle;
-2. hero `h1`: approved professional title;
-3. hero technology line: approved factual technical context; and
-4. hero paragraph: approved supporting introduction.
+2. hero technical accent: approved greeting, visually subordinate and not a heading;
+3. hero `h1`: approved professional title;
+4. hero technology line: approved factual technical context; and
+5. hero paragraph: approved supporting introduction.
 
 ### TD-003 — Approved copy is literal content
 
 Render the following strings exactly, without rewriting, embellishment, generated copy, or data-derived substitutions:
 
+- `HELLO, I'M HERNÁN.`
 - `Senior Backend Java Developer`
 - `Java · Spring Boot · Microservices · Oracle & PL/SQL · REST APIs`
 - `Computers and programming have been part of my life since I was a kid. Today I focus on backend development, while still enjoying exploring different technologies and understanding how the pieces of a system fit together.`
@@ -94,17 +96,18 @@ The existing static canonical-data boundary, shell components, global styles, to
 
 ## Content Composition
 
-`HomeHero` will contain one semantic `h1`, followed by a technology-line text element and a paragraph element. The approved supporting paragraph is one sentence and remains the only supporting personal/professional copy.
+`HomeHero` will contain a non-heading greeting element, one semantic `h1`, a technology-line text element, and a paragraph element. The greeting is a small technical accent above the title, and the approved supporting paragraph remains the only supporting personal/professional copy.
 
 The header continues to provide the primary identity `Hernán Meclazcke` and secondary handle `hmeclazcke`; the hero provides the approved professional context. This avoids redundant name presentation while ensuring visitors encounter the identity and positioning in the initial page view.
 
-Do not add a CTA, button, link, label, tagline, greeting, section heading, biography, technology list, experience metric, image, or extra marketing copy. Do not add early-computing chronology; that fuller story remains SPEC-006 scope.
+Do not add a CTA, button, link, label, tagline, section heading, biography, technology list, experience metric, image, or extra marketing copy beyond the approved greeting. Do not add early-computing chronology; that fuller story remains SPEC-006 scope.
 
 ## Styling Strategy
 
 The hero CSS Module will:
 
 - create a concise vertical stack with the existing spacing scale;
+- render the greeting as selective JetBrains Mono technical accent text, visually subordinate to the title;
 - make the `h1` the strongest Home element using the existing heading typography roles;
 - render the technology line as selective JetBrains Mono technical accent text with an existing appropriate accent/text token and readable contrast;
 - render the supporting paragraph using the existing readable body typography and muted-text role;
@@ -143,6 +146,7 @@ Reuse the existing axe-core/Vitest setup for semantic and applicable automated a
 
 1. Update `frontend/src/App.test.tsx` first with assertions that fail against the temporary walking-skeleton page:
    - the approved title appears exactly;
+   - the approved greeting appears exactly and is not an additional heading;
    - the approved technology line appears exactly;
    - the approved supporting paragraph appears exactly;
    - `Hello, world!` is absent;

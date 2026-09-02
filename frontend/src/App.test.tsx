@@ -6,7 +6,7 @@ import { runAxe } from "./test/run-axe";
 
 afterEach(cleanup);
 
-test("renders the semantic shell around the temporary walking skeleton", () => {
+test("renders the approved Home content within the semantic shell", () => {
   render(<App />);
 
   expect(screen.getByRole("banner")).toBeInTheDocument();
@@ -14,15 +14,32 @@ test("renders the semantic shell around the temporary walking skeleton", () => {
   expect(screen.getByRole("contentinfo")).toBeInTheDocument();
   expect(screen.getByText("Hernán Meclazcke")).toBeInTheDocument();
   expect(screen.getByText("hmeclazcke")).toBeInTheDocument();
+  expect(screen.getByText("HELLO, I'M HERNÁN.")).toBeInTheDocument();
   expect(
-    screen.getByRole("heading", { name: "Hello, world!", level: 1 }),
+    screen.getByRole("heading", {
+      name: "Senior Backend Java Developer",
+      level: 1,
+    }),
   ).toBeInTheDocument();
   expect(
     screen.getByText(
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      "Java · Spring Boot · Microservices · Oracle & PL/SQL · REST APIs",
     ),
   ).toBeInTheDocument();
+  expect(
+    screen.getByText(
+      "Computers and programming have been part of my life since I was a kid. Today I focus on backend development, while still enjoying exploring different technologies and understanding how the pieces of a system fit together.",
+    ),
+  ).toBeInTheDocument();
+  expect(screen.queryByText("Hello, world!")).not.toBeInTheDocument();
+  expect(
+    screen.queryByText(
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    ),
+  ).not.toBeInTheDocument();
   expect(screen.queryAllByRole("link")).toHaveLength(0);
+  expect(screen.queryAllByRole("button")).toHaveLength(0);
+  expect(screen.getAllByRole("heading", { level: 1 })).toHaveLength(1);
 });
 
 test("has no applicable automated axe violations in jsdom", async () => {

@@ -1,0 +1,42 @@
+.hero {
+  display: grid;
+  gap: var(--space-5);
+  padding: clamp(var(--space-5), 5vw, var(--space-6));
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-surface);
+  box-shadow: var(--shadow-surface);
+}
+
+.hero .title {
+  margin: 0;
+  color: var(--color-text-primary);
+  font-size: var(--font-size-heading-1);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+}
+
+.hero .greeting {
+  margin: 0;
+  color: var(--color-accent-secondary);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-meta);
+  letter-spacing: 0.08em;
+  line-height: 1.4;
+}
+
+.hero .technologyLine {
+  margin: 0;
+  color: var(--color-accent-primary);
+  font-family: var(--font-mono);
+  font-size: clamp(0.8125rem, 1.8vw, 1rem);
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.hero .summary {
+  max-width: 38rem;
+  margin: 0;
+  color: var(--color-text-muted);
+}

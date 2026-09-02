@@ -14,9 +14,9 @@ It is not a changelog, roadmap, specification, or implementation journal. Detail
 
 **Current phase:** Phase 1 — Static Portfolio
 
-**Active specification:** SPEC-005 — Home
+**Active specification:** None; SPEC-005 — Home is complete
 
-**Workflow stage:** Implementation
+**Workflow stage:** Specification selection
 
 ---
 
@@ -42,9 +42,10 @@ Select and approve the next specification before implementation begins.
 - SPEC-002 is complete: the Pages workflow has validated, built, and deployed the frontend at `https://hmeclazcke.github.io/hmeclazcke-portfolio/`.
 - SPEC-003 is complete: repository-root canonical Technology, Context, and Relationship JSON data is structurally and semantically validated through `npm run validate:data`, consumed through a static frontend data boundary, and gated in the existing Pages workflow.
 - SPEC-004 is complete: the public static frontend has an approved responsive, dark-first semantic shell, centralized visual tokens, local variable-font assets, focused automated accessibility coverage, and reusable readable/wide/full main-content widths.
+- SPEC-005 is complete: the public static frontend has an owner-approved focused Home introduction with approved public copy, preserving the existing shell, static data boundary, and backend independence.
 
 ---
 
 ## Next Step
 
-Implement SPEC-005 tasks T001–T013 in dependency order until the mandatory `PORTFOLIO OWNER VISUAL APPROVAL REQUIRED` checkpoint.
+Create and approve the next specification before implementation begins; SPEC-006 — About Me is the next planned Phase 1 capability.

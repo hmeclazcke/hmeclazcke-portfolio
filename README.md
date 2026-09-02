@@ -1,6 +1,6 @@
 # hmeclazcke-portfolio
 
-An interactive technical portfolio with an established static frontend foundation.
+An interactive technical portfolio with an established static frontend foundation and focused public Home experience.
 
 ## Live site
 

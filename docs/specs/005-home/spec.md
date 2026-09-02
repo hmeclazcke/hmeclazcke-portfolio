@@ -66,6 +66,7 @@ As a visitor, I want Home to feel like the beginning of a coherent portfolio so 
 The Home experience shall contain a focused hero/introduction area and one concise supporting personal/professional introduction of approximately one to three sentences. Together they must:
 
 - establish the primary public identity;
+- present the approved introductory technical accent above the professional title;
 - present concise approved technical positioning;
 - explain at a high level the software work represented by the portfolio;
 - allow the supporting introduction to communicate, without chronology, that Hernán's relationship with computers and programming began early and that he remains interested in understanding and exploring technologies beyond a single stack; and
@@ -75,7 +76,7 @@ The supporting introduction must remain brief and must not become a biography. I
 
 ### Supported facts and public wording
 
-The portfolio owner has approved the public professional title `Senior Backend Java Developer` and the factual technology wording `Java · Spring Boot · Microservices · Oracle & PL/SQL · REST APIs`. The final visual punctuation and layout of the technology wording remain implementation decisions.
+The portfolio owner has approved the introductory technical accent `HELLO, I'M HERNÁN.`, the public professional title `Senior Backend Java Developer`, and the factual technology wording `Java · Spring Boot · Microservices · Oracle & PL/SQL · REST APIs`. The greeting is a small introductory accent above the title, not an additional heading. The final visual punctuation and layout of the technology wording remain implementation decisions.
 
 The project documentation also supports broad portfolio direction involving Java, Spring, Oracle / SQL, React, backend and integration work, and modern software architecture and engineering practices. Those facts do not automatically authorize additional public sentences, specialty claims, project claims, technology lists, or biography-like wording.
 
@@ -151,7 +152,7 @@ Home must not require typewriter effects, Matrix-style code rain, glitch text, c
 - **FR-002:** The system shall present `Hernán Meclazcke` as the primary public identity on Home.
 - **FR-003:** The system may present `hmeclazcke` only as a secondary technical/accent identity and shall not represent it as a separate company or brand.
 - **FR-004:** The system shall provide a clear visual and semantic hierarchy between the identity, technical positioning, and supporting description.
-- **FR-005:** The system shall present the approved public professional title `Senior Backend Java Developer` and may present the approved factual technology wording `Java · Spring Boot · Microservices · Oracle & PL/SQL · REST APIs`, with exact visual punctuation and layout deferred to implementation.
+- **FR-005:** The system shall present the approved introductory technical accent `HELLO, I'M HERNÁN.` above the approved public professional title `Senior Backend Java Developer`; it may present the approved factual technology wording `Java · Spring Boot · Microservices · Oracle & PL/SQL · REST APIs`, with exact visual punctuation and layout deferred to implementation. The greeting shall not be another main heading.
 - **FR-006:** The system shall include one concise supporting personal/professional introduction of approximately one to three sentences, focused on the kind of software work represented by the portfolio, using wording explicitly approved by the portfolio owner.
 - **FR-007:** The system shall not present unapproved titles, seniority claims, expertise levels, years-of-experience claims, achievements, client claims, project history, degrees, institute names, or fictional slogans as public facts.
 - **FR-008:** The system shall not make Home an employment history, education chronology, LinkedIn replacement, online CV, long technology inventory, proficiency display, or generic developer landing page.
@@ -224,7 +225,7 @@ Home must not require typewriter effects, Matrix-style code rain, glitch text, c
 
 SPEC-005 can be considered complete only when:
 
-1. The approved professional title, factual technology wording, and supporting personal/professional paragraph are displayed accurately without introducing additional unapproved public claims.
+1. The approved introductory technical accent, professional title, factual technology wording, and supporting personal/professional paragraph are displayed accurately without introducing additional unapproved public claims.
 2. All functional requirements and success criteria have been verified through proportionate automated checks and manual visual, responsive, and accessibility review.
 3. The temporary walking-skeleton content has been replaced by approved Home content without adding out-of-scope later functionality.
 4. Applicable frontend, canonical-data validation, build, and GitHub Pages compatibility quality gates pass.
