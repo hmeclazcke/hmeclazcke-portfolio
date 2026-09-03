@@ -5,13 +5,13 @@ import styles from "./StorySection.module.css";
 type StoryTimelineProps = {
   milestones: readonly StoryMilestoneData[];
   activeId?: string;
-  onMilestoneElement?: (id: string, element: HTMLLIElement | null) => void;
+  onMilestoneSelect?: (id: string) => void;
 };
 
 function StoryTimeline({
   milestones,
   activeId,
-  onMilestoneElement,
+  onMilestoneSelect,
 }: StoryTimelineProps) {
   return (
     <ol className={styles.timeline} aria-label="Chronological story">
@@ -20,9 +20,8 @@ function StoryTimeline({
           key={milestone.id}
           milestone={milestone}
           isActive={milestone.id === activeId}
-          milestoneRef={(element) =>
-            onMilestoneElement?.(milestone.id, element)
-          }
+          hasTimeJumpBefore={milestone.id === "still-learning"}
+          onSelect={() => onMilestoneSelect?.(milestone.id)}
         />
       ))}
     </ol>

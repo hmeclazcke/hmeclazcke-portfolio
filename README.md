@@ -1,6 +1,6 @@
 # hmeclazcke-portfolio
 
-An interactive technical portfolio with an established static frontend foundation and focused public Home experience.
+An interactive technical portfolio with a focused public Home experience and owner-approved Explore My Story chronology.
 
 ## Live site
 

@@ -2,11 +2,7 @@
 
 ## Purpose
 
-This document provides a concise snapshot of the current development state so that a new human or agent session can quickly determine where work should resume.
-
-It is not a changelog, roadmap, specification, or implementation journal. Detailed and authoritative information belongs in the corresponding project documents.
-
----
+This document provides a concise snapshot of the current development state. Detailed authoritative decisions remain in their corresponding documents.
 
 ## Project
 
@@ -14,11 +10,9 @@ It is not a changelog, roadmap, specification, or implementation journal. Detail
 
 **Current phase:** Phase 1 — Static Portfolio
 
-**Active specification:** SPEC-006 — About Me
+**Active specification:** None
 
-**Workflow stage:** Implementation
-
----
+**Workflow stage:** Ready for next specification
 
 ## Current Development Environment
 
@@ -28,26 +22,18 @@ It is not a changelog, roadmap, specification, or implementation journal. Detail
 - IDE: IntelliJ IDEA
 - Terminal: PowerShell
 
----
-
 ## Current Objective
 
-The previously implemented long-document/sticky desktop Story model was rejected during portfolio-owner review and has been superseded by the approved stationary desktop Story interaction.
-
-Implement revised SPEC-006 — About Me tasks through the renewed `T045 — PORTFOLIO OWNER VISUAL APPROVAL REQUIRED` checkpoint.
-
----
+SPEC-006 — About Me / Explore My Story is complete and owner-approved. Its desktop native-scroll with invisible progression space and stationary sticky stage, plus the mobile sequential observer behavior, are approved regression-sensitive behavior.
 
 ## Completed Foundation
 
-- Project governance, authoritative documentation, and the React/TypeScript/Vite static frontend foundation are established.
-- SPEC-002 is complete: the Pages workflow has validated, built, and deployed the frontend at `https://hmeclazcke.github.io/hmeclazcke-portfolio/`.
-- SPEC-003 is complete: repository-root canonical Technology, Context, and Relationship JSON data is structurally and semantically validated through `npm run validate:data`, consumed through a static frontend data boundary, and gated in the existing Pages workflow.
-- SPEC-004 is complete: the public static frontend has an approved responsive, dark-first semantic shell, centralized visual tokens, local variable-font assets, focused automated accessibility coverage, and reusable readable/wide/full main-content widths.
-- SPEC-005 is complete: the public static frontend has an owner-approved focused Home introduction with approved public copy, preserving the existing shell, static data boundary, and backend independence.
-
----
+- SPEC-002 is complete: the Pages workflow has validated, built, and deployed the frontend.
+- SPEC-003 is complete: canonical portfolio data is validated and consumed through a static frontend data boundary.
+- SPEC-004 is complete: the public static frontend has an approved responsive dark-first semantic shell and visual foundation.
+- SPEC-005 is complete: the public Home introduction is owner-approved.
+- SPEC-006 is complete: owner-approved Explore My Story navigation, responsive chronology, supplied local media, and base-safe favicon wiring are integrated.
 
 ## Next Step
 
-Implement the revised stationary desktop Story interaction through the renewed `T045 — PORTFOLIO OWNER VISUAL APPROVAL REQUIRED` checkpoint.
+Begin SPEC-007 — Technology Graph after its specification is approved.

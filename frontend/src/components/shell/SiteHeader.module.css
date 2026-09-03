@@ -6,19 +6,6 @@
   box-shadow: var(--shadow-surface);
 }
 
-.header::after {
-  position: absolute;
-  right: clamp(1.25rem, 5vw, 4rem);
-  bottom: -1px;
-  width: clamp(3rem, 12vw, 7rem);
-  height: 2px;
-  background: var(--color-accent-secondary);
-  box-shadow: 0 0 0.75rem
-    color-mix(in srgb, var(--color-accent-secondary) 42%, transparent);
-  content: "";
-  pointer-events: none;
-}
-
 .content {
   display: flex;
   flex-direction: column;
@@ -76,6 +63,11 @@
   }
 
   .storyLink {
+    margin-left: clamp(2rem, 12vw, 10rem);
+    color: var(--color-text-muted);
+  }
+
+  .identity {
     margin-left: auto;
   }
 }

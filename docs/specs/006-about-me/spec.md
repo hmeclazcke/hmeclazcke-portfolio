@@ -1,8 +1,10 @@
 # Feature Specification: About Me
 
+> **Final T045 interaction supersession:** Desktop Story uses native document scroll through an invisible progression region and one visually stationary CSS-sticky stage. Scroll position is the sole progression source: it derives the active real milestone, and timeline clicks or focused Arrow keys move that same document scroll position. Wheel interception, cooldowns, eligibility thresholds, visible Previous/Next controls, and closest-to-center active selection are superseded. The 2008–2025 omission is a non-interactive visual timeline break. The approved Slackware public copy begins: `In high school, a teacher told us Slackware was one of the hardest Linux distributions to install at the time. Naturally, I chose that one.`
+
 **ID:** SPEC-006  
 **Phase:** Phase 1 — Static Portfolio  
-**Status:** Approved
+**Status:** Complete
 **Depends on:** SPEC-004 — Site Shell and Visual Foundation
 
 ## Overview
@@ -50,7 +52,7 @@ As a desktop visitor, I want wheel or trackpad gestures to progress a visually s
 1. Wide-screen layouts show a left-side vertical timeline with years and short labels and a corresponding right-side content/visual panel.
 2. While the Story stage is active, a bounded vertical wheel/trackpad gesture advances or reverses one milestone without vertically moving the browser viewport between milestones.
 3. The interaction releases ordinary document scrolling when the visitor moves upward from the first milestone or downward from the final milestone; it does not globally disable scrolling, create an infinite trap, or consume scrolling outside the active Story stage.
-4. Keyboard users have an explicit, accessible previous/next alternative, and screen readers retain access to the complete chronology.
+4. Keyboard users can use focused `ArrowDown`/`ArrowRight` and `ArrowUp`/`ArrowLeft` progression, and screen readers retain access to the complete chronology.
 
 ### US-003 — Read the story on any device or with motion reduced (Priority: P1)
 
@@ -271,6 +273,8 @@ On eligible desktop and wide-desktop layouts, the experience shall provide one a
 - a content/visual panel on the right associated with the active milestone; and
 - a temporal sense of progression as the visitor advances or reverses Story milestones within that stage.
 
+Eligible desktop mode shall not fall back to the long sequential chronology because the viewport is shorter than a content-driven threshold. At ordinary fine-pointer desktop sizes, including 1280×720, 1366×768, 1536×864, and 1920×1080, the entire compact progress timeline and dedicated right-side media frame shall fit within the stationary stage without an internal vertical scrollbar. The desktop heading shall identify the section without consuming a large portion of that stage. The media frame shall remain a stable rectangle even before approved images are added, using the abstract fallback until then.
+
 The stage shall not create one document-height segment per milestone. While an eligible desktop user is within the active stage and additional milestones exist in the direction of travel, a qualifying vertical wheel or trackpad gesture may be consumed to change exactly one active milestone and keep the browser viewport visually stationary. This narrow interaction supersedes the prior blanket prohibition on desktop wheel-event interception.
 
 The control boundary is mandatory: it shall not globally disable page scrolling, affect scrolling outside the active stage, create an infinite trap, require excessive gestures, consume upward scrolling at the first milestone, or consume downward scrolling at the final milestone. In those boundary cases, ordinary document scrolling shall proceed naturally so the visitor can leave toward Home or later content. The inverse direction shall work throughout the stage.
@@ -306,7 +310,7 @@ Historical facts and illustrative imagery are separate. Before implementation, e
 - Content shall remain readable and complete when JavaScript-enhanced milestone activation is unavailable or fails.
 - Keyboard users shall be able to reach and read all timeline content; any interactive milestone control introduced by implementation shall use native semantics or equivalent accessible semantics, be keyboard operable, and have visible focus.
 - Normal browser scrolling, keyboard scrolling, touch scrolling, and anchor navigation shall remain intact outside the bounded eligible desktop Story stage. Within that stage, narrowly scoped wheel/trackpad handling may progress Story milestones only under the explicit entry, boundary-release, and cleanup rules above. The experience shall not trap keyboard or pointer users.
-- The desktop stage shall not be mouse-wheel-only: it shall expose accessible native Previous and Next controls that change the same local active milestone. The controls shall be keyboard operable with visible focus, and disabled at their respective boundaries without preventing normal document escape. Screen readers shall retain access to the complete chronological narrative, not only the active visual milestone.
+- The desktop stage shall not be mouse-wheel-only: when the eligible stage has keyboard focus, `ArrowDown` and `ArrowRight` shall advance the same local active milestone, while `ArrowUp` and `ArrowLeft` shall reverse it. The focused stage shall have visible focus; keys at their respective outward boundaries shall not prevent normal document escape. No visible Previous/Next buttons are part of this experience. Screen readers shall retain access to the complete chronological narrative, not only the active visual milestone.
 - No information shall be communicated solely by active-color state, animation, image, hover, or pointer precision.
 - Non-essential motion shall be restrained, non-flashing, and substantially reduced for `prefers-reduced-motion`; no timeline transition is mandatory for comprehension.
 - The section shall preserve WCAG 2.2 AA-oriented contrast and remain usable at 200% zoom/text resizing without clipping, overlap, or ordinary-content horizontal scrolling.
@@ -314,11 +318,11 @@ Historical facts and illustrative imagery are separate. Before implementation, e
 
 ## Responsive Requirements
 
-Implementation review shall deliberately cover narrow mobile, tablet, desktop, and wide desktop layouts. The eligible desktop treatment shall use the bounded viewport stage; mobile shall prioritize sequential content and natural scrolling. At every layout class, dates, labels, content, focus states, controls, and any visual panel must remain readable and non-overlapping.
+Implementation review shall deliberately cover narrow mobile, tablet, desktop, and wide desktop layouts. The eligible desktop treatment shall use the bounded viewport stage; mobile shall prioritize sequential content and natural scrolling. At every layout class, dates, labels, content, focus states, Arrow-key behavior where applicable, and any visual panel must remain readable and non-overlapping.
 
 ### Owner decision supersession — desktop interaction
 
-The portfolio owner rejected the prior long-document desktop scrollytelling model at T045. The following prior decisions are superseded only for eligible desktop Story interaction: normal document movement through every milestone; CSS sticky as the primary desktop mechanism; `IntersectionObserver` viewport activation as the active-milestone mechanism; and the blanket prohibition on all wheel interception. They are replaced by the bounded viewport-stage, wheel/trackpad progression, explicit keyboard-control, and boundary-release contract above.
+The portfolio owner rejected the prior long-document desktop scrollytelling model at T045. The following prior decisions are superseded only for eligible desktop Story interaction: normal document movement through every milestone; CSS sticky as the primary desktop mechanism; `IntersectionObserver` viewport activation as the active-milestone mechanism; the blanket prohibition on all wheel interception; and the formerly proposed visible Previous/Next buttons. They are replaced by the bounded viewport-stage, wheel/trackpad progression, focused Arrow-key progression, and boundary-release contract above.
 
 This supersession does not alter the public Story copy, `#about` anchor navigation, semantic complete chronology, mobile natural scrolling, reduced-motion requirements, image restrictions, or later-spec exclusions.
 
@@ -329,12 +333,12 @@ This supersession does not alter the public Story copy, `#about` anchor navigati
 - **FR-003:** The public narrative shall be English only and shall not introduce localization or a Spanish duplicate.
 - **FR-004:** The system shall preserve official Argentine names or qualification wording in Spanish where translation would reduce precision, with English supporting explanation.
 - **FR-005:** The system shall use an interactive vertical timeline as the primary narrative structure.
-- **FR-006:** On desktop and wide-desktop layouts, the system shall show a left-side timeline with years/periods and short labels plus an associated right-side content/visual panel.
+- **FR-006:** On desktop and wide-desktop layouts, the system shall show a compact left-side timeline with years/periods and short labels plus an associated stable right-side content/media rectangle. The entire progress timeline shall fit in the stationary viewport without an internal scrollbar at ordinary desktop sizes.
 - **FR-007:** The system shall visually emphasize the active desktop milestone and communicate its active relationship through at least one non-color cue.
-- **FR-008:** On eligible desktop layouts, the active milestone and associated panel shall progress within one approximately viewport-sized Story stage through deterministic bounded vertical wheel/trackpad handling and accessible explicit controls, without vertically moving the browser viewport between milestones.
+- **FR-008:** On eligible desktop layouts, the active milestone and associated panel shall progress within one approximately viewport-sized Story stage through deterministic bounded vertical wheel/trackpad handling and focused keyboard Arrow-key controls, without vertically moving the browser viewport between milestones.
 - **FR-009:** Desktop Story wheel/trackpad handling shall be scoped only to an active eligible stage with additional milestones in the direction of travel; it shall progress at most one milestone per qualified gesture, prevent accidental multi-step advancement, release upward scrolling at the first milestone and downward scrolling at the final milestone, and never globally lock, trap, or replace page scrolling.
-- **FR-010:** On narrow, touch, or coarse-pointer layouts, the system shall provide a naturally scrollable sequential timeline and shall not require desktop sticky-scrollytelling behavior.
-- **FR-011:** The system shall preserve normal touch, keyboard, and browser scrolling outside the bounded eligible desktop stage, and shall provide keyboard-operable explicit controls so milestone progression is not wheel-only.
+- **FR-010:** On layouts that do not meet the desktop fine-pointer breakpoint, including touch and coarse-pointer layouts, the system shall provide a naturally scrollable sequential timeline and shall not require desktop viewport-stage behavior. A short ordinary desktop viewport alone shall not trigger this fallback.
+- **FR-011:** The system shall preserve normal touch, keyboard, and browser scrolling outside the bounded eligible desktop stage, and shall provide focused keyboard Arrow-key progression so milestone progression is not wheel-only. `ArrowDown`/`ArrowRight` shall advance and `ArrowUp`/`ArrowLeft` shall reverse; outward-boundary keys shall be released to normal browser behavior.
 - **FR-012:** The system shall model the proposed milestones and their confirmed, approximate, or remembered evidence states without publishing uncertain detail as confirmed fact.
 - **FR-013:** The system shall preserve the approved 1994 LOGO copy: `My first contact with programming. I was 10, and it all started with a turtle.`
 - **FR-014:** The system shall preserve the 1996 hardware facts—486 DX4 100 MHz, 4 MB RAM, and 640 MB HDD—without adding unconfirmed hardware detail.
@@ -347,7 +351,7 @@ This supersession does not alter the public Story copy, `#about` anchor navigati
 - **FR-021:** The system shall not add employer chronology, job titles by year, client lists, salary information, employment gaps, or résumé-style responsibilities.
 - **FR-022:** The system shall reuse the completed SPEC-004 dark-first shell, typography, green/amber accent system, responsive foundations, and technical atmosphere without redesigning the site.
 - **FR-023:** The system shall make all narrative content understandable without images, animation, active-state color, or enhanced JavaScript activation.
-- **FR-024:** The system shall expose the complete timeline in a semantic, screen-reader-friendly chronological structure and preserve keyboard access to any implemented controls.
+- **FR-024:** The system shall expose the complete timeline in a semantic, screen-reader-friendly chronological structure and preserve focused keyboard access to the enhanced desktop stage where it is implemented.
 - **FR-025:** The system shall support reduced motion, sufficient intended contrast, visible focus, 200% zoom/text resizing, and no flashing effects.
 - **FR-026:** The system shall remain compatible with static GitHub Pages deployment, require no backend, and require no runtime external image hotlink or service for the core narrative.
 - **FR-027:** The system shall not automatically render SPEC-003 canonical data or silently modify that data; any newly confirmed narrative fact that may warrant canonical-data convergence shall be documented separately for later approval.
@@ -365,7 +369,7 @@ This supersession does not alter the public Story copy, `#about` anchor navigati
 ## Edge Cases
 
 - If JavaScript activation does not run, all milestones and their content remain visible in chronological order.
-- If the eligible desktop stage cannot initialize, the experience falls back to ordinary sequential content with complete chronology and explicit controls where applicable.
+- If the eligible desktop stage cannot initialize, the experience falls back to ordinary sequential content with complete chronology; no enhanced keyboard progression is required for that fallback.
 - If imagery is unavailable, delayed, or intentionally omitted, narrative content and milestone relationships remain complete.
 - If an approximate period is shown, it remains approximate; implementation must not convert it to a year solely for visual alignment.
 - If the LAN-party memory is not selected as its own milestone, it may appear only as approved supporting material and must not disappear behind interaction-dependent content.
@@ -422,7 +426,7 @@ This supersession does not alter the public Story copy, `#about` anchor navigati
 - **SC-009:** Exact owner-approved historical facts are preserved, while approximate dates and memories remain appropriately qualified.
 - **SC-010:** UNICEN is not represented as a completed degree, and the confirmed 2001 qualification `Técnico en Informática Personal y Profesional` is preserved in Spanish without an invented English equivalence.
 - **SC-011:** No unprovided historical milestone, detail, course credential, certification, employment claim, or technical context is invented.
-- **SC-012:** Semantic chronology, keyboard-operable Previous/Next controls, contrast, visible focus, reduced-motion support, 200% zoom/text-resize usability, and no-color-only meaning meet the stated accessibility requirements.
+- **SC-012:** Semantic chronology, focused keyboard Arrow-key milestone progression, contrast, visible focus, reduced-motion support, 200% zoom/text-resize usability, and no-color-only meaning meet the stated accessibility requirements.
 - **SC-013:** The implementation remains compatible with static GitHub Pages and has no required backend, runtime image hotlink, or external content dependency.
 - **SC-014:** The section remains visually consistent with the established dark-first shell and does not redesign the site.
 - **SC-015:** No later-spec capability or trailing green cursor effect leaks into the implementation.

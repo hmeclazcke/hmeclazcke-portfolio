@@ -5,10 +5,10 @@ function SiteHeader() {
     <header className={styles.header}>
       <div className={styles.content}>
         <p className={styles.handle}>hmeclazcke</p>
-        <p className={styles.identity}>Hernán Meclazcke</p>
         <a className={styles.storyLink} href="#about">
           Story
         </a>
+        <p className={styles.identity}>Hernán Meclazcke</p>
       </div>
     </header>
   );

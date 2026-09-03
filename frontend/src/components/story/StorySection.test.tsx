@@ -1,123 +1,189 @@
-import { cleanup, render, screen, within } from "@testing-library/react";
-import { act } from "react";
+import { act, cleanup, render, screen, within } from "@testing-library/react";
 import { afterEach, beforeEach, expect, test, vi } from "vitest";
 import StorySection from "./StorySection";
 import { storyMilestones } from "./storyMilestones";
 
-type ObserverCallback = (
-  entries: IntersectionObserverEntry[],
-  observer: IntersectionObserver,
-) => void;
-
+const media = (matches = true) =>
+  vi.fn().mockReturnValue({
+    matches,
+    addEventListener: vi.fn(),
+    removeEventListener: vi.fn(),
+  });
 class TestIntersectionObserver {
-  static instances: TestIntersectionObserver[] = [];
-
-  readonly observed = new Set<Element>();
-  readonly disconnect = vi.fn();
-  readonly callback: ObserverCallback;
-  readonly options?: IntersectionObserverInit;
-
-  constructor(callback: ObserverCallback, options?: IntersectionObserverInit) {
+  static instance: TestIntersectionObserver | undefined;
+  callback: IntersectionObserverCallback;
+  disconnect = vi.fn();
+  constructor(callback: IntersectionObserverCallback) {
     this.callback = callback;
-    this.options = options;
-    TestIntersectionObserver.instances.push(this);
+    TestIntersectionObserver.instance = this;
   }
-
-  observe = (element: Element) => {
-    this.observed.add(element);
-  };
-
+  observe = vi.fn();
   unobserve = vi.fn();
-
   takeRecords = () => [];
-
-  emit(entries: IntersectionObserverEntry[]) {
-    this.callback(entries, this as unknown as IntersectionObserver);
+  emit(target: Element, intersectionRatio: number) {
+    this.callback(
+      [
+        {
+          target,
+          isIntersecting: intersectionRatio > 0,
+          intersectionRatio,
+        } as IntersectionObserverEntry,
+      ],
+      this as unknown as IntersectionObserver,
+    );
   }
 }
-
-const entry = (
-  target: Element,
-  top: number,
-  isIntersecting = true,
-): IntersectionObserverEntry =>
-  ({
-    target,
-    isIntersecting,
-    intersectionRatio: isIntersecting ? 1 : 0,
-    boundingClientRect: { top, height: 100 } as DOMRectReadOnly,
-    intersectionRect: {} as DOMRectReadOnly,
-    rootBounds: { top: 0, height: 800 } as DOMRectReadOnly,
-    time: 0,
-  }) as IntersectionObserverEntry;
-
 beforeEach(() => {
-  TestIntersectionObserver.instances = [];
-  vi.stubGlobal("IntersectionObserver", TestIntersectionObserver);
-  vi.stubGlobal(
-    "matchMedia",
-    vi.fn().mockReturnValue({
-      matches: true,
-      addEventListener: vi.fn(),
-      removeEventListener: vi.fn(),
-    }),
-  );
+  vi.stubGlobal("matchMedia", media());
+  vi.stubGlobal("requestAnimationFrame", (fn: FrameRequestCallback) => {
+    fn(0);
+    return 1;
+  });
+  vi.stubGlobal("cancelAnimationFrame", vi.fn());
+  vi.stubGlobal("scrollTo", vi.fn());
 });
-
 afterEach(() => {
   cleanup();
   vi.unstubAllGlobals();
 });
 
-test("keeps every milestone in a semantic chronological list without enhancement", () => {
-  vi.stubGlobal("IntersectionObserver", undefined);
+test("keeps real milestones in semantic chronology and renders the time jump as a non-interactive break", () => {
   render(<StorySection />);
-
-  const list = screen.getByRole("list", { name: "Chronological story" });
-  const items = within(list).getAllByRole("listitem");
-
-  expect(items).toHaveLength(storyMilestones.length);
-  for (const [index, milestone] of storyMilestones.entries()) {
-    expect(items[index]).toHaveTextContent(milestone.period);
-    for (const line of milestone.lines) {
-      expect(items[index]).toHaveTextContent(line);
-    }
-  }
-});
-
-test("enhances the active milestone locally and disconnects its observer", () => {
-  const { unmount } = render(<StorySection />);
-  const observer = TestIntersectionObserver.instances[0];
-  const logo = document.querySelector('[data-milestone-id="logo"]');
-  const firstPc = document.querySelector('[data-milestone-id="first-pc"]');
-
-  expect(observer).toBeDefined();
-  expect(observer?.observed.size).toBe(storyMilestones.length);
-  expect(logo).toHaveAttribute("data-active", "true");
-
-  act(() => {
-    observer?.emit([entry(logo!, 50), entry(firstPc!, 330)]);
-  });
-
-  expect(firstPc).toHaveAttribute("data-active", "true");
-  expect(logo).toHaveAttribute("data-active", "false");
-  expect(screen.getByText("486 DX4 100 MHz")).toBeInTheDocument();
   expect(
     within(
-      screen.getByRole("complementary", { name: "Story milestone emphasis" }),
-    ).getByText("MY FIRST PC"),
-  ).toBeInTheDocument();
+      screen.getByRole("list", { name: "Chronological story" }),
+    ).getAllByRole("listitem"),
+  ).toHaveLength(storyMilestones.length);
+  expect(
+    screen.queryByRole("button", { name: /2008/ }),
+  ).not.toBeInTheDocument();
+  expect(
+    document.querySelector('[data-milestone-id="still-learning"]'),
+  ).toHaveAttribute("data-time-jump-before", "true");
+});
 
-  const iac = document.querySelector('[data-milestone-id="iac"]');
-
-  act(() => {
-    observer?.emit([entry(firstPc!, 350), entry(iac!, 350)]);
+test("selecting a milestone uses the same native story scroll position", () => {
+  render(<StorySection />);
+  const section = screen.getByRole("region", { name: "Explore My Story" });
+  Object.defineProperty(section, "offsetHeight", {
+    configurable: true,
+    value: 6000,
   });
+  vi.spyOn(section, "getBoundingClientRect").mockReturnValue({
+    top: 100,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    width: 0,
+    height: 0,
+    x: 0,
+    y: 100,
+    toJSON: () => ({}),
+  });
+  act(() =>
+    screen.getByRole("button", { name: /2007.*ORACLE DATABASE/ }).click(),
+  );
+  expect(window.scrollTo).toHaveBeenCalled();
+});
 
+test("native scroll derives forward and reverse active milestones and cleans listeners up", () => {
+  const remove = vi.spyOn(window, "removeEventListener");
+  render(<StorySection />);
+  const section = screen.getByRole("region", { name: "Explore My Story" });
+  Object.defineProperty(section, "offsetHeight", {
+    configurable: true,
+    value: 6000,
+  });
+  vi.spyOn(section, "getBoundingClientRect").mockImplementation(() => ({
+    top: -window.scrollY,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    width: 0,
+    height: 0,
+    x: 0,
+    y: 0,
+    toJSON: () => ({}),
+  }));
+  Object.defineProperty(window, "scrollY", { configurable: true, value: 4800 });
+  act(() => window.dispatchEvent(new Event("scroll")));
+  expect(
+    document
+      .querySelector('[data-milestone-id="oracle"]')
+      ?.getAttribute("data-active"),
+  ).toBe("true");
+  Object.defineProperty(window, "scrollY", { configurable: true, value: 0 });
+  act(() => window.dispatchEvent(new Event("scroll")));
+  expect(
+    document
+      .querySelector('[data-milestone-id="logo"]')
+      ?.getAttribute("data-active"),
+  ).toBe("true");
+  cleanup();
+  expect(remove).toHaveBeenCalledWith("scroll", expect.any(Function));
+});
+
+test("has no visible previous or next controls and mobile stays sequential", () => {
+  vi.stubGlobal("matchMedia", media(false));
+  render(<StorySection />);
+  expect(
+    screen.queryByRole("button", { name: /previous|next/i }),
+  ).not.toBeInTheDocument();
+  expect(
+    screen.getByRole("region", { name: "Explore My Story" }),
+  ).toHaveAttribute("data-desktop-presentation", "false");
+});
+
+test("mobile observation updates the active milestone in both reading directions", () => {
+  vi.stubGlobal("matchMedia", media(false));
+  vi.stubGlobal("IntersectionObserver", TestIntersectionObserver);
+  render(<StorySection />);
+  const observer = TestIntersectionObserver.instance;
+  const firstPc = document.querySelector('[data-milestone-id="first-pc"]');
+  const logo = document.querySelector('[data-milestone-id="logo"]');
+  act(() => observer?.emit(firstPc!, 0.7));
   expect(firstPc).toHaveAttribute("data-active", "true");
-  expect(iac).toHaveAttribute("data-active", "false");
-
-  unmount();
-
+  act(() => observer?.emit(logo!, 0.7));
+  expect(logo).toHaveAttribute("data-active", "true");
+  cleanup();
   expect(observer?.disconnect).toHaveBeenCalledOnce();
+});
+
+test("mobile activates the final milestone at the document bottom and resumes observer activation upward", () => {
+  vi.stubGlobal("matchMedia", media(false));
+  vi.stubGlobal("IntersectionObserver", TestIntersectionObserver);
+  Object.defineProperty(window, "innerHeight", {
+    configurable: true,
+    value: 800,
+  });
+  Object.defineProperty(window, "scrollY", { configurable: true, value: 1200 });
+  Object.defineProperty(document.documentElement, "scrollHeight", {
+    configurable: true,
+    value: 2000,
+  });
+  render(<StorySection />);
+  const finalMilestone = document.querySelector(
+    '[data-milestone-id="still-learning"]',
+  );
+  act(() => window.dispatchEvent(new Event("scroll")));
+  expect(finalMilestone).toHaveAttribute("data-active", "true");
+  const oracle = document.querySelector('[data-milestone-id="oracle"]');
+  act(() => TestIntersectionObserver.instance?.emit(oracle!, 0.7));
+  expect(oracle).toHaveAttribute("data-active", "true");
+});
+
+test("renders supplementary single and dual approved media with meaningful alternative text", () => {
+  vi.stubGlobal("matchMedia", media(false));
+  render(<StorySection />);
+  expect(screen.getByAltText("486-era desktop computer.")).toHaveAttribute(
+    "loading",
+    "lazy",
+  );
+  expect(
+    screen.getByAltText("BASIC programming environment in DOS."),
+  ).toBeInTheDocument();
+  expect(
+    screen.getByAltText("Fantavision animation software in DOS."),
+  ).toBeInTheDocument();
+  expect(screen.queryByAltText(/Pascal/i)).not.toBeInTheDocument();
 });

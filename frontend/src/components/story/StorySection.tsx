@@ -4,138 +4,162 @@ import StoryTimeline from "./StoryTimeline";
 import StoryVisual from "./StoryVisual";
 import styles from "./StorySection.module.css";
 
-function StorySection() {
-  const [activeId, setActiveId] = useState(storyMilestones[0]!.id);
-  const [desktopEnhancement, setDesktopEnhancement] = useState(
-    () =>
-      window.matchMedia?.("(min-width: 64rem) and (pointer: fine)").matches ??
-      false,
-  );
-  const milestoneElements = useRef(new Map<string, HTMLLIElement>());
+const desktopMediaQuery = "(min-width: 64rem) and (pointer: fine)";
 
-  const onMilestoneElement = useCallback(
-    (id: string, element: HTMLLIElement | null) => {
-      if (element) {
-        milestoneElements.current.set(id, element);
-      } else {
-        milestoneElements.current.delete(id);
-      }
-    },
-    [],
-  );
+function StorySection() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [desktopPresentation, setDesktopPresentation] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+  const finalIndex = storyMilestones.length - 1;
+  const updateFromScroll = useCallback(() => {
+    const section = sectionRef.current;
+    if (!section || !desktopPresentation) return;
+    const top = window.scrollY + section.getBoundingClientRect().top;
+    const distance = Math.max(1, section.offsetHeight - window.innerHeight);
+    const progress = Math.min(
+      1,
+      Math.max(0, (window.scrollY - top) / distance),
+    );
+    setActiveIndex(Math.round(progress * finalIndex));
+  }, [desktopPresentation, finalIndex]);
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia?.(
-      "(min-width: 64rem) and (pointer: fine)",
-    );
-
-    if (!mediaQuery) {
+    const query = window.matchMedia?.(desktopMediaQuery);
+    if (!query) return;
+    const update = () => setDesktopPresentation(query.matches);
+    update();
+    query.addEventListener("change", update);
+    return () => query.removeEventListener("change", update);
+  }, []);
+  useEffect(() => {
+    if (!desktopPresentation) {
       return;
     }
-
-    const updateEnhancement = () => setDesktopEnhancement(mediaQuery.matches);
-    mediaQuery.addEventListener("change", updateEnhancement);
-
-    return () => mediaQuery.removeEventListener("change", updateEnhancement);
-  }, []);
+    let frame = 0;
+    const update = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(updateFromScroll);
+    };
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, [desktopPresentation, updateFromScroll]);
 
   useEffect(() => {
+    const section = sectionRef.current;
     if (
-      !desktopEnhancement ||
-      typeof window.IntersectionObserver !== "function"
+      desktopPresentation ||
+      !section ||
+      typeof IntersectionObserver !== "function"
     ) {
       return;
     }
 
-    const intersecting = new Map<string, IntersectionObserverEntry>();
-    const order = new Map(
-      storyMilestones.map((milestone, index) => [milestone.id, index]),
-    );
-    const elementIds = new Map<Element, string>(
-      [...milestoneElements.current.entries()].map(([id, element]) => [
-        element,
-        id,
-      ]),
-    );
     const observer = new IntersectionObserver(
       (entries) => {
-        for (const observerEntry of entries) {
-          const id = elementIds.get(observerEntry.target);
-
-          if (!id) {
-            continue;
-          }
-
-          if (observerEntry.isIntersecting) {
-            intersecting.set(id, observerEntry);
-          } else {
-            intersecting.delete(id);
-          }
-        }
-
-        const nextActiveId = [...intersecting.entries()]
-          .sort(([leftId, leftEntry], [rightId, rightEntry]) => {
-            const rootCenter =
-              (leftEntry.rootBounds?.top ?? 0) +
-              (leftEntry.rootBounds?.height ?? window.innerHeight) / 2;
-            const leftDistance = Math.abs(
-              leftEntry.boundingClientRect.top +
-                leftEntry.boundingClientRect.height / 2 -
-                rootCenter,
-            );
-            const rightDistance = Math.abs(
-              rightEntry.boundingClientRect.top +
-                rightEntry.boundingClientRect.height / 2 -
-                rootCenter,
-            );
-
-            return (
-              leftDistance - rightDistance ||
-              order.get(leftId)! - order.get(rightId)!
-            );
-          })
-          .at(0)?.[0];
-
-        if (nextActiveId) {
-          setActiveId((currentId) =>
-            currentId === nextActiveId ? currentId : nextActiveId,
-          );
-        }
+        const currentEntry = entries.find(
+          (entry) => entry.isIntersecting && entry.intersectionRatio >= 0.55,
+        );
+        const milestoneId =
+          currentEntry?.target.getAttribute("data-milestone-id");
+        const index = storyMilestones.findIndex(
+          (milestone) => milestone.id === milestoneId,
+        );
+        if (index >= 0) setActiveIndex(index);
       },
-      { rootMargin: "-42% 0px -42% 0px", threshold: 0 },
+      { threshold: [0, 0.55, 1], rootMargin: "-15% 0px -45% 0px" },
     );
 
-    for (const element of milestoneElements.current.values()) {
-      observer.observe(element);
-    }
+    section
+      .querySelectorAll<HTMLElement>("[data-milestone-id]")
+      .forEach((milestone) => observer.observe(milestone));
+    const activateFinalMilestoneAtDocumentBottom = () => {
+      if (
+        window.scrollY + window.innerHeight >=
+        document.documentElement.scrollHeight - 1
+      ) {
+        setActiveIndex(finalIndex);
+      }
+    };
+    window.addEventListener("scroll", activateFinalMilestoneAtDocumentBottom, {
+      passive: true,
+    });
+    return () => {
+      observer.disconnect();
+      window.removeEventListener(
+        "scroll",
+        activateFinalMilestoneAtDocumentBottom,
+      );
+    };
+  }, [desktopPresentation, finalIndex]);
 
-    return () => observer.disconnect();
-  }, [desktopEnhancement]);
-
-  const activeMilestone =
-    storyMilestones.find((milestone) => milestone.id === activeId) ??
-    storyMilestones[0]!;
-
+  const moveToIndex = useCallback(
+    (index: number) => {
+      const section = sectionRef.current;
+      if (!desktopPresentation || !section) {
+        setActiveIndex(index);
+        return;
+      }
+      const top = window.scrollY + section.getBoundingClientRect().top;
+      const distance = Math.max(0, section.offsetHeight - window.innerHeight);
+      window.scrollTo({ top: top + (distance * index) / finalIndex });
+    },
+    [desktopPresentation, finalIndex],
+  );
+  const selectMilestone = useCallback(
+    (id: string) => {
+      const index = storyMilestones.findIndex((item) => item.id === id);
+      if (index >= 0) moveToIndex(index);
+    },
+    [moveToIndex],
+  );
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
+    if (!desktopPresentation || event.altKey || event.ctrlKey || event.metaKey)
+      return;
+    const direction =
+      event.key === "ArrowDown" || event.key === "ArrowRight"
+        ? 1
+        : event.key === "ArrowUp" || event.key === "ArrowLeft"
+          ? -1
+          : 0;
+    const next = activeIndex + direction;
+    if (!direction || next < 0 || next > finalIndex) return;
+    event.preventDefault();
+    moveToIndex(next);
+  };
+  const activeMilestone = storyMilestones[activeIndex]!;
   return (
     <section
-      className={styles.section}
+      ref={sectionRef}
+      className={styles.scrollSpace}
       id="about"
       aria-labelledby="story-heading"
+      data-desktop-presentation={desktopPresentation}
     >
-      <div className={styles.intro}>
-        <p className={styles.eyebrow}>A CHRONOLOGICAL STORY</p>
-        <h2 id="story-heading">Explore My Story</h2>
-      </div>
-      <div className={styles.composition}>
-        <StoryTimeline
-          milestones={storyMilestones}
-          activeId={activeId}
-          onMilestoneElement={onMilestoneElement}
-        />
-        <StoryVisual milestone={activeMilestone} />
+      <div
+        className={styles.stage}
+        tabIndex={desktopPresentation ? 0 : undefined}
+        onKeyDown={handleKeyDown}
+      >
+        <div className={styles.intro}>
+          <p className={styles.eyebrow}>A CHRONOLOGICAL STORY</p>
+          <h2 id="story-heading">Explore My Story</h2>
+        </div>
+        <div className={styles.composition}>
+          <StoryTimeline
+            milestones={storyMilestones}
+            activeId={activeMilestone.id}
+            onMilestoneSelect={selectMilestone}
+          />
+          <StoryVisual milestone={activeMilestone} />
+        </div>
       </div>
     </section>
   );
 }
-
 export default StorySection;

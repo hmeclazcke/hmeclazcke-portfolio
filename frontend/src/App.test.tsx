@@ -7,6 +7,9 @@ import { runAxe } from "./test/run-axe";
 
 afterEach(cleanup);
 
+const escapeRegularExpression = (value: string) =>
+  value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
 test("renders the approved Home content within the semantic shell", () => {
   render(<App />);
 
@@ -46,7 +49,12 @@ test("renders the approved Home content within the semantic shell", () => {
     "#about",
   );
   expect(screen.queryAllByRole("link")).toHaveLength(2);
-  expect(screen.queryAllByRole("button")).toHaveLength(0);
+  expect(
+    screen.queryByRole("button", { name: "Previous milestone" }),
+  ).not.toBeInTheDocument();
+  expect(
+    screen.queryByRole("button", { name: "Next milestone" }),
+  ).not.toBeInTheDocument();
   expect(screen.getAllByRole("heading", { level: 1 })).toHaveLength(1);
 });
 
@@ -71,7 +79,11 @@ test("renders the approved semantic Story destination and exact narrative", () =
 
     expect(item).toHaveTextContent(milestone.period);
     expect(
-      within(item).getByRole("heading", { name: milestone.title, level: 3 }),
+      within(item).getByRole("button", {
+        name: new RegExp(
+          `${escapeRegularExpression(milestone.period)}.*${escapeRegularExpression(milestone.title)}`,
+        ),
+      }),
     ).toBeInTheDocument();
 
     for (const line of milestone.lines) {

@@ -1,11 +1,13 @@
 # Implementation Plan: About Me
 
+> **Final T045 interaction supersession:** This plan's wheel interception, cooldown, and eligibility-state details are superseded. Desktop progression uses native document scroll, an invisible scroll-space, and one compact CSS-sticky stage; scroll position derives the active milestone. Timeline clicks and Arrow keys move the corresponding document position. The time jump is a non-interactive visual break.
+
 **ID:** SPEC-006  
 **Internal name:** SPEC-006 — About Me  
 **Public section:** Explore My Story  
 **Phase:** Phase 1 — Static Portfolio  
 **Spec:** `docs/specs/006-about-me/spec.md`  
-**Status:** Approved
+**Status:** Complete
 
 ## Revision Context
 
@@ -17,7 +19,7 @@ Keep `Explore My Story` in the existing React/Vite document, with the existing s
 
 Ordinary page scrolling brings the visitor to the stage. Only while the stage is the active eligible viewport experience, a qualifying vertical wheel or trackpad gesture changes one milestone in the gesture direction and prevents that qualifying event's normal page movement. The browser viewport remains stationary between milestones. At the first milestone for an upward gesture and final milestone for a downward gesture, the handler does not prevent default, releasing ordinary document scrolling naturally.
 
-On mobile, coarse-pointer, narrow, 200%-zoom-constrained, no-JavaScript, or unsupported environments, render the complete semantic timeline sequentially in normal document flow. No scrolling library, router, custom main scroll container, or global state is required.
+On layouts that do not meet the desktop fine-pointer breakpoint, including mobile and coarse-pointer environments, and on no-JavaScript or unsupported environments, render the complete semantic timeline sequentially in normal document flow. A desktop layout that meets the fine-pointer breakpoint must not fall back because its height is shorter than a content-driven threshold. No scrolling library, router, custom main scroll container, or global state is required.
 
 ## Data and Component Strategy
 
@@ -33,10 +35,10 @@ App
    └─ StorySection
       ├─ semantic chronological list (all milestones in DOM)
       ├─ desktop progress timeline / active panel
-      └─ native Previous / Next controls
+      └─ focused keyboard stage progression
 ```
 
-`StorySection` owns local active index, eligibility detection, bounded gesture listener lifecycle, keyboard/control actions, and fallback composition. A separate `StoryVisual` remains justified only for the companion visual responsibility. Do not add a generic timeline, CMS, state provider, Redux/Zustand, or routing abstraction.
+`StorySection` owns local active index, eligibility detection, bounded gesture listener lifecycle, focused keyboard actions, and fallback composition. A separate `StoryVisual` remains justified only for the companion visual responsibility. Do not add a generic timeline, CMS, state provider, Redux/Zustand, or routing abstraction.
 
 ## Desktop Viewport-Stage Interaction
 
@@ -44,7 +46,7 @@ App
 
 Enable the controlled desktop mode only when all conditions hold:
 
-1. the layout has sufficient width and a fine pointer according to the established responsive system;
+1. the layout meets the established desktop width breakpoint and has a fine pointer; there is no desktop-height eligibility criterion;
 2. the Story stage is in its intentional active viewport region; and
 3. the component has initialized normally.
 
@@ -66,21 +68,21 @@ For each wheel event:
 
 This produces deterministic forward/backward progression and protects high-resolution trackpads or a single physical wheel gesture from skipping multiple milestones. The implementation must not use continuous scroll-position calculations, page scroll mutation, custom story scrolling, or global locking.
 
-### Explicit accessible progression
+### Focused keyboard progression
 
-Provide native `button` controls labelled `Previous milestone` and `Next milestone`, visually restrained but visible on focus and available without pointer precision. They update the same local active index by one. Disable Previous at the first milestone and Next at the final milestone; disabled controls do not consume page scrolling or prevent a user from leaving the stage. Support focused keyboard activation through native button semantics; no custom keybinding is necessary to make core progression accessible.
+The eligible desktop stage is focusable with the existing visible-focus foundation, but has no visible Previous/Next buttons. While that stage has focus, `ArrowDown` and `ArrowRight` update the shared local active index by one forward step; `ArrowUp` and `ArrowLeft` update it by one backward step. When a requested direction has no milestone, do not prevent the key's normal browser behavior, so a keyboard user can leave the stage in either direction. Do not intercept these keys outside the focused eligible stage. The mobile/sequential fallback does not require this enhanced key handling.
 
-The complete chronological list remains in meaningful DOM order for screen readers and no-JavaScript access. The desktop visual panel may show only active presentation, but it cannot be the sole narrative source. Active state uses geometry, text/heading emphasis, and controls in addition to color.
+The complete chronological list remains in meaningful DOM order for screen readers and no-JavaScript access. The desktop visual panel may show only active presentation, but it cannot be the sole narrative source. Active state uses geometry and text/heading emphasis in addition to color.
 
 ## Responsive, Visual, and Motion Strategy
 
 Use existing SiteShell `wide` mode without changing SiteShell. Reuse SPEC-004 CSS Modules, semantic tokens, Space Grotesk, JetBrains Mono, dark-first palette, green/amber accents, focus treatment, and technical atmosphere.
 
-For eligible desktop, use a bounded Grid/Flex composition sized near the viewport, not one tall content region per milestone. The left timeline visibly moves its active node/progress; the right panel changes with the active milestone. Preserve the deliberate non-invented time-jump treatment and a meaningful final 2026 treatment.
+For eligible desktop, use a bounded Grid/Flex composition sized to one viewport, not one tall content region per milestone. At 1280×720, 1366×768, 1536×864, and 1920×1080, compact the left progress labels and reduce the visual heading footprint so the full progress line fits without vertical overflow or an internal scrollbar. The right panel is a stable-aspect-ratio media rectangle containing the abstract fallback until approved local imagery exists; it changes in place with the active milestone. Preserve the deliberate non-invented time-jump treatment and a meaningful final 2026 treatment.
 
-For mobile, coarse-pointer, narrow layouts, and constrained zoom, use a normal single-column chronology: each milestone's period, title, narrative, and optional abstract treatment appear sequentially. Touch scrolling is never intercepted. Do not build a separate mobile tree.
+For layouts below the desktop width breakpoint and coarse-pointer/touch layouts, use a normal single-column chronology: each milestone's period, title, narrative, and optional abstract treatment appear sequentially. Touch scrolling is never intercepted. Do not build a separate mobile tree.
 
-Use only restrained opacity, color, and small emphasis transitions. Under `prefers-reduced-motion: reduce`, minimize or remove non-essential transitions while keeping controls and active-state clarity fully functional. Do not add parallax, cinematic scroll effects, typewriter/glitch effects, GSAP, or another animation/scrolling library.
+Use only restrained opacity, color, and small emphasis transitions. Under `prefers-reduced-motion: reduce`, minimize or remove non-essential transitions while keeping Arrow-key functionality and active-state clarity fully functional. Do not add parallax, cinematic scroll effects, typewriter/glitch effects, GSAP, or another animation/scrolling library.
 
 ## Image Strategy
 
@@ -97,7 +99,7 @@ Use existing Vitest, React Testing Library, jsdom, and axe-core; add no dependen
 - normalized forward/backward one-step state changes;
 - boundary release: no `preventDefault` and no state change when leaving outward from first/final milestone;
 - gesture lock preventing accidental repeated advancement;
-- Previous/Next native button labels, state changes, disabled boundaries, and visual correspondence;
+- focused Arrow-key state changes, boundary release, visible focus, and visual correspondence;
 - reduced-motion and semantic axe regression coverage.
 
 Use the smallest deterministic event/test helper required. Test feature outcomes, not browser wheel implementation internals. Automated checks do not prove real stage positioning, browser scroll release, contrast, or motion; owner visual review must validate these at 375px, 768px, 1280px, 1536px, and 200% zoom.
@@ -115,7 +117,7 @@ npm run validate:data
 npm run build
 ```
 
-Then run `git diff --check`, exact-copy and historical-fact audits, dependency/scope/static-output review, and a rendered review of desktop stage entry, forward/backward progression, first/final release, controls, keyboard focus, mobile touch flow, reduced motion, time jump, and no-image fallback.
+Then run `git diff --check`, exact-copy and historical-fact audits, dependency/scope/static-output review, and a rendered review of desktop stage entry, forward/backward progression, first/final release, Arrow-key focus and boundary release, mobile touch flow, reduced motion, time jump, and no-image fallback.
 
 ## Superseded Plan Decisions
 
@@ -134,11 +136,11 @@ Do not introduce React Router, a generic timeline/CMS/design system, global stat
 
 ## Expected Files and Sequence
 
-Re-implementation will revise only focused Story components/styles/tests and, if needed, the existing App/Home/Header integration tests. It must remove the rejected sticky/active-observer milestone implementation before adding the new stage state and controls. No SiteShell change or dependency is expected.
+Re-implementation will revise only focused Story components/styles/tests and, if needed, the existing App/Home/Header integration tests. It must remove the rejected sticky/active-observer milestone implementation before adding the new stage state and focused keyboard handling. No SiteShell change or dependency is expected.
 
 1. Re-approve this revised specification, plan, and replacement tasks.
-2. Write failing tests for bounded desktop state, wheel boundary behavior, listener cleanup, and accessible controls.
-3. Replace rejected desktop mechanics with local stage eligibility, one-step local state, bounded wheel handling, and buttons.
+2. Write failing tests for bounded desktop state, wheel boundary behavior, listener cleanup, and focused Arrow-key behavior.
+3. Replace rejected desktop mechanics with local stage eligibility, one-step local state, bounded wheel handling, and focused Arrow-key handling.
 4. Restore green tests, then add stage styling and mobile fallback.
 5. Run gates and obtain a new mandatory owner review before any completion work.
 
