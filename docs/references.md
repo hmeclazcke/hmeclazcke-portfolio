@@ -662,6 +662,37 @@ Recommendations are not copied automatically, particularly when they conflict wi
 
 ---
 
+# Technology Graph Visualization
+
+## SVG and Keyboard Accessibility
+
+**Classification:** Primary standards and guidance
+
+**Sources:** W3C SVG Accessibility and WAI-ARIA Graphics Module; MDN Keyboard Accessible guidance
+**Domains:** w3.org; developer.mozilla.org
+
+**Used for:**
+
+- requiring accessible names, visible focus, and semantic alternatives for graph visuals;
+- ensuring interactive graph controls remain keyboard operable;
+- recognizing that SVG/canvas rendering alone does not provide equivalent structured understanding.
+
+## Browser Graph Visualization Candidates
+
+**Classification:** Official library documentation
+
+**Sources:** Cytoscape.js, D3 force simulation, React Flow accessibility documentation
+**Domains:** js.cytoscape.org; d3js.org; reactflow.dev
+
+**Used for:**
+
+- evaluating stable layout, performance, motion, and accessibility constraints for SPEC-007 planning;
+- preserving the separation between canonical graph facts and a replaceable visualization implementation.
+
+**Project interpretation:**
+
+These sources inform realistic requirements only. SPEC-007 does not select or add a graph library; that decision belongs in an approved implementation plan.
+
 # Maintenance Rules
 
 - Add a reference when it materially influences project governance, architecture, implementation practices, or a specification.

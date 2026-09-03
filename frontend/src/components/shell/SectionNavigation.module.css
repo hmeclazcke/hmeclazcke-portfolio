@@ -1,0 +1,46 @@
+.navigation {
+  position: fixed;
+  z-index: 3;
+  right: max(0.85rem, env(safe-area-inset-right));
+  bottom: max(0.85rem, env(safe-area-inset-bottom));
+  display: grid;
+  gap: 0.3rem;
+}
+
+.navigation button {
+  display: grid;
+  width: 2rem;
+  height: 2rem;
+  padding: 0 0 0.1rem;
+  border: 1px solid
+    color-mix(
+      in srgb,
+      var(--color-accent-primary) 48%,
+      var(--color-border-strong)
+    );
+  border-radius: 50%;
+  place-items: center;
+  background: color-mix(in srgb, var(--color-bg-canvas) 88%, transparent);
+  color: var(--color-accent-primary);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.navigation button:hover:not(:disabled) {
+  box-shadow: var(--shadow-accent);
+}
+
+.navigation button:disabled {
+  cursor: default;
+  border-color: color-mix(in srgb, var(--color-border-subtle) 70%, transparent);
+  color: var(--color-text-muted);
+  opacity: 0.42;
+}
+
+@media (max-width: 47.999rem) {
+  .navigation button {
+    width: 2.4rem;
+    height: 2.4rem;
+  }
+}

@@ -5,9 +5,14 @@ function SiteHeader() {
     <header className={styles.header}>
       <div className={styles.content}>
         <p className={styles.handle}>hmeclazcke</p>
-        <a className={styles.storyLink} href="#about">
-          Story
-        </a>
+        <nav className={styles.navigation} aria-label="Primary navigation">
+          <a className={styles.storyLink} href="#about">
+            Story
+          </a>
+          <a className={styles.storyLink} href="#technology-graph">
+            Graph
+          </a>
+        </nav>
         <p className={styles.identity}>Hernán Meclazcke</p>
       </div>
     </header>

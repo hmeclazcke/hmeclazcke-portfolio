@@ -1,9 +1,105 @@
 [
-  { "id": "java", "name": "Java", "category": "language", "relevance": "current" },
-  { "id": "react", "name": "React", "category": "framework", "relevance": "current" },
-  { "id": "basic", "name": "BASIC", "category": "language", "relevance": "historical" },
-  { "id": "visual-basic", "name": "Visual Basic", "category": "language", "relevance": "historical" },
+  {
+    "id": "java",
+    "name": "Java",
+    "category": "language",
+    "relevance": "current"
+  },
+  { "id": "javascript", "name": "JavaScript", "category": "language" },
+  { "id": "typescript", "name": "TypeScript", "category": "language" },
+  { "id": "nodejs", "name": "Node.js", "category": "platform" },
   { "id": "c", "name": "C", "category": "language" },
-  { "id": "oracle", "name": "Oracle", "category": "database" },
-  { "id": "smalltalk", "name": "Smalltalk", "category": "language" }
+  { "id": "cplusplus", "name": "C++", "category": "language" },
+  {
+    "id": "basic",
+    "name": "BASIC",
+    "category": "language",
+    "relevance": "historical"
+  },
+  {
+    "id": "visual-basic",
+    "name": "Visual Basic",
+    "category": "language",
+    "relevance": "historical"
+  },
+  { "id": "smalltalk", "name": "Smalltalk", "category": "language" },
+  { "id": "sql", "name": "SQL", "category": "language" },
+  { "id": "plsql", "name": "PL/SQL", "category": "language" },
+  { "id": "html", "name": "HTML", "category": "language" },
+  { "id": "css", "name": "CSS", "category": "language" },
+  { "id": "python", "name": "Python", "category": "language" },
+  { "id": "opengl", "name": "OpenGL", "category": "framework" },
+  {
+    "id": "spring-framework",
+    "name": "Spring Framework",
+    "category": "framework"
+  },
+  { "id": "spring-boot", "name": "Spring Boot", "category": "framework" },
+  { "id": "spring-data", "name": "Spring Data", "category": "framework" },
+  { "id": "hibernate", "name": "Hibernate", "category": "framework" },
+  {
+    "id": "spring-webflux-reactor",
+    "name": "Spring WebFlux / Project Reactor",
+    "category": "framework"
+  },
+  {
+    "id": "react",
+    "name": "React",
+    "category": "framework",
+    "relevance": "current"
+  },
+  { "id": "angular", "name": "Angular", "category": "framework" },
+  { "id": "jquery", "name": "jQuery", "category": "framework" },
+  { "id": "rest-apis", "name": "REST APIs", "category": "protocol" },
+  {
+    "id": "soap-web-services",
+    "name": "SOAP Web Services",
+    "category": "protocol"
+  },
+  { "id": "graphql", "name": "GraphQL", "category": "protocol" },
+  { "id": "apache-kafka", "name": "Apache Kafka", "category": "platform" },
+  {
+    "id": "oracle-database",
+    "name": "Oracle Database",
+    "category": "database"
+  },
+  { "id": "postgresql", "name": "PostgreSQL", "category": "database" },
+  {
+    "id": "microsoft-sql-server",
+    "name": "Microsoft SQL Server",
+    "category": "database"
+  },
+  { "id": "mongodb", "name": "MongoDB", "category": "database" },
+  { "id": "redis", "name": "Redis", "category": "database" },
+  { "id": "elasticsearch", "name": "Elasticsearch", "category": "database" },
+  { "id": "qdrant", "name": "Qdrant", "category": "database" },
+  {
+    "id": "linux",
+    "name": "Linux",
+    "category": "platform",
+    "relevance": "current"
+  },
+  { "id": "docker", "name": "Docker", "category": "platform" },
+  { "id": "apache-tomcat", "name": "Apache Tomcat", "category": "platform" },
+  { "id": "jboss-wildfly", "name": "JBoss / WildFly", "category": "platform" },
+  { "id": "weblogic", "name": "WebLogic", "category": "platform" },
+  {
+    "id": "oracle-application-server",
+    "name": "Oracle Application Server",
+    "category": "platform"
+  },
+  { "id": "oracle-rac", "name": "Oracle RAC", "category": "platform" },
+  { "id": "haproxy", "name": "HAProxy", "category": "platform" },
+  { "id": "oracle-adf", "name": "Oracle ADF", "category": "framework" },
+  { "id": "liferay", "name": "Liferay", "category": "framework" },
+  { "id": "pki", "name": "PKI", "category": "protocol" },
+  { "id": "blockchain", "name": "Blockchain", "category": "platform" },
+  { "id": "spring-ai", "name": "Spring AI", "category": "framework" },
+  { "id": "gemini", "name": "Gemini", "category": "platform" },
+  { "id": "birt", "name": "BIRT", "category": "tool" },
+  { "id": "nexus", "name": "Nexus", "category": "tool" },
+  { "id": "jdeveloper", "name": "JDeveloper", "category": "tool" },
+  { "id": "toad", "name": "Toad", "category": "tool" },
+  { "id": "maven", "name": "Maven", "category": "tool" },
+  { "id": "gradle", "name": "Gradle", "category": "tool" }
 ]

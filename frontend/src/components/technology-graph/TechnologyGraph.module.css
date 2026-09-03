@@ -1,0 +1,252 @@
+.section {
+  margin-top: clamp(4rem, 12vh, 8rem);
+  scroll-margin-top: 5.5rem;
+}
+
+.intro {
+  max-width: 46rem;
+}
+
+.eyebrow,
+.status,
+.contextList > p {
+  margin: 0;
+  color: var(--color-accent-secondary);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-meta);
+  letter-spacing: 0.08em;
+  line-height: 1.35;
+}
+
+.section h2 {
+  margin: var(--space-2) 0 0;
+  color: var(--color-text-primary);
+  font-size: var(--font-size-heading-1);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+}
+
+.intro > p:last-child {
+  max-width: 42rem;
+  margin: var(--space-5) 0 0;
+  color: var(--color-text-muted);
+}
+
+.graphSurface {
+  position: relative;
+  height: clamp(22rem, calc(100svh - 15rem), 33rem);
+  margin-top: var(--space-4);
+  overflow: hidden;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(
+      circle at 50% 50%,
+      color-mix(in srgb, var(--color-accent-primary) 12%, transparent),
+      transparent 38%
+    ),
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--color-border-subtle) 42%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      color-mix(in srgb, var(--color-border-subtle) 42%, transparent) 1px,
+      transparent 1px
+    ),
+    var(--color-bg-surface);
+  background-size:
+    auto,
+    2rem 2rem,
+    2rem 2rem,
+    auto;
+  box-shadow: var(--shadow-surface);
+}
+
+.visualGraph {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: pan-y;
+}
+
+.edge {
+  stroke: color-mix(in srgb, var(--color-border-strong) 68%, transparent);
+  stroke-width: 1.1;
+  transition:
+    opacity 180ms ease,
+    stroke 180ms ease,
+    stroke-width 180ms ease;
+}
+
+.edge[data-active="true"] {
+  stroke: color-mix(
+    in srgb,
+    var(--color-accent-secondary) 72%,
+    var(--color-accent-primary)
+  );
+  stroke-width: 1.75;
+}
+
+.edge[data-active="false"] {
+  opacity: 0.14;
+}
+
+.node {
+  cursor: pointer;
+  outline: none;
+  transition: opacity 180ms ease;
+}
+
+.node[data-active="false"] {
+  opacity: 0.18;
+}
+
+.nodeCore {
+  fill: var(--color-bg-surface-elevated);
+  stroke: var(--color-accent-primary);
+  stroke-width: 2;
+}
+
+.node[data-current="true"] .nodeCore {
+  fill: var(--color-accent-primary);
+  stroke: var(--color-text-primary);
+}
+
+.node[data-historical="true"] .nodeCore {
+  stroke-dasharray: 3 2;
+}
+
+.node:focus-visible .nodeCore {
+  stroke: var(--color-focus);
+  stroke-width: 3;
+  filter: drop-shadow(0 0 0.35rem rgb(214 255 112 / 55%));
+}
+
+.node:focus-visible {
+  outline: none;
+}
+
+.node[data-selected="true"] .nodeCore {
+  fill: var(--color-accent-secondary);
+  stroke: var(--color-text-primary);
+  stroke-width: 3;
+  filter: drop-shadow(0 0 0.4rem rgb(236 153 93 / 52%));
+}
+
+.node:focus-visible .nodeLabel,
+.node[data-selected="true"] .nodeLabel {
+  font-weight: 700;
+}
+
+.nodeLabel {
+  fill: var(--color-text-primary);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  pointer-events: none;
+}
+
+.tooltip,
+.hint {
+  position: absolute;
+  right: var(--space-4);
+  bottom: var(--space-4);
+  width: min(20rem, calc(100% - 2rem));
+  margin: 0;
+  padding: var(--space-4);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--color-bg-canvas) 94%, transparent);
+  box-shadow: var(--shadow-surface);
+}
+
+.tooltipName {
+  margin: 0;
+  color: var(--color-text-primary);
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.status {
+  margin-top: var(--space-2);
+}
+
+.contextList {
+  margin-top: var(--space-3);
+}
+
+.contextList ul {
+  display: grid;
+  gap: 0.1rem;
+  margin: var(--space-1) 0 0;
+  padding-left: 1rem;
+  color: var(--color-text-muted);
+  font-size: 0.82rem;
+}
+
+.semanticCompanion {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (max-width: 47.999rem) {
+  .graphSurface {
+    display: none;
+  }
+
+  .semanticCompanion {
+    position: static;
+    width: auto;
+    height: auto;
+    margin-top: var(--space-5);
+    overflow: visible;
+    clip: auto;
+    clip-path: none;
+    padding: var(--space-4);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-md);
+    background: var(--color-bg-surface);
+    white-space: normal;
+  }
+
+  .semanticCompanion h3 {
+    margin: 0;
+    color: var(--color-text-primary);
+    font-size: 1rem;
+  }
+
+  .semanticCompanion ul {
+    display: grid;
+    gap: var(--space-2);
+    margin: var(--space-3) 0 0;
+    padding-left: var(--space-4);
+    color: var(--color-text-muted);
+    font-size: 0.8rem;
+  }
+}
+
+@media (min-width: 48rem) {
+  .section {
+    margin-top: 2rem;
+  }
+
+  .intro > p:last-child {
+    margin-top: var(--space-3);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .edge,
+  .node {
+    transition: none;
+  }
+}

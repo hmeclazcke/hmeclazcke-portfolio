@@ -1,14 +1,386 @@
 [
-  { "id": "java-unitech", "technologyId": "java", "contextId": "unitech", "meanings": ["used"] },
-  { "id": "java-teracode", "technologyId": "java", "contextId": "teracode", "meanings": ["used"] },
-  { "id": "react-teracode", "technologyId": "react", "contextId": "teracode", "meanings": ["used"] },
-  { "id": "react-hmeclazcke-portfolio", "technologyId": "react", "contextId": "hmeclazcke-portfolio", "meanings": ["used"] },
-  { "id": "java-reactive-rag-document-processor", "technologyId": "java", "contextId": "reactive-rag-document-processor", "meanings": ["used"] },
-  { "id": "c-personal-projects", "technologyId": "c", "contextId": "personal-projects", "meanings": ["used"] },
-  { "id": "basic-personal-projects", "technologyId": "basic", "contextId": "personal-projects", "meanings": ["used"] },
-  { "id": "c-unicen", "technologyId": "c", "contextId": "unicen", "meanings": ["learned"] },
-  { "id": "java-unicen", "technologyId": "java", "contextId": "unicen", "meanings": ["learned"] },
-  { "id": "oracle-unicen", "technologyId": "oracle", "contextId": "unicen", "meanings": ["learned"] },
-  { "id": "smalltalk-unicen", "technologyId": "smalltalk", "contextId": "unicen", "meanings": ["learned"] },
-  { "id": "basic-iac", "technologyId": "basic", "contextId": "iac", "meanings": ["learned"] }
+  {
+    "id": "java-unitech",
+    "technologyId": "java",
+    "contextId": "unitech",
+    "meanings": ["used"]
+  },
+  {
+    "id": "java-teracode",
+    "technologyId": "java",
+    "contextId": "teracode",
+    "meanings": ["used"]
+  },
+  {
+    "id": "react-teracode",
+    "technologyId": "react",
+    "contextId": "teracode",
+    "meanings": ["used"]
+  },
+  {
+    "id": "react-hmeclazcke-portfolio",
+    "technologyId": "react",
+    "contextId": "hmeclazcke-portfolio",
+    "meanings": ["used"]
+  },
+  {
+    "id": "java-reactive-rag-document-processor",
+    "technologyId": "java",
+    "contextId": "reactive-rag-document-processor",
+    "meanings": ["used"]
+  },
+  {
+    "id": "c-personal-projects",
+    "technologyId": "c",
+    "contextId": "personal-projects",
+    "meanings": ["used"]
+  },
+  {
+    "id": "basic-personal-projects",
+    "technologyId": "basic",
+    "contextId": "personal-projects",
+    "meanings": ["used"]
+  },
+  {
+    "id": "c-unicen",
+    "technologyId": "c",
+    "contextId": "unicen",
+    "meanings": ["learned", "used"]
+  },
+  {
+    "id": "cplusplus-unicen",
+    "technologyId": "cplusplus",
+    "contextId": "unicen",
+    "meanings": ["learned", "used"]
+  },
+  {
+    "id": "opengl-unicen",
+    "technologyId": "opengl",
+    "contextId": "unicen",
+    "meanings": ["learned", "used"]
+  },
+  {
+    "id": "smalltalk-unicen",
+    "technologyId": "smalltalk",
+    "contextId": "unicen",
+    "meanings": ["learned", "used"]
+  },
+  {
+    "id": "java-unicen",
+    "technologyId": "java",
+    "contextId": "unicen",
+    "meanings": ["learned", "used"]
+  },
+  {
+    "id": "oracle-database-unicen",
+    "technologyId": "oracle-database",
+    "contextId": "unicen",
+    "meanings": ["learned", "used"]
+  },
+  {
+    "id": "basic-iac",
+    "technologyId": "basic",
+    "contextId": "iac",
+    "meanings": ["learned", "used"]
+  },
+  {
+    "id": "visual-basic-iac",
+    "technologyId": "visual-basic",
+    "contextId": "iac",
+    "meanings": ["learned", "used"]
+  },
+  {
+    "id": "linux-technical-secondary-school",
+    "technologyId": "linux",
+    "contextId": "technical-secondary-school",
+    "meanings": ["learned", "used"]
+  },
+  {
+    "id": "oracle-application-server-unitech",
+    "technologyId": "oracle-application-server",
+    "contextId": "unitech",
+    "meanings": ["used"]
+  },
+  {
+    "id": "oracle-rac-unitech",
+    "technologyId": "oracle-rac",
+    "contextId": "unitech",
+    "meanings": ["used"]
+  },
+  {
+    "id": "html-unitech",
+    "technologyId": "html",
+    "contextId": "unitech",
+    "meanings": ["used"]
+  },
+  {
+    "id": "html-teracode",
+    "technologyId": "html",
+    "contextId": "teracode",
+    "meanings": ["used"]
+  },
+  {
+    "id": "css-unitech",
+    "technologyId": "css",
+    "contextId": "unitech",
+    "meanings": ["used"]
+  },
+  {
+    "id": "css-teracode",
+    "technologyId": "css",
+    "contextId": "teracode",
+    "meanings": ["used"]
+  },
+  {
+    "id": "liferay-unitech",
+    "technologyId": "liferay",
+    "contextId": "unitech",
+    "meanings": ["used"]
+  },
+  {
+    "id": "birt-unitech",
+    "technologyId": "birt",
+    "contextId": "unitech",
+    "meanings": ["used"]
+  },
+  {
+    "id": "nexus-unitech",
+    "technologyId": "nexus",
+    "contextId": "unitech",
+    "meanings": ["used"]
+  },
+  {
+    "id": "jdeveloper-unitech",
+    "technologyId": "jdeveloper",
+    "contextId": "unitech",
+    "meanings": ["used"]
+  },
+  {
+    "id": "toad-unitech",
+    "technologyId": "toad",
+    "contextId": "unitech",
+    "meanings": ["used"]
+  },
+  {
+    "id": "javascript-hmeclazcke-portfolio",
+    "technologyId": "javascript",
+    "contextId": "hmeclazcke-portfolio",
+    "meanings": ["used"]
+  },
+  {
+    "id": "typescript-hmeclazcke-portfolio",
+    "technologyId": "typescript",
+    "contextId": "hmeclazcke-portfolio",
+    "meanings": ["used"]
+  },
+  {
+    "id": "nodejs-hmeclazcke-portfolio",
+    "technologyId": "nodejs",
+    "contextId": "hmeclazcke-portfolio",
+    "meanings": ["used"]
+  },
+  {
+    "id": "python-personal-projects",
+    "technologyId": "python",
+    "contextId": "personal-projects",
+    "meanings": ["used"]
+  },
+  {
+    "id": "sql-unitech",
+    "technologyId": "sql",
+    "contextId": "unitech",
+    "meanings": ["used"]
+  },
+  {
+    "id": "plsql-unitech",
+    "technologyId": "plsql",
+    "contextId": "unitech",
+    "meanings": ["used"]
+  },
+  {
+    "id": "spring-framework-unitech",
+    "technologyId": "spring-framework",
+    "contextId": "unitech",
+    "meanings": ["used"]
+  },
+  {
+    "id": "spring-boot-unitech",
+    "technologyId": "spring-boot",
+    "contextId": "unitech",
+    "meanings": ["used"]
+  },
+  {
+    "id": "spring-boot-reactive-rag-document-processor",
+    "technologyId": "spring-boot",
+    "contextId": "reactive-rag-document-processor",
+    "meanings": ["used"]
+  },
+  {
+    "id": "spring-data-unitech",
+    "technologyId": "spring-data",
+    "contextId": "unitech",
+    "meanings": ["used"]
+  },
+  {
+    "id": "hibernate-unitech",
+    "technologyId": "hibernate",
+    "contextId": "unitech",
+    "meanings": ["used"]
+  },
+  {
+    "id": "angular-unitech",
+    "technologyId": "angular",
+    "contextId": "unitech",
+    "meanings": ["used"]
+  },
+  {
+    "id": "jquery-unitech",
+    "technologyId": "jquery",
+    "contextId": "unitech",
+    "meanings": ["used"]
+  },
+  {
+    "id": "rest-apis-unitech",
+    "technologyId": "rest-apis",
+    "contextId": "unitech",
+    "meanings": ["used"]
+  },
+  {
+    "id": "soap-web-services-unitech",
+    "technologyId": "soap-web-services",
+    "contextId": "unitech",
+    "meanings": ["used"]
+  },
+  {
+    "id": "postgresql-unitech",
+    "technologyId": "postgresql",
+    "contextId": "unitech",
+    "meanings": ["used"]
+  },
+  {
+    "id": "microsoft-sql-server-unitech",
+    "technologyId": "microsoft-sql-server",
+    "contextId": "unitech",
+    "meanings": ["used"]
+  },
+  {
+    "id": "apache-tomcat-unitech",
+    "technologyId": "apache-tomcat",
+    "contextId": "unitech",
+    "meanings": ["used"]
+  },
+  {
+    "id": "jboss-wildfly-unitech",
+    "technologyId": "jboss-wildfly",
+    "contextId": "unitech",
+    "meanings": ["used"]
+  },
+  {
+    "id": "weblogic-unitech",
+    "technologyId": "weblogic",
+    "contextId": "unitech",
+    "meanings": ["used"]
+  },
+  {
+    "id": "haproxy-unitech",
+    "technologyId": "haproxy",
+    "contextId": "unitech",
+    "meanings": ["used"]
+  },
+  {
+    "id": "oracle-adf-unitech",
+    "technologyId": "oracle-adf",
+    "contextId": "unitech",
+    "meanings": ["used"]
+  },
+  {
+    "id": "pki-unitech",
+    "technologyId": "pki",
+    "contextId": "unitech",
+    "meanings": ["used"]
+  },
+  {
+    "id": "blockchain-unitech",
+    "technologyId": "blockchain",
+    "contextId": "unitech",
+    "meanings": ["used"]
+  },
+  {
+    "id": "spring-webflux-reactor-reactive-rag-document-processor",
+    "technologyId": "spring-webflux-reactor",
+    "contextId": "reactive-rag-document-processor",
+    "meanings": ["used"]
+  },
+  {
+    "id": "mongodb-reactive-rag-document-processor",
+    "technologyId": "mongodb",
+    "contextId": "reactive-rag-document-processor",
+    "meanings": ["used"]
+  },
+  {
+    "id": "redis-reactive-rag-document-processor",
+    "technologyId": "redis",
+    "contextId": "reactive-rag-document-processor",
+    "meanings": ["used"]
+  },
+  {
+    "id": "elasticsearch-reactive-rag-document-processor",
+    "technologyId": "elasticsearch",
+    "contextId": "reactive-rag-document-processor",
+    "meanings": ["used"]
+  },
+  {
+    "id": "qdrant-reactive-rag-document-processor",
+    "technologyId": "qdrant",
+    "contextId": "reactive-rag-document-processor",
+    "meanings": ["used"]
+  },
+  {
+    "id": "docker-reactive-rag-document-processor",
+    "technologyId": "docker",
+    "contextId": "reactive-rag-document-processor",
+    "meanings": ["used"]
+  },
+  {
+    "id": "graphql-reactive-rag-document-processor",
+    "technologyId": "graphql",
+    "contextId": "reactive-rag-document-processor",
+    "meanings": ["used"]
+  },
+  {
+    "id": "apache-kafka-reactive-rag-document-processor",
+    "technologyId": "apache-kafka",
+    "contextId": "reactive-rag-document-processor",
+    "meanings": ["used"]
+  },
+  {
+    "id": "spring-ai-reactive-rag-document-processor",
+    "technologyId": "spring-ai",
+    "contextId": "reactive-rag-document-processor",
+    "meanings": ["used"]
+  },
+  {
+    "id": "gemini-reactive-rag-document-processor",
+    "technologyId": "gemini",
+    "contextId": "reactive-rag-document-processor",
+    "meanings": ["used"]
+  },
+  {
+    "id": "linux-unitech",
+    "technologyId": "linux",
+    "contextId": "unitech",
+    "meanings": ["used"]
+  },
+  {
+    "id": "linux-teracode",
+    "technologyId": "linux",
+    "contextId": "teracode",
+    "meanings": ["used"]
+  },
+  {
+    "id": "apache-tomcat-teracode",
+    "technologyId": "apache-tomcat",
+    "contextId": "teracode",
+    "meanings": ["used"]
+  }
 ]

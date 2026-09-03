@@ -1,5 +1,6 @@
 .header {
-  position: relative;
+  position: sticky;
+  top: 0;
   z-index: 1;
   border-bottom: 1px solid var(--color-border-strong);
   background: var(--color-bg-surface);
@@ -17,7 +18,8 @@
 
 .identity,
 .handle,
-.storyLink {
+.storyLink,
+.navigation {
   margin: 0;
 }
 
@@ -46,6 +48,11 @@
   text-decoration: none;
 }
 
+.navigation {
+  display: flex;
+  gap: var(--space-4);
+}
+
 .storyLink:hover {
   color: var(--color-accent-primary);
 }
@@ -62,8 +69,11 @@
     order: 0;
   }
 
-  .storyLink {
+  .navigation {
     margin-left: clamp(2rem, 12vw, 10rem);
+  }
+
+  .storyLink {
     color: var(--color-text-muted);
   }
 

@@ -10,9 +10,9 @@ This document provides a concise snapshot of the current development state. Deta
 
 **Current phase:** Phase 1 — Static Portfolio
 
-**Active specification:** None
+**Active specification:** SPEC-007 — Technology Graph
 
-**Workflow stage:** Ready for next specification
+**Workflow stage:** Owner correction visual checkpoint
 
 ## Current Development Environment
 
@@ -24,7 +24,7 @@ This document provides a concise snapshot of the current development state. Deta
 
 ## Current Objective
 
-SPEC-006 — About Me / Explore My Story is complete and owner-approved. Its desktop native-scroll with invisible progression space and stationary sticky stage, plus the mobile sequential observer behavior, are approved regression-sensitive behavior.
+SPEC-007 — Technology Graph now has approved canonical enrichment, a bounded D3-force graph below Explore My Story with invisible family layout metadata, direct context-derived visible edges, and a semantic mobile/accessibility companion. Owner visual and interaction review is required before further polish. It must preserve the approved SPEC-006 Story interaction as regression-sensitive behavior.
 
 ## Completed Foundation
 
@@ -36,4 +36,4 @@ SPEC-006 — About Me / Explore My Story is complete and owner-approved. Its des
 
 ## Next Step
 
-Begin SPEC-007 — Technology Graph after its specification is approved.
+Obtain owner review of the first useful SPEC-007 graph visual and interaction checkpoint.

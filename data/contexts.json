@@ -17,5 +17,10 @@
     "id": "personal-projects",
     "name": "Personal Projects",
     "type": "personal-project"
+  },
+  {
+    "id": "technical-secondary-school",
+    "name": "Technical Secondary School",
+    "type": "learning"
   }
 ]

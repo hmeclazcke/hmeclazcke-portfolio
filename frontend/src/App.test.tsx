@@ -48,7 +48,11 @@ test("renders the approved Home content within the semantic shell", () => {
     "href",
     "#about",
   );
-  expect(screen.queryAllByRole("link")).toHaveLength(2);
+  expect(screen.getByRole("link", { name: "Graph" })).toHaveAttribute(
+    "href",
+    "#technology-graph",
+  );
+  expect(screen.queryAllByRole("link")).toHaveLength(3);
   expect(
     screen.queryByRole("button", { name: "Previous milestone" }),
   ).not.toBeInTheDocument();
@@ -103,6 +107,17 @@ test("renders the approved semantic Story destination and exact narrative", () =
   expect(
     screen.queryByRole("link", { name: "Contact" }),
   ).not.toBeInTheDocument();
+});
+
+test("places the Technology Graph directly after Explore My Story", () => {
+  render(<App />);
+
+  const story = screen.getByRole("region", { name: "Explore My Story" });
+  const graph = screen.getByRole("region", { name: "Technology Graph" });
+
+  expect(
+    story.compareDocumentPosition(graph) & Node.DOCUMENT_POSITION_FOLLOWING,
+  ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
 });
 
 test("has no applicable automated axe violations in jsdom", async () => {

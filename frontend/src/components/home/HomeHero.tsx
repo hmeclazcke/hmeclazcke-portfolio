@@ -2,7 +2,7 @@ import styles from "./HomeHero.module.css";
 
 function HomeHero() {
   return (
-    <section className={styles.hero}>
+    <section className={styles.hero} id="home">
       <p className={styles.greeting}>HELLO, I'M HERNÁN.</p>
       <h1 className={styles.title}>Senior Backend Java Developer</h1>
       <p className={styles.technologyLine}>
