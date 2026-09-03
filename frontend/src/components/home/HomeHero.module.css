@@ -40,3 +40,21 @@
   margin: 0;
   color: var(--color-text-muted);
 }
+
+.hero .storyLink {
+  justify-self: start;
+  margin-top: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-primary);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-meta);
+  letter-spacing: 0.05em;
+  text-decoration: none;
+}
+
+.hero .storyLink:hover {
+  border-color: var(--color-accent-primary);
+  color: var(--color-accent-primary);
+}

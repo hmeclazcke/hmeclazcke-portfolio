@@ -14,6 +14,9 @@ function HomeHero() {
         different technologies and understanding how the pieces of a system fit
         together.
       </p>
+      <a className={styles.storyLink} href="#about">
+        Explore My Story
+      </a>
     </section>
   );
 }

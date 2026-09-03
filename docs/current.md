@@ -32,7 +32,9 @@ It is not a changelog, roadmap, specification, or implementation journal. Detail
 
 ## Current Objective
 
-Implement approved SPEC-006 — About Me tasks T001–T045 in dependency order until the mandatory PORTFOLIO OWNER VISUAL APPROVAL REQUIRED checkpoint.
+The previously implemented long-document/sticky desktop Story model was rejected during portfolio-owner review and has been superseded by the approved stationary desktop Story interaction.
+
+Implement revised SPEC-006 — About Me tasks through the renewed `T045 — PORTFOLIO OWNER VISUAL APPROVAL REQUIRED` checkpoint.
 
 ---
 
@@ -48,4 +50,4 @@ Implement approved SPEC-006 — About Me tasks T001–T045 in dependency order u
 
 ## Next Step
 
-Implement SPEC-006 tasks T001–T045 in dependency order until the mandatory `PORTFOLIO OWNER VISUAL APPROVAL REQUIRED` checkpoint.
+Implement the revised stationary desktop Story interaction through the renewed `T045 — PORTFOLIO OWNER VISUAL APPROVAL REQUIRED` checkpoint.

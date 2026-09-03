@@ -7,190 +7,104 @@
 **Spec:** `docs/specs/006-about-me/spec.md`  
 **Status:** Approved
 
+## Revision Context
+
+Portfolio-owner review rejected the prior long-document desktop timeline at T045. This revision supersedes the previous CSS-sticky plus `IntersectionObserver` desktop architecture. It does not change approved narrative copy, naming, `#about` anchors, mobile natural scrolling, image restrictions, static deployment, or scope exclusions.
+
 ## Implementation Overview
 
-Implement `Explore My Story` as an in-page, progressively enhanced chronological experience within the existing React single-page application. It will add the real `#about` destination, Home's `Explore My Story` link, and SiteHeader's required `Story` link while preserving the completed SPEC-004 shell and SPEC-005 copy, visual system, static GitHub Pages deployment, and backend independence.
+Keep `Explore My Story` in the existing React/Vite document, with the existing semantic Home and Header anchors. On eligible fine-pointer desktop layouts, `#about` becomes one approximately viewport-sized visual stage. The stage holds a left progress timeline and right narrative/visual companion. Its active milestone is local React state.
 
-The feature will use normal document flow as its foundation. Desktop enhancement will combine CSS Grid, `position: sticky`, and a local `IntersectionObserver`-driven active milestone state. The document itself continues to scroll normally throughout the story; there is no wheel interception, custom main-story scroll container, scroll locking, synthetic scroll progress, scroll hijacking, React Router, or animation/scrolling library.
+Ordinary page scrolling brings the visitor to the stage. Only while the stage is the active eligible viewport experience, a qualifying vertical wheel or trackpad gesture changes one milestone in the gesture direction and prevents that qualifying event's normal page movement. The browser viewport remains stationary between milestones. At the first milestone for an upward gesture and final milestone for a downward gesture, the handler does not prevent default, releasing ordinary document scrolling naturally.
 
-The semantic milestone list is the complete narrative source. JavaScript only enhances active styling and the companion visual treatment. If JavaScript, sticky positioning, imagery, or transitions are unavailable, visitors still encounter the entire approved narrative in chronological document order.
+On mobile, coarse-pointer, narrow, 200%-zoom-constrained, no-JavaScript, or unsupported environments, render the complete semantic timeline sequentially in normal document flow. No scrolling library, router, custom main scroll container, or global state is required.
 
-## Technical Context and Platform Basis
+## Data and Component Strategy
 
-### Existing foundation
+Retain one feature-local readonly `storyMilestones.ts` collection containing stable id, exact approved period/title/lines, and minimal visual metadata. It remains separate from SPEC-003 and is the sole source of visible approved copy.
 
-- SPEC-004 supplies `SiteShell`, `SiteHeader`, `SiteFooter`, native CSS custom properties, CSS Modules, local fonts, dark-first visual roles, responsive foundations, and axe-core test infrastructure.
-- SPEC-005 supplies the approved `HomeHero` and the existing Home public copy. SPEC-006 adds only its approved anchor link; it does not rewrite Home copy or introduce another action.
-- SPEC-003 remains a separate canonical Technology/Context/Relationship boundary. It is not suitable as the Story source because this feature owns ordered, owner-approved narrative copy and visual concerns.
-- The frontend remains a React/TypeScript/Vite static application deployed under `/hmeclazcke-portfolio/`, with no backend or runtime external-content dependency.
-
-### Platform choices
-
-Use browser-native primitives rather than a scrollytelling, animation, state-management, or routing dependency:
-
-- CSS `position: sticky` keeps an in-flow companion region visible until its containing story region ends. It requires a non-`auto` inset and is affected by ancestor overflow, so the story layout must avoid creating an unintended scrolling ancestor. [MDN: `position`](https://developer.mozilla.org/en-US/docs/Web/CSS/position)
-- `IntersectionObserver` observes milestone elements asynchronously relative to the viewport and is sufficient for discrete active-milestone changes without continuous scroll-position calculations. [MDN: Intersection Observer API](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API)
-- CSS `prefers-reduced-motion` will suppress non-essential transitions. [MDN: `prefers-reduced-motion`](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion)
-- Semantic order, keyboard operation, resize/reflow, contrast, and motion requirements follow the applicable WCAG 2.2 foundation. [WCAG 2.2](https://www.w3.org/TR/WCAG22/)
-
-No new dependency is justified.
-
-## Content and Data Strategy
-
-Create one focused feature-local TypeScript module, for example:
-
-```text
-frontend/src/components/story/storyMilestones.ts
-```
-
-It will export a readonly ordered collection and narrow types used only by the Story feature:
-
-```ts
-type StoryVisualKind = 'abstract' | 'asset' | 'time-jump';
-
-type StoryMilestone = {
-  id: string;
-  period: string;
-  title: string;
-  lines: readonly string[];
-  visual: {
-    kind: StoryVisualKind;
-    assetPath?: string;
-    alt?: string;
-  };
-};
-```
-
-The module will contain exactly the approved visible labels and narrative lines from **Approved visible labels and public copy** in `spec.md`, including the intentionally separate `With sound.` and final 2026 line. It will include the ordered curated milestones and one explicit time-jump record, not inferred missing years.
-
-This is the smallest maintainable choice: it keeps ordered narrative copy close to its presentation without coupling SPEC-003's canonical data to feature-specific chronology, wording, visual selection, or active-state behavior. It is not a generic CMS, data engine, or reusable timeline framework.
-
-The IAC item will use an intentionally unspecified period. The Fantavision record will not receive an invented year. The data will preserve all other approved qualifiers, including no CD-ROM speed, no additional Slackware details, no UNICEN degree implication, and no unapproved employment or gaming material.
-
-## Component Responsibilities
-
-Use a focused feature hierarchy:
+Use focused components only:
 
 ```text
 App
-├── SiteShell
-│   ├── SiteHeader
-│   │   └── Story anchor → #about
-│   ├── HomeHero
-│   │   └── Explore My Story anchor → #about
-│   └── StorySection
-│       ├── StoryTimeline
-│       │   └── StoryMilestone (repeated)
-│       └── StoryVisual
-└── SiteFooter
+└─ SiteShell (wide)
+   ├─ SiteHeader — Story → #about
+   ├─ HomeHero — Explore My Story → #about
+   └─ StorySection
+      ├─ semantic chronological list (all milestones in DOM)
+      ├─ desktop progress timeline / active panel
+      └─ native Previous / Next controls
 ```
 
-- `StorySection` owns the semantic `section id="about"`, visible `Explore My Story` heading, feature-local active state, enhancement lifecycle, and responsive composition.
-- `StoryTimeline` renders the ordered semantic chronology, likely as an `ol`.
-- `StoryMilestone` renders one list item's period, title, and all approved narrative lines in document order. It accepts active presentation state but does not own observation or global state.
-- `StoryVisual` renders the optional companion visual/abstract treatment for the active record. It must not be the sole location of narrative text and must not conceal the semantic list.
+`StorySection` owns local active index, eligibility detection, bounded gesture listener lifecycle, keyboard/control actions, and fallback composition. A separate `StoryVisual` remains justified only for the companion visual responsibility. Do not add a generic timeline, CMS, state provider, Redux/Zustand, or routing abstraction.
 
-Do not add a generic Timeline, Card, Button, navigation framework, context provider, Redux, Zustand, or other global state. If the implementation demonstrates that `StoryTimeline` adds no real responsibility beyond one map operation, it may be folded into `StorySection`.
+## Desktop Viewport-Stage Interaction
 
-## Home and Header Integration
+### Eligibility and entry
 
-- Update `HomeHero` only to add exactly one semantic `<a href="#about">Explore My Story</a>` link. It may have button-like styling but remains a link, is visually secondary to Home's professional positioning, and preserves every existing approved Home string.
-- Update `SiteHeader` to expose exactly one semantic `<a href="#about">Story</a>` link when the Story section is implemented.
-- Do not add Technologies, Projects, GitHub, Contact, or any other future navigation link.
-- Do not add React Router, route state, scroll handlers, or JavaScript scroll calls. Browser anchor navigation remains the behavior.
+Enable the controlled desktop mode only when all conditions hold:
 
-## Scroll and Active-Milestone Architecture
+1. the layout has sufficient width and a fine pointer according to the established responsive system;
+2. the Story stage is in its intentional active viewport region; and
+3. the component has initialized normally.
 
-### Desktop and wide desktop
+Use one local stage-region observation mechanism, such as `IntersectionObserver`, only to determine whether the stage is eligible for input handling. It must not choose milestones or create long scroll-driven milestone segments. If unavailable, leave the semantic sequential fallback intact.
 
-Use the existing `SiteShell` **wide** content-width mode. It gives the two-region Story composition room without making the feature a full-bleed global layout or requiring a SiteShell change.
+The exact viewport-region threshold is an implementation detail validated visually. It must avoid consuming wheel input merely because any edge of the Story is visible.
 
-At the breakpoint justified by the existing responsive system and actual layout, create a two-column Grid/Flex layout:
+### Deterministic gesture algorithm
 
-- the chronological semantic timeline in normal document flow on the left; and
-- a companion `StoryVisual` region on the right with `position: sticky` and an intentional block-start inset.
+Use one non-passive `wheel` listener attached only while the desktop stage is eligible and active; clean it up on deactivation and unmount.
 
-The Story section is the sticky containing region; no ancestor in the story path should receive `overflow: hidden`, `auto`, or `scroll` in a way that turns it into an unintended scrolling ancestor. The sticky visual naturally releases when the section ends, so ordinary page scrolling continues.
+For each wheel event:
 
-The left milestone list provides enough intrinsic vertical content for the story to progress. The right region can respond to the active record through abstract graphic treatment, approved local imagery, period/title emphasis, or a restrained visual composition. It must remain supportive rather than duplicate required narrative content.
+1. Ignore horizontal-dominant, zero, modifier-driven zoom, and below-threshold deltas.
+2. Normalize `deltaY` across pixel, line, and page modes into a direction only: forward (`+1`) or backward (`-1`). Do not derive a milestone count from delta magnitude.
+3. If a short local gesture lock/cooldown is active, do not advance again. The lock is reset after a small bounded interval and does not globally block scrolling.
+4. At index `0` with backward input, or the final index with forward input, do not call `preventDefault`; let ordinary document scrolling leave the Story.
+5. Otherwise call `preventDefault`, set `activeIndex` to exactly `index + direction`, and start the short lock.
 
-### Active-milestone enhancement
+This produces deterministic forward/backward progression and protects high-resolution trackpads or a single physical wheel gesture from skipping multiple milestones. The implementation must not use continuous scroll-position calculations, page scroll mutation, custom story scrolling, or global locking.
 
-When `IntersectionObserver` is available and the desktop enhancement applies:
+### Explicit accessible progression
 
-1. Render every milestone in the normal semantic list; initialize active state to the first record.
-2. Observe each milestone element with the browser viewport as root, a narrow central root margin (final values selected during implementation), and threshold `0`.
-3. Maintain a local map of currently intersecting records.
-4. On observer callbacks, choose the intersecting milestone closest to the center of the observer root bounds; break an equal-distance tie by source order. This produces a deterministic active record in both scroll directions without listening to every scroll event.
-5. Update only the feature-local active id when it changes. The timeline and `StoryVisual` consume that id for presentation.
-6. Disconnect the observer on cleanup and recreate it only when the observed list or applicable layout changes.
+Provide native `button` controls labelled `Previous milestone` and `Next milestone`, visually restrained but visible on focus and available without pointer precision. They update the same local active index by one. Disable Previous at the first milestone and Next at the final milestone; disabled controls do not consume page scrolling or prevent a user from leaving the stage. Support focused keyboard activation through native button semantics; no custom keybinding is necessary to make core progression accessible.
 
-The observer is an enhancement, not semantic infrastructure. If unavailable, the first visual may remain the default or visual emphasis may be omitted; every milestone remains visible and readable. No scroll position is written, no custom scroll progress is calculated, and no user scroll is prevented.
-
-### Time jump
-
-Represent the jump as one explicit non-invented narrative record between early formation and 2026. Its visual treatment may use deliberate spacing, abbreviated marks, an ellipsis, or compressed/accelerated timeline treatment. It communicates only that the story intentionally skips ahead; it must not imply inactivity, fabricate a professional chronology, or encode employment history.
+The complete chronological list remains in meaningful DOM order for screen readers and no-JavaScript access. The desktop visual panel may show only active presentation, but it cannot be the sole narrative source. Active state uses geometry, text/heading emphasis, and controls in addition to color.
 
 ## Responsive, Visual, and Motion Strategy
 
-### Mobile and tablet
+Use existing SiteShell `wide` mode without changing SiteShell. Reuse SPEC-004 CSS Modules, semantic tokens, Space Grotesk, JetBrains Mono, dark-first palette, green/amber accents, focus treatment, and technical atmosphere.
 
-Use a single-column sequential layout for narrow and coarse-pointer contexts. Each milestone appears as period/title, narrative, optional associated visual, then the next milestone. Disable sticky two-column treatment where it would compete with text reflow. The exact breakpoint follows observed layout constraints and existing responsive patterns, not device-name assumptions.
+For eligible desktop, use a bounded Grid/Flex composition sized near the viewport, not one tall content region per milestone. The left timeline visibly moves its active node/progress; the right panel changes with the active milestone. Preserve the deliberate non-invented time-jump treatment and a meaningful final 2026 treatment.
 
-Touch scrolling remains the browser's normal document scrolling. No visitor needs to understand active-marker behavior to read the story.
+For mobile, coarse-pointer, narrow layouts, and constrained zoom, use a normal single-column chronology: each milestone's period, title, narrative, and optional abstract treatment appear sequentially. Touch scrolling is never intercepted. Do not build a separate mobile tree.
 
-### Visual language
+Use only restrained opacity, color, and small emphasis transitions. Under `prefers-reduced-motion: reduce`, minimize or remove non-essential transitions while keeping controls and active-state clarity fully functional. Do not add parallax, cinematic scroll effects, typewriter/glitch effects, GSAP, or another animation/scrolling library.
 
-Reuse SPEC-004 semantic tokens, Space Grotesk/JetBrains Mono roles, green/amber accents, layered surfaces, restrained atmosphere, and existing focus treatment. Story-local CSS Modules may define:
+## Image Strategy
 
-- vertical line and milestone node;
-- period and title hierarchy;
-- active node/label/title treatment;
-- deliberate time-jump treatment; and
-- a meaningful final 2026 treatment for the closing line.
+Use abstract CSS treatment until a local image has explicit owner-approved placement, source/ownership/license, permitted-use, attribution, and local-asset decision. Do not hotlink, download arbitrary historical imagery, or place the pixelated personal photo. The stage must remain intentional and understandable with no milestone images.
 
-Active state must use more than color: combine marker geometry or border, typography weight/scale, and companion-region correspondence. Do not make the layout resemble a résumé timeline or redesign global tokens, typography, or shell structure.
+## Accessibility and Testing
 
-### Motion and reduced motion
+Use existing Vitest, React Testing Library, jsdom, and axe-core; add no dependency. TDD must cover:
 
-Use only short, non-essential opacity, node-emphasis, or restrained transform transitions. Under `prefers-reduced-motion: reduce`, remove or substantially minimize transitions and avoid transform-based movement. Narrative meaning and active/non-active legibility remain intact with transitions disabled. Do not add parallax, panning, continuous animation, scroll-controlled cinematic motion, typewriter, glitch effects, GSAP, or another animation library.
+- exact approved Story data/copy, qualification, UNICEN wording, time jump, and closing line;
+- `Explore My Story`, `#about`, Home anchor, exactly one Header `Story` anchor, and absence of future links;
+- full semantic chronological DOM independently of active state;
+- eligibility-gated wheel listener registration and cleanup;
+- normalized forward/backward one-step state changes;
+- boundary release: no `preventDefault` and no state change when leaving outward from first/final milestone;
+- gesture lock preventing accidental repeated advancement;
+- Previous/Next native button labels, state changes, disabled boundaries, and visual correspondence;
+- reduced-motion and semantic axe regression coverage.
 
-## Image and Asset Strategy
+Use the smallest deterministic event/test helper required. Test feature outcomes, not browser wheel implementation internals. Automated checks do not prove real stage positioning, browser scroll release, contrast, or motion; owner visual review must validate these at 375px, 768px, 1280px, 1536px, and 200% zoom.
 
-Implementation can begin with feature-local abstract/CSS visual treatment and optionally approved local assets. Do not require a third-party historical image for every milestone.
+## Validation and Owner Checkpoint
 
-When an asset is approved, place it under a focused local location such as:
-
-```text
-frontend/src/assets/story/
-```
-
-The local data record may then reference it with meaningful alt text when it conveys information. Decorative visuals use empty alt treatment or CSS decoration as appropriate. No runtime hotlinking, copied copyrighted imagery, unapproved screenshots, fabricated images, or implicit license assumptions are permitted. The optional pixelated personal photo remains absent until its placement and use are explicitly approved.
-
-## Accessibility Strategy
-
-- Use a semantic `section` with `id="about"` and an `h2` titled exactly `Explore My Story`; retain logical page heading order relative to the existing Home `h1`.
-- Use an ordered chronological structure (`ol`/`li`) with meaningful text in source order. All approved lines remain in the DOM and screen-reader accessible regardless of active state.
-- Keep `StoryVisual` supplementary; do not hide non-active narrative from assistive technology or require visual activation to obtain text.
-- Preserve native anchors, keyboard operation, visible focus, normal browser/keyboard/touch scrolling, intended contrast, and no color-only meaning.
-- Confirm 200% zoom/text resizing produces no clipped sticky panel, overlap, or ordinary-content horizontal scrolling; collapse to sequential flow when needed.
-- Respect reduced motion and never create a scroll trap or pointer-only interaction.
-
-## TDD and Testing Strategy
-
-Use the existing Vitest, React Testing Library, jsdom, and axe-core setup. Write observable tests before production behavior:
-
-1. Extend the App-level behavior test first to expect the `Explore My Story` section heading, `id="about"`, Home `Explore My Story` link, exactly one Header `Story` link, and `href="#about"` for both links.
-2. Assert no links labeled Technologies, Projects, GitHub, or Contact, and that navigation remains anchors rather than buttons.
-3. Add exact-copy assertions against every approved visible label and narrative line from the feature-local collection, including `With sound.`, `Técnico en Informática Personal y Profesional`, the UNICEN line, and `And after all these years, I still have fun programming.`
-4. Assert the semantic chronology includes all records in DOM order, including the deliberate time jump, even before any active state is applied.
-5. Add focused feature tests proving an unavailable observer leaves complete content present and that an observer-driven active-state change updates observable active treatment without testing browser implementation internals.
-6. Supply the smallest deterministic `IntersectionObserver` test double in the existing test setup or focused story test; invoke captured callback entries explicitly and verify cleanup/disconnect behavior.
-7. Reuse the existing axe invocation for semantic regressions. Keep jsdom contrast limitations documented; manually review actual contrast, sticky behavior, focus, zoom, and motion.
-
-## Validation and Owner Review
-
-Run from `frontend/` after implementation:
+Before the renewed T045 review, run from `frontend/`:
 
 ```text
 npm run format:check
@@ -201,76 +115,33 @@ npm run validate:data
 npm run build
 ```
 
-Then run `git diff --check` from the repository root. Also complete an exact-copy audit against the authoritative approved-copy section, historical-fact audit, image-source audit for every selected asset, accessibility review, responsive review, scope-drift review, and complete diff review.
+Then run `git diff --check`, exact-copy and historical-fact audits, dependency/scope/static-output review, and a rendered review of desktop stage entry, forward/backward progression, first/final release, controls, keyboard focus, mobile touch flow, reduced motion, time jump, and no-image fallback.
 
-Before completion, obtain explicit portfolio-owner review at 375px, 768px, 1280px, 1536px, and 200% zoom/text resizing. Review Home and Header anchor navigation, desktop entry/progression/sticky exit, mobile natural flow, active-state clarity, readability, time-jump treatment, reduced-motion behavior, and whether the composition remains personal rather than résumé-like. Automated checks cannot replace this approval.
+## Superseded Plan Decisions
 
-## Documentation Convergence
+The following previous plan decisions are invalidated and must not guide re-implementation:
 
-After completed implementation and owner approval, update only documentation justified by durable facts:
+- a normal document-height milestone list as the desktop progression mechanism;
+- CSS `position: sticky` companion behavior as the desktop stage architecture;
+- `IntersectionObserver` closest-to-viewport-center active-milestone selection; and
+- the previous no-wheel-interception rule for eligible desktop Story interaction.
 
-- `docs/architecture.md` if native progressive-enhancement scrollytelling and the desktop/mobile distinction become durable architecture; do not catalog CSS details.
-- `docs/quality-gates.md` only if the feature adds a repeatable validation responsibility beyond existing gates.
-- `docs/references.md` only if the MDN/WCAG sources become durable project references through implementation.
-- `docs/roadmap.md` and `docs/current.md` only for actual lifecycle progress.
-- `README.md` only if the completed public Story feature materially affects external-reader information under repository policy.
-
-Do not document SDD methodology as Story content; it remains SPEC-011.
+`IntersectionObserver` may remain only as an optional local stage-eligibility detector. It must not determine active milestones.
 
 ## Scope Exclusions
 
-Do not implement a generic timeline/CMS/design system, React Router, scrolling or animation library, global state store, backend/API/runtime content source, external image hotlinks, unlicensed historical assets, Technology Graph (SPEC-007/008), Projects (SPEC-009), GitHub integration (SPEC-010), portfolio methodology (SPEC-011), Contact (SPEC-012), or trailing cursor/microinteraction work (SPEC-013).
+Do not introduce React Router, a generic timeline/CMS/design system, global state, GSAP or another scrolling/animation library, custom main scroll container, global scroll lock, backend/API, runtime external content, unapproved images, Technology Graph (SPEC-007/008), Projects (SPEC-009), GitHub integration (SPEC-010), methodology (SPEC-011), Contact (SPEC-012), or cursor/microinteraction work (SPEC-013).
 
-## Expected Files and Implementation Sequence
+## Expected Files and Sequence
 
-Expected implementation changes are limited to:
+Re-implementation will revise only focused Story components/styles/tests and, if needed, the existing App/Home/Header integration tests. It must remove the rejected sticky/active-observer milestone implementation before adding the new stage state and controls. No SiteShell change or dependency is expected.
 
-```text
-frontend/src/App.tsx
-frontend/src/App.test.tsx
-frontend/src/components/home/HomeHero.tsx
-frontend/src/components/home/HomeHero.module.css
-frontend/src/components/shell/SiteHeader.tsx
-frontend/src/components/shell/SiteHeader.module.css
-frontend/src/components/story/StorySection.tsx
-frontend/src/components/story/StoryTimeline.tsx                # only if responsibility remains distinct
-frontend/src/components/story/StoryMilestone.tsx               # only if responsibility remains distinct
-frontend/src/components/story/StoryVisual.tsx
-frontend/src/components/story/StorySection.module.css
-frontend/src/components/story/storyMilestones.ts
-frontend/src/components/story/*.test.tsx                       # focused Story behavior where justified
-frontend/src/test/setup.ts                                     # only for a minimal observer test double
-frontend/src/assets/story/                                    # only for later approved local assets
-```
+1. Re-approve this revised specification, plan, and replacement tasks.
+2. Write failing tests for bounded desktop state, wheel boundary behavior, listener cleanup, and accessible controls.
+3. Replace rejected desktop mechanics with local stage eligibility, one-step local state, bounded wheel handling, and buttons.
+4. Restore green tests, then add stage styling and mobile fallback.
+5. Run gates and obtain a new mandatory owner review before any completion work.
 
-Sequence:
+## Unresolved Blockers
 
-1. Confirm existing App/Home/Header tests and shell contracts.
-2. Write failing observable anchor, heading, semantic chronology, and exact-copy tests.
-3. Add the focused local milestone data module and semantic Story components; compose the section in `App` and add only the approved Home/Header anchors.
-4. Make the focused tests green before styling and before IntersectionObserver enhancement.
-5. Add token-based sequential baseline and responsive desktop sticky composition.
-6. Add the local observer enhancement and its focused deterministic tests; preserve no-JavaScript content.
-7. Add restrained visual, time-jump, and reduced-motion treatment without assets unless approved local assets exist.
-8. Run automated gates, manual accessibility/responsive/static-build audits, and scope review.
-9. Obtain portfolio-owner visual approval; make only approved SPEC-006-local refinements, rerun affected checks, then converge documentation.
-
-## Unresolved Decisions and Blockers
-
-No unresolved product decision blocks implementation planning. The exact visual treatment of the time jump, the selection and rights of images, optional pixelated-photo placement, and any small owner-approved visual copy/layout refinement remain implementation/visual-review decisions. The feature can begin with complete text and abstract local visual treatment, so unresolved imagery does not block implementation.
-
-## Plan Readiness Summary
-
-- **Proposed component structure:** `StorySection`, `StoryTimeline`/`StoryMilestone` only if individually justified, and `StoryVisual`, with local data and active state in `StorySection`.
-- **Proposed timeline data structure:** one readonly feature-local ordered `StoryMilestone[]` collection containing id, period, title, exact lines, and optional visual metadata.
-- **Chosen SiteShell width:** `wide`.
-- **Desktop scrolling mechanism:** normal document flow plus CSS Grid/Flex and `position: sticky`; no custom scroll container or interception.
-- **Active-milestone mechanism:** local `IntersectionObserver` state with a narrow viewport activation band, closest-to-center selection, deterministic source-order tie break, and cleanup.
-- **Mobile fallback:** native single-column sequential chronology with optional inline visuals and no sticky dependency.
-- **New dependencies:** none.
-- **Image strategy:** optional approved local assets under `frontend/src/assets/story/`; abstract visual fallback; no hotlinks or unapproved third-party material.
-- **TDD strategy:** behavior-first App/Story tests, exact-copy assertions, semantic DOM tests, minimal observer double, and existing axe coverage.
-- **Manual review strategy:** owner review across four widths, 200% zoom, anchors, sticky progression/exit, mobile flow, reduced motion, readability, and time jump.
-- **Expected files:** only the focused Home, Header, Story, test, and conditionally approved asset files listed above.
-- **Unresolved blockers:** none.
-- **Ready for consistency review:** yes.
+No dependency or content blocker prevents re-implementation planning. The exact stage eligibility threshold, delta threshold/cooldown values, and desktop visual choreography require implementation-time validation and renewed owner review. Candidate imagery remains intentionally deferred.

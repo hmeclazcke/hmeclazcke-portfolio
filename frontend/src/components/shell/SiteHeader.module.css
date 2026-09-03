@@ -29,7 +29,8 @@
 }
 
 .identity,
-.handle {
+.handle,
+.storyLink {
   margin: 0;
 }
 
@@ -50,6 +51,18 @@
   line-height: 1.4;
 }
 
+.storyLink {
+  color: var(--color-text-primary);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-meta);
+  letter-spacing: 0.08em;
+  text-decoration: none;
+}
+
+.storyLink:hover {
+  color: var(--color-accent-primary);
+}
+
 @media (min-width: 48rem) {
   .content {
     flex-direction: row;
@@ -60,5 +73,9 @@
 
   .handle {
     order: 0;
+  }
+
+  .storyLink {
+    margin-left: auto;
   }
 }

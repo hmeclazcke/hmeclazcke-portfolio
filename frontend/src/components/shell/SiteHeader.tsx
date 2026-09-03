@@ -6,6 +6,9 @@ function SiteHeader() {
       <div className={styles.content}>
         <p className={styles.handle}>hmeclazcke</p>
         <p className={styles.identity}>Hernán Meclazcke</p>
+        <a className={styles.storyLink} href="#about">
+          Story
+        </a>
       </div>
     </header>
   );

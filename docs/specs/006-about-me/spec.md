@@ -2,7 +2,7 @@
 
 **ID:** SPEC-006  
 **Phase:** Phase 1 — Static Portfolio  
-**Status:** Approved  
+**Status:** Approved
 **Depends on:** SPEC-004 — Site Shell and Visual Foundation
 
 ## Overview
@@ -11,7 +11,7 @@ The internal project artifact **SPEC-006 — About Me** defines the public-facin
 
 It is a personal, technically authentic narrative rather than a conventional biography, résumé, employment chronology, or exhaustive skills list. The public narrative is English-only, concise, nostalgic about computing history, lightly humorous where owner-approved, professional, and visually consistent with the established dark-first portfolio identity.
 
-The primary experience is an interactive chronological timeline. On wide screens, normal document scrolling advances a visually emphasized milestone and its associated content/visual panel. On touch-oriented and narrow layouts, the same story remains a natural vertical timeline in ordinary document flow.
+The primary experience is an interactive chronological timeline. On wide screens, the Story becomes a bounded viewport-stage experience: vertical wheel or trackpad gestures advance or reverse its active milestone while the composition remains visually stationary, then release ordinary document scrolling at either end. On touch-oriented and narrow layouts, the same story remains a natural vertical timeline in ordinary document flow.
 
 ## Goal
 
@@ -27,7 +27,7 @@ When the Explore My Story section genuinely exists, Home shall expose the owner-
 
 Once SPEC-006 implements the genuine `#about` destination, the existing SiteHeader shall expose exactly one real internal navigation link: `Story`, targeting `#about`. It shall use normal same-document anchor navigation. No other header navigation link is authorized by this specification. In particular, `Technologies`, `Projects`, `GitHub`, `Contact`, and other future destinations shall remain absent until their corresponding sections genuinely exist.
 
-Selecting either link shall navigate naturally to the Explore My Story section without JavaScript scroll interception. If smooth scrolling is selected later, it shall remain optional, respect `prefers-reduced-motion`, and preserve normal anchor behavior; its exact implementation belongs in `plan.md`.
+Selecting either link shall navigate naturally to the Explore My Story section without JavaScript anchor-scroll interception. Once an eligible desktop visitor has entered the Story stage, the bounded Story interaction may handle wheel/trackpad progression as specified below. If smooth scrolling is selected later, it shall remain optional, respect `prefers-reduced-motion`, and preserve normal anchor behavior; its exact implementation belongs in `plan.md`.
 
 ## User Stories
 
@@ -41,15 +41,16 @@ As a visitor, I want to follow a concise chronological story of Hernán's early 
 2. It distinguishes confirmed facts, approximate periods, and personal memories during authoring without presenting uncertain detail as fact.
 3. It does not become an employment chronology, education transcript, or exhaustive technical inventory.
 
-### US-002 — Progress naturally through the timeline (Priority: P1)
+### US-002 — Progress through a bounded desktop story stage (Priority: P1)
 
-As a desktop visitor, I want the active moment in the story to progress as I normally scroll so that the experience feels temporal without fighting normal browser behavior.
+As a desktop visitor, I want wheel or trackpad gestures to progress a visually stationary Story stage so that the experience feels like a deliberate interactive sequence rather than a long document timeline.
 
 **Acceptance criteria:**
 
 1. Wide-screen layouts show a left-side vertical timeline with years and short labels and a corresponding right-side content/visual panel.
-2. The active milestone changes as the visitor reaches its chronological content through normal document scrolling.
-3. The experience does not intercept wheel events, trap scrolling, or require artificial scroll hijacking.
+2. While the Story stage is active, a bounded vertical wheel/trackpad gesture advances or reverses one milestone without vertically moving the browser viewport between milestones.
+3. The interaction releases ordinary document scrolling when the visitor moves upward from the first milestone or downward from the final milestone; it does not globally disable scrolling, create an infinite trap, or consume scrolling outside the active Story stage.
+4. Keyboard users have an explicit, accessible previous/next alternative, and screen readers retain access to the complete chronology.
 
 ### US-003 — Read the story on any device or with motion reduced (Priority: P1)
 
@@ -263,14 +264,18 @@ If an owner confirms a new factual history item that ought to become canonical l
 
 ### Desktop / wide-screen timeline
 
-On desktop and wide-desktop layouts, the experience shall provide:
+On eligible desktop and wide-desktop layouts, the experience shall provide one approximately viewport-sized, visually stationary Story stage containing:
 
 - a vertical chronological timeline on the left, with each milestone showing a year or period and concise label;
 - a visually emphasized active milestone whose state is also communicated through non-color cues such as position, indicator, text treatment, or associated heading;
 - a content/visual panel on the right associated with the active milestone; and
-- a temporal sense of progression as the visitor scrolls through the section.
+- a temporal sense of progression as the visitor advances or reverses Story milestones within that stage.
 
-Normal browser scrolling is mandatory. Sticky positioning and viewport-based activation are acceptable implementation approaches; wheel-event interception, scroll locking, synthetic scroll substitution, and scroll trapping are not.
+The stage shall not create one document-height segment per milestone. While an eligible desktop user is within the active stage and additional milestones exist in the direction of travel, a qualifying vertical wheel or trackpad gesture may be consumed to change exactly one active milestone and keep the browser viewport visually stationary. This narrow interaction supersedes the prior blanket prohibition on desktop wheel-event interception.
+
+The control boundary is mandatory: it shall not globally disable page scrolling, affect scrolling outside the active stage, create an infinite trap, require excessive gestures, consume upward scrolling at the first milestone, or consume downward scrolling at the final milestone. In those boundary cases, ordinary document scrolling shall proceed naturally so the visitor can leave toward Home or later content. The inverse direction shall work throughout the stage.
+
+The implementation shall define deterministic gesture qualification and an input lock/debounce sufficient to prevent one physical wheel/trackpad gesture from skipping multiple milestones. It shall add and remove listeners only while the eligible Story stage is active, and clean them up when the component unmounts or the interaction no longer applies. It shall not use global scroll locking, a custom page scroll container, or a scrolling/animation library without later approved evidence.
 
 The content/visual panel may transition with the active milestone, but its information must remain available in the document and must not become a sole source of narrative content.
 
@@ -300,7 +305,8 @@ Historical facts and illustrative imagery are separate. Before implementation, e
 - The timeline shall use a semantic chronological structure that exposes all milestones, dates/periods, labels, and narrative content to screen readers.
 - Content shall remain readable and complete when JavaScript-enhanced milestone activation is unavailable or fails.
 - Keyboard users shall be able to reach and read all timeline content; any interactive milestone control introduced by implementation shall use native semantics or equivalent accessible semantics, be keyboard operable, and have visible focus.
-- Normal browser scrolling, keyboard scrolling, touch scrolling, and anchor navigation shall remain intact. The experience shall not intercept wheel events, trap scroll, or require motion to reveal content, and shall not trap keyboard or pointer users.
+- Normal browser scrolling, keyboard scrolling, touch scrolling, and anchor navigation shall remain intact outside the bounded eligible desktop Story stage. Within that stage, narrowly scoped wheel/trackpad handling may progress Story milestones only under the explicit entry, boundary-release, and cleanup rules above. The experience shall not trap keyboard or pointer users.
+- The desktop stage shall not be mouse-wheel-only: it shall expose accessible native Previous and Next controls that change the same local active milestone. The controls shall be keyboard operable with visible focus, and disabled at their respective boundaries without preventing normal document escape. Screen readers shall retain access to the complete chronological narrative, not only the active visual milestone.
 - No information shall be communicated solely by active-color state, animation, image, hover, or pointer precision.
 - Non-essential motion shall be restrained, non-flashing, and substantially reduced for `prefers-reduced-motion`; no timeline transition is mandatory for comprehension.
 - The section shall preserve WCAG 2.2 AA-oriented contrast and remain usable at 200% zoom/text resizing without clipping, overlap, or ordinary-content horizontal scrolling.
@@ -308,7 +314,13 @@ Historical facts and illustrative imagery are separate. Before implementation, e
 
 ## Responsive Requirements
 
-Implementation review shall deliberately cover narrow mobile, tablet, desktop, and wide desktop layouts. The desktop treatment may use sticky/scrollytelling-oriented presentation; mobile shall prioritize sequential content and natural scrolling. At every layout class, dates, labels, content, focus states, and any visual panel must remain readable and non-overlapping.
+Implementation review shall deliberately cover narrow mobile, tablet, desktop, and wide desktop layouts. The eligible desktop treatment shall use the bounded viewport stage; mobile shall prioritize sequential content and natural scrolling. At every layout class, dates, labels, content, focus states, controls, and any visual panel must remain readable and non-overlapping.
+
+### Owner decision supersession — desktop interaction
+
+The portfolio owner rejected the prior long-document desktop scrollytelling model at T045. The following prior decisions are superseded only for eligible desktop Story interaction: normal document movement through every milestone; CSS sticky as the primary desktop mechanism; `IntersectionObserver` viewport activation as the active-milestone mechanism; and the blanket prohibition on all wheel interception. They are replaced by the bounded viewport-stage, wheel/trackpad progression, explicit keyboard-control, and boundary-release contract above.
+
+This supersession does not alter the public Story copy, `#about` anchor navigation, semantic complete chronology, mobile natural scrolling, reduced-motion requirements, image restrictions, or later-spec exclusions.
 
 ## Functional Requirements
 
@@ -319,10 +331,10 @@ Implementation review shall deliberately cover narrow mobile, tablet, desktop, a
 - **FR-005:** The system shall use an interactive vertical timeline as the primary narrative structure.
 - **FR-006:** On desktop and wide-desktop layouts, the system shall show a left-side timeline with years/periods and short labels plus an associated right-side content/visual panel.
 - **FR-007:** The system shall visually emphasize the active desktop milestone and communicate its active relationship through at least one non-color cue.
-- **FR-008:** The active desktop milestone and associated panel shall progress from normal document scrolling using a viewport-appropriate activation approach.
-- **FR-009:** The system shall not intercept wheel events, lock or trap scrolling, replace normal browser scrolling, or require artificial scroll hijacking.
+- **FR-008:** On eligible desktop layouts, the active milestone and associated panel shall progress within one approximately viewport-sized Story stage through deterministic bounded vertical wheel/trackpad handling and accessible explicit controls, without vertically moving the browser viewport between milestones.
+- **FR-009:** Desktop Story wheel/trackpad handling shall be scoped only to an active eligible stage with additional milestones in the direction of travel; it shall progress at most one milestone per qualified gesture, prevent accidental multi-step advancement, release upward scrolling at the first milestone and downward scrolling at the final milestone, and never globally lock, trap, or replace page scrolling.
 - **FR-010:** On narrow, touch, or coarse-pointer layouts, the system shall provide a naturally scrollable sequential timeline and shall not require desktop sticky-scrollytelling behavior.
-- **FR-011:** The system shall preserve normal touch, keyboard, and browser scrolling.
+- **FR-011:** The system shall preserve normal touch, keyboard, and browser scrolling outside the bounded eligible desktop stage, and shall provide keyboard-operable explicit controls so milestone progression is not wheel-only.
 - **FR-012:** The system shall model the proposed milestones and their confirmed, approximate, or remembered evidence states without publishing uncertain detail as confirmed fact.
 - **FR-013:** The system shall preserve the approved 1994 LOGO copy: `My first contact with programming. I was 10, and it all started with a turtle.`
 - **FR-014:** The system shall preserve the 1996 hardware facts—486 DX4 100 MHz, 4 MB RAM, and 640 MB HDD—without adding unconfirmed hardware detail.
@@ -345,20 +357,20 @@ Implementation review shall deliberately cover narrow mobile, tablet, desktop, a
 - **FR-031:** The public section shall use the visible title `Explore My Story`, shall not be publicly titled `About Me`, and shall be a semantically identifiable `#about` destination in the same document as the existing Home experience.
 - **FR-032:** SPEC-006 shall use normal document-anchor navigation and shall not introduce React Router or client-side page routing.
 - **FR-033:** Home may be changed only as necessary to expose the exact owner-approved functional link wording `Explore My Story` targeting `#about`; it shall remain a semantic link, keyboard accessible, visually secondary to Home's professional positioning, and shall not authorize another Home CTA.
-- **FR-034:** Once SPEC-006 implements the genuine `#about` destination, SiteHeader shall expose exactly one real internal link, `Story`, targeting `#about`, using normal same-document anchor navigation. It shall not expose navigation links for Technologies, Projects, GitHub, Contact, or other future sections, and shall not use React Router or JavaScript scroll interception.
-- **FR-035:** Anchor navigation to `#about` shall preserve normal browser behavior and shall not require JavaScript scroll interception, a smooth-scroll enhancement, scroll trapping, or pointer-only interaction.
+- **FR-034:** Once SPEC-006 implements the genuine `#about` destination, SiteHeader shall expose exactly one real internal link, `Story`, targeting `#about`, using normal same-document anchor navigation. It shall not expose navigation links for Technologies, Projects, GitHub, Contact, or other future sections, and shall not use React Router or JavaScript interception of anchor navigation.
+- **FR-035:** Anchor navigation to `#about` shall preserve normal browser behavior and shall not require JavaScript anchor-scroll interception, a smooth-scroll enhancement, scroll trapping, or pointer-only interaction. This does not prohibit the separately bounded eligible desktop Story-stage input behavior in FR-008 and FR-009.
 - **FR-036:** Any later smooth-scroll enhancement shall be optional, preserve normal anchor behavior, and respect `prefers-reduced-motion`.
 - **FR-037:** Gaming content shall appear only when it materially supports the computing/programming narrative; it may include Alpha Centauri in the Slackware/sound story and LAN parties as PC/networking culture, but shall exclude general gaming history, childhood console chronology, Family Game, the Panzer Dragoon anecdote, unrelated individual game memories, and lists of games played.
 
 ## Edge Cases
 
 - If JavaScript activation does not run, all milestones and their content remain visible in chronological order.
-- If sticky positioning is unsupported or unsuitable at a viewport, the experience falls back to ordinary sequential content.
+- If the eligible desktop stage cannot initialize, the experience falls back to ordinary sequential content with complete chronology and explicit controls where applicable.
 - If imagery is unavailable, delayed, or intentionally omitted, narrative content and milestone relationships remain complete.
 - If an approximate period is shown, it remains approximate; implementation must not convert it to a year solely for visual alignment.
 - If the LAN-party memory is not selected as its own milestone, it may appear only as approved supporting material and must not disappear behind interaction-dependent content.
 - If a milestone has unresolved imagery, approved public copy remains complete and understandable without it.
-- At 200% zoom or narrow widths, the experience must favor sequential flow over a clipped or competing sticky two-column composition.
+- At 200% zoom or narrow widths, the experience must favor sequential flow over a clipped or competing viewport stage.
 - If JavaScript is unavailable, both `Explore My Story` and `Story` still navigate normally to the semantically identifiable `#about` section once those links are rendered.
 
 ## Scope
@@ -367,9 +379,9 @@ Implementation review shall deliberately cover narrow mobile, tablet, desktop, a
 
 - A personal, English-language Explore My Story narrative centered on an interactive chronological computing/programming timeline;
 - owner-provided early-computing history, appropriately marked by evidence state;
-- wide-screen normal-scroll timeline activation and a mobile natural-flow fallback;
+- wide-screen bounded viewport-stage milestone progression and a mobile natural-flow fallback;
 - narrative visual-material requirements and image sourcing/ownership constraints;
-- accessibility, semantic, reduced-motion, responsive, static-deployment, and non-hijacking requirements; and
+- accessibility, semantic, reduced-motion, responsive, static-deployment, and bounded-input requirements; and
 - a concise, owner-approved reconnection to the present; and
 - the `#about` document destination and the strictly necessary Home and SiteHeader anchor links to that genuinely implemented section.
 
@@ -402,15 +414,15 @@ Implementation review shall deliberately cover narrow mobile, tablet, desktop, a
 - **SC-001:** A visitor understands that Hernán's relationship with computing began in childhood.
 - **SC-002:** A visitor can follow a coherent progression from early computing and programming to present-day software development.
 - **SC-003:** The experience feels personal and technically authentic rather than résumé-like or like an exhaustive skills list.
-- **SC-004:** On desktop and wide desktop, milestone emphasis and the associated panel progress visually through normal document scrolling.
-- **SC-005:** No wheel-event interception, scroll hijacking, scroll lock, or scroll trap exists.
+- **SC-004:** On eligible desktop and wide desktop layouts, milestone emphasis and the associated panel progress within a visually stationary viewport stage; qualifying wheel/trackpad gestures move one milestone at a time without browser viewport movement between milestones.
+- **SC-005:** Wheel/trackpad handling is bounded to the eligible desktop Story stage, releases ordinary scrolling at the first and final milestones in the outward direction, does not affect other page regions, and does not create a global lock, infinite trap, or accidental multi-milestone advancement.
 - **SC-006:** On touch/coarse-pointer and narrow layouts, the timeline remains naturally scrollable and understandable in sequential document flow.
-- **SC-007:** Full narrative content remains understandable without motion, sticky positioning, enhanced JavaScript activation, or images.
+- **SC-007:** Full narrative content remains understandable without motion, viewport-stage activation, enhanced JavaScript, or images.
 - **SC-008:** Selected images enhance rather than determine comprehension, are locally served, and have resolved sourcing/usage decisions.
 - **SC-009:** Exact owner-approved historical facts are preserved, while approximate dates and memories remain appropriately qualified.
 - **SC-010:** UNICEN is not represented as a completed degree, and the confirmed 2001 qualification `Técnico en Informática Personal y Profesional` is preserved in Spanish without an invented English equivalence.
 - **SC-011:** No unprovided historical milestone, detail, course credential, certification, employment claim, or technical context is invented.
-- **SC-012:** Semantic chronology, keyboard access, contrast, visible focus, reduced-motion support, 200% zoom/text-resize usability, and no-color-only meaning meet the stated accessibility requirements.
+- **SC-012:** Semantic chronology, keyboard-operable Previous/Next controls, contrast, visible focus, reduced-motion support, 200% zoom/text-resize usability, and no-color-only meaning meet the stated accessibility requirements.
 - **SC-013:** The implementation remains compatible with static GitHub Pages and has no required backend, runtime image hotlink, or external content dependency.
 - **SC-014:** The section remains visually consistent with the established dark-first shell and does not redesign the site.
 - **SC-015:** No later-spec capability or trailing green cursor effect leaks into the implementation.
@@ -425,7 +437,7 @@ SPEC-006 may be considered complete only when:
 
 1. the approved core milestone wording and intentional humor are preserved, and any selected images have explicit portfolio-owner approval;
 2. all functional requirements and success criteria have been validated through proportionate automated checks and manual desktop, mobile, touch, keyboard, screen-reader-oriented, reduced-motion, zoom, and visual review;
-3. normal browser scrolling is verified and no prohibited wheel/scroll hijacking or trapping behavior exists;
+3. the bounded desktop wheel/trackpad model is verified: it progresses one milestone per qualified gesture inside the active stage, releases ordinary scrolling at both outward boundaries, and introduces no global lock, infinite trap, or unintended outside-stage interception;
 4. the desktop-enhanced and mobile sequential experiences both preserve complete, understandable historical content;
 5. imagery licensing/ownership, local-asset, and attribution decisions are resolved for every visual actually used;
 6. static GitHub Pages compatibility and backend independence are preserved;

@@ -1,0 +1,235 @@
+.section {
+  position: relative;
+  margin-top: clamp(5rem, 16vh, 10rem);
+  padding: clamp(1.5rem, 4vw, 3rem);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(
+      145deg,
+      color-mix(in srgb, var(--color-bg-surface-elevated) 84%, transparent),
+      transparent 60%
+    ),
+    var(--color-bg-surface);
+  box-shadow: var(--shadow-surface);
+}
+
+.intro {
+  max-width: 42rem;
+}
+
+.eyebrow,
+.period,
+.visualPeriod {
+  margin: 0;
+  color: var(--color-accent-secondary);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-meta);
+  letter-spacing: 0.08em;
+  line-height: 1.4;
+}
+
+.section h2 {
+  margin: var(--space-2) 0 0;
+  color: var(--color-text-primary);
+  font-size: var(--font-size-heading-1);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+}
+
+.composition {
+  display: grid;
+  gap: clamp(2.5rem, 7vw, 6rem);
+  margin-top: clamp(3rem, 8vw, 6rem);
+}
+
+.timeline {
+  position: relative;
+  display: grid;
+  gap: clamp(2.5rem, 7vw, 5rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.timeline::before {
+  position: absolute;
+  top: 0.75rem;
+  bottom: 0.75rem;
+  left: 0.4375rem;
+  width: 1px;
+  background: var(--color-border-strong);
+  content: "";
+}
+
+.milestone {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.125rem minmax(0, 1fr);
+  gap: var(--space-4);
+  scroll-margin-top: var(--space-6);
+}
+
+.marker {
+  z-index: 1;
+  width: 0.875rem;
+  height: 0.875rem;
+  margin-top: 0.2rem;
+  border: 2px solid var(--color-border-strong);
+  border-radius: 50%;
+  background: var(--color-bg-surface);
+}
+
+.milestone[data-active="true"] .marker {
+  border-color: var(--color-accent-primary);
+  border-radius: var(--radius-sm);
+  background: var(--color-accent-primary);
+  box-shadow: var(--shadow-accent);
+  transform: scale(1.2);
+}
+
+.milestoneContent {
+  min-width: 0;
+}
+
+.milestoneTitle,
+.visualTitle {
+  margin: var(--space-2) 0 0;
+  color: var(--color-text-primary);
+  font-size: clamp(1.125rem, 2.4vw, 1.5rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.milestone[data-active="true"] .milestoneTitle {
+  color: var(--color-accent-primary);
+  font-weight: 600;
+}
+
+.line {
+  max-width: 38rem;
+  margin: var(--space-3) 0 0;
+  color: var(--color-text-muted);
+}
+
+.line:last-child {
+  color: var(--color-text-primary);
+}
+
+.timeJump {
+  min-height: 10rem;
+  align-items: center;
+}
+
+.timeJump .marker {
+  width: 0.875rem;
+  height: 2.5rem;
+  border-style: dashed;
+  border-radius: var(--radius-sm);
+  background: transparent;
+}
+
+.timeJump .milestoneContent {
+  padding-block: var(--space-5);
+  border-block: 1px dashed var(--color-border-strong);
+}
+
+.timeJump .line {
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-meta);
+}
+
+.visual {
+  display: none;
+}
+
+@media (min-width: 64rem) and (pointer: fine) {
+  .composition {
+    grid-template-columns: minmax(0, 1.15fr) minmax(18rem, 0.85fr);
+    align-items: start;
+  }
+
+  .visual {
+    position: sticky;
+    top: clamp(1.5rem, 10vh, 6rem);
+    display: block;
+  }
+
+  .visualFrame {
+    position: relative;
+    display: grid;
+    min-height: min(24rem, 52vh);
+    padding: clamp(1.5rem, 4vw, 3rem);
+    overflow: hidden;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-md);
+    background:
+      radial-gradient(
+        circle at 18% 20%,
+        color-mix(in srgb, var(--color-accent-primary) 22%, transparent),
+        transparent 28%
+      ),
+      linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--color-bg-surface-elevated) 94%, transparent),
+        var(--color-bg-canvas)
+      );
+  }
+
+  .visualFrame::before,
+  .visualFrame::after {
+    position: absolute;
+    border: 1px solid
+      color-mix(in srgb, var(--color-border-strong) 75%, transparent);
+    border-radius: 50%;
+    content: "";
+  }
+
+  .visualFrame::before {
+    right: -5rem;
+    bottom: -5rem;
+    width: 17rem;
+    height: 17rem;
+  }
+
+  .visualFrame::after {
+    right: 2rem;
+    bottom: 2rem;
+    width: 4rem;
+    height: 4rem;
+    border-color: var(--color-accent-secondary);
+  }
+
+  .visualTitle {
+    align-self: end;
+    max-width: 14ch;
+    font-size: clamp(1.75rem, 3vw, 3rem);
+  }
+
+  .visualSignal {
+    position: absolute;
+    top: var(--space-5);
+    right: var(--space-5);
+    width: 0.875rem;
+    height: 0.875rem;
+    border: 2px solid var(--color-accent-primary);
+    border-radius: var(--radius-sm);
+    background: var(--color-accent-primary);
+    box-shadow: var(--shadow-accent);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .marker,
+  .milestoneTitle,
+  .visualFrame {
+    transition:
+      border-color 160ms ease,
+      background-color 160ms ease,
+      color 160ms ease,
+      transform 160ms ease;
+  }
+}
