@@ -14,9 +14,9 @@ It is not a changelog, roadmap, specification, or implementation journal. Detail
 
 **Current phase:** Phase 1 — Static Portfolio
 
-**Active specification:** None; SPEC-005 — Home is complete
+**Active specification:** SPEC-006 — About Me
 
-**Workflow stage:** Specification selection
+**Workflow stage:** Implementation
 
 ---
 
@@ -32,7 +32,7 @@ It is not a changelog, roadmap, specification, or implementation journal. Detail
 
 ## Current Objective
 
-Select and approve the next specification before implementation begins.
+Implement approved SPEC-006 — About Me tasks T001–T045 in dependency order until the mandatory PORTFOLIO OWNER VISUAL APPROVAL REQUIRED checkpoint.
 
 ---
 
@@ -48,4 +48,4 @@ Select and approve the next specification before implementation begins.
 
 ## Next Step
 
-Create and approve the next specification before implementation begins; SPEC-006 — About Me is the next planned Phase 1 capability.
+Implement SPEC-006 tasks T001–T045 in dependency order until the mandatory `PORTFOLIO OWNER VISUAL APPROVAL REQUIRED` checkpoint.
