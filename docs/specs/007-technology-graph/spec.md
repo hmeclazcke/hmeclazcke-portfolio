@@ -2,7 +2,7 @@
 
 **ID:** SPEC-007  
 **Phase:** Phase 1 — Static Portfolio  
-**Status:** Approved for planning  
+**Status:** Complete - owner-approved
 **Depends on:** SPEC-003 — Portfolio Data Model; SPEC-004 — Site Shell and Visual Foundation
 
 ## Purpose
@@ -104,3 +104,5 @@ No product decision blocks planning. The approved enrichment phase must still ob
 ## Completion Criteria
 
 SPEC-007 is complete only after owner-approved enrichment, implementation, accessibility/mobile validation, required quality gates, and owner visual review. Planning and task breakdown are separate artifacts.
+
+**Closure:** All completion criteria were implemented, validated, and owner-approved. SPEC-008 remains deferred; SPEC-009 Portfolio Projects is the next planned work.

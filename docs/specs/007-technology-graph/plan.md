@@ -1,7 +1,7 @@
 # Implementation Plan: Technology Graph
 
 **ID:** SPEC-007  
-**Status:** Approved for task breakdown  
+**Status:** Complete - owner-approved
 **Depends on:** Approved SPEC-007 specification
 
 ## Approach
@@ -73,6 +73,6 @@ Validate desktop and mobile rendered behavior, settled motion, labels, focus, to
 ## Risks and Decisions
 
 - D3 force layout is appropriate for the approved interaction reference, but its simulation must be bounded and seeded to prevent chaotic presentation.
-- Dense shared contexts can create a mesh; use the documented scored spanning-forest, edge-budget, and degree-cap projection while preserving complete context evidence in tooltip and semantic output.
+- Dense shared contexts can create a mesh; use the documented context-specific, degree-balanced edge projection with deterministic coverage repair while preserving complete context evidence in tooltip and semantic output.
 - A final D3 dependency decision is an implementation task, not a data-model change; no dependency is installed by this plan.
 - No genuine owner question blocks task creation; per-record enrichment approval remains mandatory before canonical data changes.

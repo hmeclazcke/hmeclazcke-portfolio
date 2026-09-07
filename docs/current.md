@@ -8,11 +8,11 @@ This document provides a concise snapshot of the current development state. Deta
 
 **Name:** hmeclazcke-portfolio
 
-**Current phase:** Phase 1 — Static Portfolio
+**Current phase:** Phase 1 - Static Portfolio
 
-**Active specification:** SPEC-007 — Technology Graph
+**Active specification:** None - SPEC-007 is complete
 
-**Workflow stage:** Owner correction visual checkpoint
+**Workflow stage:** SPEC-009 Portfolio Projects is the next planned work
 
 ## Current Development Environment
 
@@ -24,7 +24,7 @@ This document provides a concise snapshot of the current development state. Deta
 
 ## Current Objective
 
-SPEC-007 — Technology Graph now has approved canonical enrichment, a bounded D3-force graph below Explore My Story with invisible family layout metadata, direct context-derived visible edges, and a semantic mobile/accessibility companion. Owner visual and interaction review is required before further polish. It must preserve the approved SPEC-006 Story interaction as regression-sensitive behavior.
+SPEC-007 - Technology Graph is complete and owner-approved. The next planned work is SPEC-009 - Portfolio Projects. SPEC-008 remains deferred; no specification is active until SPEC-009 is authorized.
 
 ## Completed Foundation
 
@@ -33,7 +33,8 @@ SPEC-007 — Technology Graph now has approved canonical enrichment, a bounded D
 - SPEC-004 is complete: the public static frontend has an approved responsive dark-first semantic shell and visual foundation.
 - SPEC-005 is complete: the public Home introduction is owner-approved.
 - SPEC-006 is complete: owner-approved Explore My Story navigation, responsive chronology, supplied local media, and base-safe favicon wiring are integrated.
+- SPEC-007 is complete: owner-approved canonical technology inventory, context-derived force graph, responsive family explorer, and accessible relationship details are integrated.
 
 ## Next Step
 
-Obtain owner review of the first useful SPEC-007 graph visual and interaction checkpoint.
+Begin SPEC-009 Portfolio Projects planning only when authorized. Keep SPEC-008 deferred.
