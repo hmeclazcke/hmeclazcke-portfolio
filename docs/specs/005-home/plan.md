@@ -3,7 +3,7 @@
 **ID:** SPEC-005  
 **Phase:** Phase 1 — Static Portfolio  
 **Spec:** `docs/specs/005-home/spec.md`  
-**Status:** Approved
+**Status:** Complete
 
 ## Implementation Overview
 

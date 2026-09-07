@@ -9,6 +9,8 @@
 **Spec:** `docs/specs/006-about-me/spec.md`  
 **Status:** Complete
 
+> **Historical-body note:** The final interaction-supersession note above is authoritative wherever the preserved implementation plan below conflicts with it. The earlier wheel-interception and local-state design remains documented only as rejected history.
+
 ## Revision Context
 
 Portfolio-owner review rejected the prior long-document desktop timeline at T045. This revision supersedes the previous CSS-sticky plus `IntersectionObserver` desktop architecture. It does not change approved narrative copy, naming, `#about` anchors, mobile natural scrolling, image restrictions, static deployment, or scope exclusions.

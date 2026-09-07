@@ -4,7 +4,7 @@
 **Phase:** Phase 1 — Static Portfolio  
 **Spec:** `docs/specs/004-site-shell-visual-foundation/spec.md`  
 **Plan:** `docs/specs/004-site-shell-visual-foundation/plan.md`  
-**Status:** Approved
+**Status:** Complete
 
 ## Purpose
 
@@ -182,7 +182,7 @@ Obtain explicit portfolio-owner approval of the actual rendered visual foundatio
 
 ## MANDATORY STOP — PORTFOLIO OWNER VISUAL APPROVAL REQUIRED
 
-After T029, Codex MUST stop and wait for explicit portfolio-owner feedback. SPEC-004 remains `in-progress`.
+At that historical checkpoint, Codex had to stop and wait for explicit portfolio-owner feedback while SPEC-004 remained `in-progress`.
 
 The portfolio owner must review at minimum:
 
@@ -253,7 +253,7 @@ Prove the approved visual foundation is complete, accessible, responsive, visual
 
 - [x] T043 Perform final scope-drift and git-diff review. Explicitly confirm SPEC-004 introduced no final Home content, About Me, personal photo, Technology Graph, graph library, portfolio-data presentation, Projects, GitHub integration, Contact, routing, backend, API, authentication, persistence, light-theme toggle, or SPEC-005+ functionality.
 
-- [x] T044 Confirm all implementation, shell behavior, accessibility test, local-gate, static-build, visual-review, portfolio-owner approval, documentation, requirement, success-criterion, responsive, scope, and diff-review evidence has succeeded. Leave SPEC-004 `in-progress` and report the exact missing evidence if any required task remains incomplete.
+- [x] T044 Confirm all implementation, shell behavior, accessibility test, local-gate, static-build, visual-review, portfolio-owner approval, documentation, requirement, success-criterion, responsive, scope, and diff-review evidence has succeeded. At the historical checkpoint, report the exact missing evidence if any required task remained incomplete.
 
 **Checkpoint:** SPEC-004 may be marked complete only when all required tasks, including explicit portfolio-owner visual approval, have succeeded.
 

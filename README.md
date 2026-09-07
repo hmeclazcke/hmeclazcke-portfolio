@@ -1,6 +1,6 @@
 # hmeclazcke-portfolio
 
-An interactive technical portfolio with a focused public Home experience and owner-approved Explore My Story chronology.
+An interactive technical portfolio with a focused public Home experience, owner-approved Explore My Story chronology, and owner-approved Technology Graph.
 
 ## Live site
 

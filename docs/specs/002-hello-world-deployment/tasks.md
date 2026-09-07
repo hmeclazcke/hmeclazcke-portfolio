@@ -4,7 +4,7 @@
 **Phase:** Phase 1 — Static Portfolio  
 **Spec:** `docs/specs/002-hello-world-deployment/spec.md`  
 **Plan:** `docs/specs/002-hello-world-deployment/plan.md`  
-**Status:** Approved
+**Status:** Complete
 
 ## Purpose
 
@@ -96,7 +96,7 @@ Prove the local implementation and source-controlled workflow are ready for the 
 
 **Mandatory stop.** After T013 through T017 pass, Codex MUST stop. Codex MUST NOT commit or push. Codex must report that the local SPEC-002 implementation is ready for the user to commit and push to `main`.
 
-Tasks T018 through T035 MUST remain unchecked at this checkpoint. SPEC-002 remains `in-progress` until the user has committed and pushed, explicitly asks Codex to continue, and the remote and public validation stages have succeeded.
+At that historical checkpoint, tasks T018 through T035 remained unchecked. SPEC-002 was then `in-progress` until the user had committed and pushed, explicitly asked Codex to continue, and remote and public validation had succeeded.
 
 ---
 
@@ -170,7 +170,7 @@ Prove the implementation satisfies the approved specification without scope drif
 
 - [x] T034 Review the final repository diff for unrelated or accidental changes and report any issue before declaring SPEC-002 complete.
 
-- [x] T035 Confirm all local, remote workflow, and public deployment validation evidence is successful; leave SPEC-002 `in-progress` and report the specific incomplete evidence if any required validation could not be performed.
+- [x] T035 Confirm all local, remote workflow, and public deployment validation evidence is successful; at the historical checkpoint, report any specific incomplete evidence if a required validation could not be performed.
 
 **Checkpoint:** SPEC-002 may be marked complete only after all required local, remote, public, documentation, and scope-validation tasks are complete.
 

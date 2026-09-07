@@ -63,16 +63,9 @@ The graph must run entirely in the browser using project-owned structured data. 
 
 Examples include historical technologies such as BASIC, Visual Basic, C, and C++, as well as professional and current technologies.
 
-Technologies should be connected to the contexts in which they were used.
+Structured portfolio data should connect technologies to the contexts in which they were used.
 
-Examples of context nodes include:
-
-- companies such as Unitech and TeraCode;
-- portfolio projects;
-- personal projects;
-- learning or education contexts.
-
-A technology may therefore connect to multiple contexts.
+Contexts such as companies, portfolio projects, personal projects, and learning activities remain structured evidence rather than visible graph nodes. A technology may therefore have multiple contexts.
 
 For example:
 
@@ -90,8 +83,6 @@ The graph should clearly distinguish different kinds of relationships, such as:
 - currently active.
 
 Selecting a technology should make it possible to discover where that technology appears in Hernán's technical history.
-
-Selecting a company or project should make it possible to discover the technologies associated with it.
 
 The graph should communicate meaningful technical relationships rather than exist only as a visual effect.
 

@@ -10,6 +10,8 @@
 
 ## Revision Status
 
+The unchecked former tasks below are preserved as superseded historical work, not pending work. Completion is evidenced by T045-T055 and the final completion statement.
+
 Portfolio-owner review rejected the implementation presented at the former T045 checkpoint. The revised stationary desktop stage is approved for implementation; the owner subsequently rejected its proposed visible Previous/Next buttons in favor of focused Arrow-key progression. No task below is complete until it is evidenced against this final interaction contract.
 
 The former long-document desktop tasks are superseded: former T018–T021 (sticky-oriented desktop visual baseline), T022–T028 (active milestone selected by `IntersectionObserver`), T029–T031 (sticky desktop scrollytelling and rendered review), T034–T036 (accessibility validation that lacked explicit stage controls), T042–T045 (gates/checkpoint for the rejected model), and their dependent T046–T055 continuation. Former data, exact-copy, anchor, semantic-DOM, mobile, imagery, and scope requirements remain valid but must be revalidated against the revised desktop architecture.

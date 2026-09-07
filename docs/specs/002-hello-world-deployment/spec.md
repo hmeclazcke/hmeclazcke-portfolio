@@ -2,7 +2,7 @@
 
 **ID:** SPEC-002  
 **Phase:** Phase 1 — Static Portfolio  
-**Status:** Approved  
+**Status:** Complete
 **Depends on:** SPEC-001 — Project Foundation
 
 ## Overview

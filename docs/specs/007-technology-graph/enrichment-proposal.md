@@ -1,9 +1,11 @@
 # Canonical Data Enrichment Proposal: Technology Graph
 
 **ID:** SPEC-007  
-**Status:** Owner approved and implemented — visual checkpoint pending
+**Status:** Historical enrichment record - implemented and owner-approved; SPEC-007 is complete
 
 Canonical data now records 54 meaningful technologies, eight contexts, and 64 approved Technology–Context relationships. Maven and Gradle are included; Linux is confirmed at Unitech and TeraCode, and Tomcat at TeraCode. Visible information nodes remain technologies only; family metadata is invisible layout guidance.
+
+> **Authority note:** This file preserves staged owner-enrichment history. Its initial inventory, counts, and deferred lists are not the current canonical inventory. The canonical JSON collections are authoritative for current facts; the later relationship-audit and orphan-correction updates in this file supersede earlier conflicting proposal entries.
 
 ## Current refinement update
 

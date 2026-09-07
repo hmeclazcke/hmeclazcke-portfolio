@@ -2,7 +2,7 @@
 
 **ID:** SPEC-004  
 **Phase:** Phase 1 — Static Portfolio  
-**Status:** Approved  
+**Status:** Complete
 **Depends on:** SPEC-003 — Portfolio Data Model
 
 ## Overview

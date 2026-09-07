@@ -3,7 +3,7 @@
 **ID:** SPEC-004  
 **Phase:** Phase 1 — Static Portfolio  
 **Spec:** `docs/specs/004-site-shell-visual-foundation/spec.md`  
-**Status:** Approved
+**Status:** Complete
 
 ## Summary
 

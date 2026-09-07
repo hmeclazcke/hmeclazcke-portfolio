@@ -2,8 +2,10 @@
 
 **ID:** SPEC-003  
 **Phase:** Phase 1 — Static Portfolio  
-**Status:** Approved  
+**Status:** Complete
 **Depends on:** SPEC-002 — Hello World Deployment
+
+> **Implementation-outcome note:** This completed specification intentionally left storage format and validation tooling to implementation planning. The completed plan selected repository-owned JSON collections, JSON Schema, and deterministic validation; those current technical decisions are documented in the completed plan and architecture document without changing this specification's domain requirements.
 
 ## Overview
 
@@ -233,7 +235,7 @@ No current-or-historical relevance state is asserted here for C, Oracle, or Smal
 - The Phase 1 portfolio must remain useful without a project backend.
 - The portfolio owner will progressively add verified technical-history facts over time.
 - LinkedIn remains the destination for detailed professional experience.
-- Later specifications will decide how the canonical data is stored, validated, consumed, and presented.
+- At the original specification scope, later planning was to decide how canonical data would be stored, validated, consumed, and presented.
 
 ## Future Compatibility
 

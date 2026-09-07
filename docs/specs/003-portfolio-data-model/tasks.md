@@ -4,7 +4,7 @@
 **Phase:** Phase 1 — Static Portfolio  
 **Spec:** `docs/specs/003-portfolio-data-model/spec.md`  
 **Plan:** `docs/specs/003-portfolio-data-model/plan.md`  
-**Status:** Approved
+**Status:** Complete
 
 ## Purpose
 

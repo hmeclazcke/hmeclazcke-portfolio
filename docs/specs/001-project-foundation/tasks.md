@@ -4,7 +4,7 @@
 **Phase:** Phase 1 — Static Portfolio  
 **Spec:** `docs/specs/001-project-foundation/spec.md`  
 **Plan:** `docs/specs/001-project-foundation/plan.md`  
-**Status:** Approved
+**Status:** Complete
 
 ## Purpose
 

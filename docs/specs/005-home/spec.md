@@ -2,7 +2,7 @@
 
 **ID:** SPEC-005  
 **Phase:** Phase 1 — Static Portfolio  
-**Status:** Approved  
+**Status:** Complete
 **Depends on:** SPEC-004 — Site Shell and Visual Foundation
 
 ## Overview

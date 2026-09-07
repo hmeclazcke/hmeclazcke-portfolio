@@ -7,6 +7,8 @@
 **Status:** Complete
 **Depends on:** SPEC-004 — Site Shell and Visual Foundation
 
+> **Historical-body note:** The final interaction-supersession note above is authoritative wherever the preserved original requirements below describe wheel interception, cooldowns, eligibility thresholds, or local active-milestone state. Those passages remain for traceability and are not open work.
+
 ## Overview
 
 The internal project artifact **SPEC-006 — About Me** defines the public-facing interactive experience **Explore My Story**, which answers one focused question: **How did computers and programming become part of Hernán Meclazcke's life?**

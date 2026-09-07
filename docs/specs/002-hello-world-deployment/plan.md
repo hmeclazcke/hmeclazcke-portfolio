@@ -3,7 +3,7 @@
 **ID:** SPEC-002  
 **Phase:** Phase 1 — Static Portfolio  
 **Spec:** `docs/specs/002-hello-world-deployment/spec.md`  
-**Status:** Approved
+**Status:** Complete
 
 ## Summary
 

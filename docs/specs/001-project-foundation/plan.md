@@ -3,7 +3,7 @@
 **ID:** SPEC-001  
 **Phase:** Phase 1 — Static Portfolio  
 **Spec:** `docs/specs/001-project-foundation/spec.md`  
-**Status:** Approved  
+**Status:** Complete
 **Created:** 2026-09-02
 
 ## Summary

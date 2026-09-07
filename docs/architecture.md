@@ -204,18 +204,11 @@ The graph should be generated from structured portfolio data rather than hard-co
 
 The graph must be able to run entirely in the browser using project-owned structured data. It must not require backend capabilities to display or navigate the portfolio's technical history.
 
-Graph nodes may represent concepts such as:
-
-- technologies;
-- companies or professional contexts;
-- portfolio projects;
-- learning contexts.
-
-Edges represent meaningful relationships between those concepts.
+Visible graph nodes represent technologies only. Contexts remain structured evidence: the graph derives technology-to-technology edges from shared eligible contexts, and interaction explains the relevant shared context without presenting it as a graph node or technical dependency.
 
 The visualization layer must remain separate from the underlying relationship data so that changing the graph library does not require redesigning the portfolio data model.
 
-The specific graph visualization library is not yet selected.
+The graph's current implementation uses a feature-local browser force-layout dependency. Its detailed interaction, projection, and presentation rules remain authoritative in completed SPEC-007 rather than in this architecture document.
 
 ---
 
@@ -395,7 +388,7 @@ The following decisions are currently established:
 - GitHub is treated as an external public data source.
 - LinkedIn remains the destination for detailed professional experience.
 - A backend will only be introduced when justified by product requirements.
-- A backend will be introduced in Phase 2 for justified dynamic and server-side capabilities, while remaining optional for the operation of the Phase 1 static portfolio.
+- A backend may be introduced by a future Phase 2 specification only for justified dynamic or server-side capabilities, while remaining optional for operation of the Phase 1 static portfolio.
 - OpenAPI will only be introduced when an application-owned API boundary exists.
 - MCP will only be introduced for a genuine agent/tool integration use case.
 - Infrastructure must not be introduced solely to showcase a technology.
@@ -406,8 +399,6 @@ The following decisions are currently established:
 
 The following decisions intentionally remain unresolved:
 
-- Graph visualization library.
-- Exact portfolio data schema and file format.
 - GitHub integration strategy and caching requirements.
 - Exact backend capabilities and scope.
 - Backend language, framework, and module structure.

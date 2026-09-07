@@ -3,7 +3,7 @@
 **ID:** SPEC-003  
 **Phase:** Phase 1 — Static Portfolio  
 **Spec:** `docs/specs/003-portfolio-data-model/spec.md`  
-**Status:** Approved
+**Status:** Complete
 
 ## Summary
 

@@ -4,7 +4,7 @@
 **Phase:** Phase 1 — Static Portfolio  
 **Spec:** `docs/specs/005-home/spec.md`  
 **Plan:** `docs/specs/005-home/plan.md`  
-**Status:** Approved
+**Status:** Complete
 
 ## Task Summary
 
