@@ -9,7 +9,8 @@
     "properties": {
       "id": { "type": "string", "minLength": 1 },
       "name": { "type": "string", "minLength": 1 },
-      "type": { "enum": ["professional", "portfolio", "personal-project", "learning"] }
+      "type": { "enum": ["professional", "portfolio", "personal-project", "learning"] },
+      "graphEdgeEligible": { "type": "boolean" }
     }
   }
 }

@@ -23,6 +23,7 @@
 }
 
 html {
+  --site-header-height: 0px;
   background: var(--color-bg-canvas);
   color-scheme: dark;
   font-family: var(--font-sans);

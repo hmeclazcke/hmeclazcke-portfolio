@@ -8,7 +8,7 @@
 
 Implement the base graph as a React-owned SVG visualization using `d3-force` for layout simulation. This is the smallest focused candidate for the approved force-directed-with-tooltip model: D3 supplies force layout while React retains markup, styling, tooltip semantics, and the structured accessibility companion. It avoids adopting a larger diagram/workflow framework or a complete network-visualization library for the base experience.
 
-The D3 simulation settles after initial layout and after desktop node dragging. Technologies receive weak, invisible family target forces plus label-aware collision and context-derived link forces; family hubs and membership edges are never rendered. Under reduced motion, the same settled layout is shown without non-essential transitions. The focused D3 force dependency is installed for this implementation.
+The D3 simulation settles after initial layout and after desktop node dragging. Technologies receive clear, invisible family centroid target forces plus label-aware collision, bounds, and context-derived link forces; family hubs and membership edges are never rendered. Dragging reheats the complete simulation while preserving the stationary graph background. Under reduced motion, the same settled layout is shown without non-essential transitions. The focused D3 force dependency is installed for this implementation.
 
 ## Canonical Projection
 
@@ -17,11 +17,15 @@ Create one feature-local projection from the existing static `technologies`, `co
 1. Retain canonical Technology records as candidate visible nodes.
 2. Group each Technology's valid canonical relationships by context and relationship meaning for tooltip and semantic output.
 3. For each context, form only technology pairs within that context; accumulate shared context IDs as edge evidence.
-4. Coalesce each unordered technology pair and score it by shared-context count, then context specificity (fewer participating technologies), with stable technology IDs as a tie-breaker. Do not infer dependency, sequence, or direct integration.
-5. Build a deterministic maximum spanning forest from scored candidate edges before applying the visual edge budget, then add edges in the same order only until fixed, tested visual edge-budget and per-node degree limits are met. This preserves a visible spanning structure for every candidate component: a technology with candidate degree greater than zero must retain visible degree of at least one.
+4. Coalesce each unordered technology pair and score it by inverse context size: focused shared contexts carry more pair-specific evidence than broad contexts, and multiple shared contexts accumulate. Do not infer dependency, sequence, or direct integration.
+5. Select visual edges deterministically with degree balancing: favor strong evidence and initially uncovered endpoints, then penalize endpoints already carrying visible degree. Apply a restrained edge budget and degree cap, while retaining at least one edge for each technology with candidates. Pair-level stable hashing resolves semantic ties without alphabetical/index hubs.
 6. Semantic output and tooltip content always preserve every canonical Technology–Context relationship, including evidence not represented by a visual edge.
 
-Contexts are projection evidence and tooltip/semantic content only; they are never visible node records. Presentation-only family hubs and their family-membership edges organize the force layout, while shared-context technology edges remain the historical relationship evidence.
+Contexts are projection evidence and tooltip/semantic content only; they are never visible node records. Invisible family centroid targets organize the force layout, while shared-context technology edges remain the historical relationship evidence.
+
+An optional canonical context `graphEdgeEligible` policy separates broad historical umbrellas from concrete relationship evidence. Omitted or `true` contexts generate normal candidate pairs; `false` contexts remain complete technology history but contribute no candidates, score, edge label, or edge tooltip context. `Personal Projects` uses this policy. When a technology is persistently selected, each of its direct visible edges receives a compact midpoint context-name label; edge hover retains the full context name and type.
+
+After the bounded degree-balanced selection pass, a deterministic coverage repair selects the strongest remaining truthful candidate for any candidate-connected technology with visible degree zero. It favors evidence score and lower existing endpoint degree, uses the same stable pair tie-breaker, and never manufactures an edge or consults family metadata.
 
 ## Enrichment Prerequisite
 
@@ -40,6 +44,8 @@ Use one local focused technology ID shared by hover, keyboard focus, and optiona
 
 Tooltip content derives from canonical relationships, remains available on focus/selection, and does not rely on pointer hover.
 
+Visible desktop edge hover is a supplementary explanation: each edge retains its derived shared-context records and presents `Shared context` or `Shared contexts` with the canonical context name and type. Edge hover does not alter persistent node selection; technology nodes remain the primary keyboard interaction.
+
 ## Visual and Layout Plan
 
 Render an SVG graph inside the established dark technical visual language. Technology labels are part of the node treatment. Use category/relevance as restrained visual metadata, not a rainbow taxonomy. Use node geometry, edge weight/style, labels, and focus treatment in addition to color.
@@ -48,12 +54,9 @@ Constrain simulation bounds, collision spacing, link distance, and initial seed.
 
 ## Responsive and Mobile Plan
 
-Desktop receives the primary force layout with readable labels and concise tooltip. Mobile will be decided after an enriched-data prototype:
+Desktop receives the primary force layout with readable labels and concise tooltip. At the established narrow breakpoint, the desktop graph is replaced by a compact family-based explorer derived from the same canonical technology and family metadata. Its inline technology detail groups canonical context evidence by `Used at`, `Learned at`, or `Learned & used at`, deduplicating a context that carries both meanings.
 
-- retain a touch-usable bounded graph only if labels and tap focus remain readable; and
-- always render the same structured technology/context relationship representation in ordinary document flow.
-
-No page-level horizontal overflow, touch interception, or requirement to scale desktop labels down to unreadability. The structured representation is the functional mobile fallback when the visual graph cannot be made usefully compact.
+No page-level horizontal overflow, touch interception, or requirement to scale desktop labels down to unreadability. The complete structured technology/context companion remains available to assistive technology without becoming the visible mobile product UI.
 
 ## Accessibility Plan
 

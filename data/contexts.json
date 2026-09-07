@@ -14,13 +14,19 @@
     "type": "portfolio"
   },
   {
+    "id": "job-search-platform",
+    "name": "job-search-platform",
+    "type": "portfolio"
+  },
+  {
     "id": "personal-projects",
     "name": "Personal Projects",
-    "type": "personal-project"
+    "type": "personal-project",
+    "graphEdgeEligible": false
   },
   {
     "id": "technical-secondary-school",
-    "name": "Technical Secondary School",
+    "name": "Technical High School",
     "type": "learning"
   }
 ]

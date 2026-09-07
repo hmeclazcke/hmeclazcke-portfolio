@@ -9,6 +9,7 @@ type ContextRecord = {
   id: string;
   name: string;
   type: string;
+  graphEdgeEligible?: boolean;
 };
 
 type RelationshipRecord = {
@@ -26,6 +27,26 @@ export type TechnologyGraphEdge = {
   sourceId: string;
   targetId: string;
   contextIds: readonly string[];
+  sharedContexts: readonly SharedGraphContext[];
+  evidenceScore: number;
+};
+
+export type SharedGraphContext = {
+  id: string;
+  name: string;
+  type: string;
+};
+
+export const sharedContextHeading = (
+  contexts: readonly SharedGraphContext[],
+) => (contexts.length === 1 ? "Shared context" : "Shared contexts");
+
+export const compactSharedContextLabel = (
+  contexts: readonly SharedGraphContext[],
+) => {
+  const names = contexts.slice(0, 2).map(({ name }) => name);
+  const remainder = contexts.length - names.length;
+  return `${names.join(" \u00b7 ")}${remainder > 0 ? ` +${remainder}` : ""}`;
 };
 
 type ContextDetails = {
@@ -41,9 +62,9 @@ export type TechnologyGraphProjection = {
 };
 
 export const MAX_VISUAL_EDGE_COUNT = 96;
-const MAX_VISUAL_NODE_DEGREE = 6;
+const MAX_VISUAL_NODE_DEGREE = 4;
 
-const contextTypeLabel = (type: string) =>
+export const contextTypeLabel = (type: string) =>
   ({
     learning: "Learning",
     professional: "Professional",
@@ -51,42 +72,21 @@ const contextTypeLabel = (type: string) =>
     "personal-project": "Personal project",
   })[type] ?? type;
 
+export const contextLabel = (
+  context: Pick<SharedGraphContext, "name" | "type">,
+) => `${context.name} \u2014 ${contextTypeLabel(context.type)}`;
+
 const edgeKey = (firstId: string, secondId: string) =>
   [firstId, secondId].toSorted().join("\u0000");
 
-class DisjointSet {
-  private readonly parents = new Map<string, string>();
-
-  constructor(ids: readonly string[]) {
-    for (const id of ids) {
-      this.parents.set(id, id);
-    }
+const stablePairTieBreaker = (value: string) => {
+  let hash = 2166136261;
+  for (const character of value) {
+    hash ^= character.charCodeAt(0);
+    hash = Math.imul(hash, 16777619);
   }
-
-  find(id: string): string {
-    const parent = this.parents.get(id) ?? id;
-
-    if (parent === id) {
-      return id;
-    }
-
-    const root = this.find(parent);
-    this.parents.set(id, root);
-    return root;
-  }
-
-  union(firstId: string, secondId: string) {
-    const firstRoot = this.find(firstId);
-    const secondRoot = this.find(secondId);
-
-    if (firstRoot === secondRoot) {
-      return false;
-    }
-
-    this.parents.set(secondRoot, firstRoot);
-    return true;
-  }
-}
+  return hash >>> 0;
+};
 
 export const projectTechnologyGraph = ({
   technologies,
@@ -113,7 +113,7 @@ export const projectTechnologyGraph = ({
       continue;
     }
 
-    const label = context.name + " — " + contextTypeLabel(context.type);
+    const label = contextLabel(context);
 
     if (relationship.meanings.includes("used")) {
       details.usedAt = [...details.usedAt, label].toSorted();
@@ -122,9 +122,12 @@ export const projectTechnologyGraph = ({
       details.learnedAt = [...details.learnedAt, label].toSorted();
     }
 
-    const inContext = relationshipsByContext.get(relationship.contextId) ?? [];
-    inContext.push(relationship);
-    relationshipsByContext.set(relationship.contextId, inContext);
+    if (context.graphEdgeEligible !== false) {
+      const inContext =
+        relationshipsByContext.get(relationship.contextId) ?? [];
+      inContext.push(relationship);
+      relationshipsByContext.set(relationship.contextId, inContext);
+    }
   }
 
   const candidateContextIdsByEdge = new Map<string, Set<string>>();
@@ -155,10 +158,14 @@ export const projectTechnologyGraph = ({
     ([key, contextIdSet]) => {
       const [sourceId, targetId] = key.split("\u0000") as [string, string];
       const contextIds = [...contextIdSet].toSorted();
-      const specificity = Math.min(
-        ...contextIds.map(
-          (contextId) => contextSizes.get(contextId) ?? Infinity,
-        ),
+      const sharedContexts = contextIds.map((contextId) => {
+        const context = contextById.get(contextId)!;
+        return { id: context.id, name: context.name, type: context.type };
+      });
+      const evidenceScore = contextIds.reduce(
+        (score, contextId) =>
+          score + 1 / Math.max(1, (contextSizes.get(contextId) ?? 1) - 1),
+        0,
       );
 
       return {
@@ -166,25 +173,27 @@ export const projectTechnologyGraph = ({
         sourceId,
         targetId,
         contextIds,
-        specificity,
+        sharedContexts,
+        evidenceScore,
+        tieBreaker: stablePairTieBreaker(key),
       };
     },
   );
 
   candidates.sort(
     (first, second) =>
-      second.contextIds.length - first.contextIds.length ||
-      first.specificity - second.specificity ||
-      first.id.localeCompare(second.id),
+      second.evidenceScore - first.evidenceScore ||
+      first.tieBreaker - second.tieBreaker,
   );
   const candidateEdges: TechnologyGraphEdge[] = candidates.map((candidate) => ({
     id: candidate.id,
     sourceId: candidate.sourceId,
     targetId: candidate.targetId,
     contextIds: candidate.contextIds,
+    sharedContexts: candidate.sharedContexts,
+    evidenceScore: candidate.evidenceScore,
   }));
 
-  const forest = new DisjointSet(technologies.map(({ id }) => id));
   const selected: TechnologyGraphEdge[] = [];
   const selectedIds = new Set<string>();
   const degrees = new Map<string, number>();
@@ -194,32 +203,67 @@ export const projectTechnologyGraph = ({
       sourceId: candidate.sourceId,
       targetId: candidate.targetId,
       contextIds: candidate.contextIds,
+      sharedContexts: candidate.sharedContexts,
+      evidenceScore: candidate.evidenceScore,
     });
     selectedIds.add(candidate.id);
     degrees.set(candidate.sourceId, (degrees.get(candidate.sourceId) ?? 0) + 1);
     degrees.set(candidate.targetId, (degrees.get(candidate.targetId) ?? 0) + 1);
   };
 
-  for (const candidate of candidates) {
-    if (forest.union(candidate.sourceId, candidate.targetId)) {
-      addEdge(candidate);
-    }
+  while (selected.length < MAX_VISUAL_EDGE_COUNT) {
+    const available = candidates.filter(
+      (candidate) =>
+        !selectedIds.has(candidate.id) &&
+        (degrees.get(candidate.sourceId) ?? 0) < MAX_VISUAL_NODE_DEGREE &&
+        (degrees.get(candidate.targetId) ?? 0) < MAX_VISUAL_NODE_DEGREE,
+    );
+    if (!available.length) break;
+
+    const next = available.toSorted((first, second) => {
+      const priority = (candidate: (typeof candidates)[number]) => {
+        const sourceDegree = degrees.get(candidate.sourceId) ?? 0;
+        const targetDegree = degrees.get(candidate.targetId) ?? 0;
+        const uncoveredCount =
+          Number(sourceDegree === 0) + Number(targetDegree === 0);
+        const coverageWeight =
+          uncoveredCount === 2 ? 2.5 : uncoveredCount ? 1.5 : 1;
+        return (
+          (candidate.evidenceScore * coverageWeight) /
+          Math.pow((1 + sourceDegree) * (1 + targetDegree), 1.15)
+        );
+      };
+
+      return (
+        priority(second) - priority(first) ||
+        second.evidenceScore - first.evidenceScore ||
+        first.tieBreaker - second.tieBreaker
+      );
+    })[0]!;
+    addEdge(next);
   }
 
-  for (const candidate of candidates) {
-    if (
-      selected.length >= MAX_VISUAL_EDGE_COUNT ||
-      selectedIds.has(candidate.id)
-    ) {
-      continue;
-    }
-    if (
-      (degrees.get(candidate.sourceId) ?? 0) >= MAX_VISUAL_NODE_DEGREE ||
-      (degrees.get(candidate.targetId) ?? 0) >= MAX_VISUAL_NODE_DEGREE
-    ) {
-      continue;
-    }
-    addEdge(candidate);
+  while (true) {
+    const coverageCandidates = candidates.filter(
+      (candidate) =>
+        !selectedIds.has(candidate.id) &&
+        ((degrees.get(candidate.sourceId) ?? 0) === 0 ||
+          (degrees.get(candidate.targetId) ?? 0) === 0),
+    );
+    if (!coverageCandidates.length) break;
+
+    const next = coverageCandidates.toSorted((first, second) => {
+      const degreeTotal = (candidate: (typeof candidates)[number]) =>
+        (degrees.get(candidate.sourceId) ?? 0) +
+        (degrees.get(candidate.targetId) ?? 0);
+
+      return (
+        second.evidenceScore - first.evidenceScore ||
+        degreeTotal(first) - degreeTotal(second) ||
+        first.tieBreaker - second.tieBreaker
+      );
+    })[0]!;
+    addEdge(next);
   }
 
   const nodes = technologies.map((technology) => ({

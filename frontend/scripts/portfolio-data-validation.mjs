@@ -44,8 +44,21 @@ const assertUniqueIds = (records, entityName) => {
   }
 };
 
+const assertUniqueTechnologyNames = (technologies) => {
+  const normalizedNames = new Set();
+
+  for (const { name } of technologies) {
+    const normalizedName = name.trim().toLocaleLowerCase();
+    if (normalizedNames.has(normalizedName)) {
+      throw new Error(`Duplicate Technology name: ${name}`);
+    }
+    normalizedNames.add(normalizedName);
+  }
+};
+
 const assertSemanticIntegrity = ({ technologies, contexts, relationships }) => {
   assertUniqueIds(technologies, "Technology");
+  assertUniqueTechnologyNames(technologies);
   assertUniqueIds(contexts, "Context");
   assertUniqueIds(relationships, "Relationship");
 

@@ -1,6 +1,8 @@
 .section {
-  margin-top: clamp(4rem, 12vh, 8rem);
-  scroll-margin-top: 5.5rem;
+  position: relative;
+  z-index: 1;
+  margin-top: clamp(1.5rem, 4vh, 2.5rem);
+  scroll-margin-top: var(--site-header-height);
 }
 
 .intro {
@@ -19,24 +21,24 @@
 }
 
 .section h2 {
-  margin: var(--space-2) 0 0;
+  margin: var(--space-1) 0 0;
   color: var(--color-text-primary);
-  font-size: var(--font-size-heading-1);
+  font-size: clamp(2rem, 3vw, 2.75rem);
   font-weight: 500;
   letter-spacing: -0.04em;
-  line-height: 1.05;
+  line-height: 1;
 }
 
 .intro > p:last-child {
   max-width: 42rem;
-  margin: var(--space-5) 0 0;
+  margin: var(--space-2) 0 0;
   color: var(--color-text-muted);
 }
 
 .graphSurface {
   position: relative;
-  height: clamp(22rem, calc(100svh - 15rem), 33rem);
-  margin-top: var(--space-4);
+  height: clamp(17rem, calc(100svh - 12.5rem), 40rem);
+  margin-top: var(--space-3);
   overflow: hidden;
   border: 1px solid var(--color-border-strong);
   border-radius: var(--radius-lg);
@@ -62,6 +64,10 @@
     2rem 2rem,
     auto;
   box-shadow: var(--shadow-surface);
+}
+
+.mobileExplorer {
+  display: none;
 }
 
 .visualGraph {
@@ -91,6 +97,33 @@
 
 .edge[data-active="false"] {
   opacity: 0.14;
+}
+
+.edgeHitArea {
+  stroke: transparent;
+  stroke-width: 14;
+  pointer-events: stroke;
+}
+
+.edgeContextLabel {
+  fill: var(--color-text-primary);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 600;
+  paint-order: stroke;
+  pointer-events: none;
+  stroke: var(--color-bg-canvas);
+  stroke-linejoin: round;
+  stroke-width: 4px;
+}
+
+.edgeTooltip {
+  width: min(17rem, calc(100% - 2rem));
+  padding: var(--space-3);
+}
+
+.edgeTooltip .contextList {
+  margin-top: var(--space-2);
 }
 
 .node {
@@ -203,44 +236,145 @@
     display: none;
   }
 
-  .semanticCompanion {
-    position: static;
-    width: auto;
-    height: auto;
-    margin-top: var(--space-5);
-    overflow: visible;
-    clip: auto;
-    clip-path: none;
+  .mobileExplorer {
+    display: grid;
+    gap: var(--space-3);
+    margin-top: var(--space-4);
+  }
+
+  .mobileFamily {
     padding: var(--space-4);
     border: 1px solid var(--color-border-strong);
     border-radius: var(--radius-md);
-    background: var(--color-bg-surface);
-    white-space: normal;
+    background:
+      linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--color-bg-surface-elevated) 72%, transparent),
+        transparent 70%
+      ),
+      var(--color-bg-surface);
   }
 
-  .semanticCompanion h3 {
+  .mobileFamily h3 {
     margin: 0;
-    color: var(--color-text-primary);
-    font-size: 1rem;
+    color: var(--color-accent-secondary);
+    font-family: var(--font-mono);
+    font-size: var(--font-size-meta);
+    letter-spacing: 0.08em;
+    line-height: 1.35;
   }
 
-  .semanticCompanion ul {
-    display: grid;
+  .mobileTechnologyList {
+    display: flex;
+    flex-wrap: wrap;
     gap: var(--space-2);
     margin: var(--space-3) 0 0;
-    padding-left: var(--space-4);
+  }
+
+  .mobileTechnology {
+    display: inline-flex;
+    gap: 0.35rem;
+    align-items: baseline;
+    min-height: 2.25rem;
+    padding: 0.45rem 0.6rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+    background: color-mix(in srgb, var(--color-bg-canvas) 64%, transparent);
+    color: var(--color-text-primary);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    line-height: 1.2;
+    text-align: left;
+  }
+
+  .mobileTechnology[data-current="true"] {
+    border-color: color-mix(
+      in srgb,
+      var(--color-accent-primary) 72%,
+      transparent
+    );
+  }
+
+  .mobileTechnology[data-historical="true"] {
+    border-style: dashed;
     color: var(--color-text-muted);
-    font-size: 0.8rem;
+  }
+
+  .mobileTechnology[data-selected="true"] {
+    border-color: var(--color-accent-secondary);
+    background: color-mix(
+      in srgb,
+      var(--color-accent-secondary) 12%,
+      var(--color-bg-surface)
+    );
+    color: var(--color-text-primary);
+  }
+
+  .mobileTechnology:focus-visible {
+    border-color: var(--color-focus);
+  }
+
+  .mobileRelevance,
+  .mobileDetailStatus,
+  .mobileContextGroup > p {
+    margin: 0;
+    color: var(--color-accent-primary);
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+
+  .mobileDetail {
+    margin-top: var(--space-4);
+    padding: var(--space-3);
+    border-top: 1px solid var(--color-border-strong);
+    background: color-mix(in srgb, var(--color-bg-canvas) 52%, transparent);
+  }
+
+  .mobileDetail h4 {
+    margin: 0;
+    color: var(--color-text-primary);
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+  }
+
+  .mobileDetailStatus {
+    margin-top: var(--space-2);
+  }
+
+  .mobileContextGroup {
+    margin-top: var(--space-3);
+  }
+
+  .mobileContextGroup ul {
+    display: grid;
+    gap: 0.15rem;
+    margin: var(--space-1) 0 0;
+    padding-left: 1rem;
+    color: var(--color-text-muted);
+    font-size: 0.78rem;
   }
 }
 
 @media (min-width: 48rem) {
   .section {
-    margin-top: 2rem;
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr);
+    gap: var(--space-3);
+    min-block-size: 0;
+    block-size: calc(100dvh - var(--site-header-height));
+    margin-top: 1.5rem;
   }
 
   .intro > p:last-child {
-    margin-top: var(--space-3);
+    margin-top: var(--space-2);
+  }
+
+  .graphSurface {
+    min-block-size: 0;
+    block-size: auto;
+    margin-top: 0;
   }
 }
 

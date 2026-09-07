@@ -12,8 +12,10 @@ export type StoryMilestone = Readonly<{
   visualKind: StoryVisualKind;
   media: readonly StoryMedia[];
 }>;
+
 const storyAsset = (filename: string) =>
   `${import.meta.env.BASE_URL}story/${filename}`;
+
 const milestone = (
   id: string,
   period: string,
@@ -29,6 +31,7 @@ const milestone = (
     media: Object.freeze([...media]),
     visualKind: "abstract",
   });
+
 export const storyMilestones: readonly StoryMilestone[] = Object.freeze([
   milestone(
     "logo",
@@ -94,15 +97,27 @@ export const storyMilestones: readonly StoryMilestone[] = Object.freeze([
       },
     ],
   ),
-  milestone("learning", "1998–2000", "LEARNING EVERYTHING I COULD", [
-    "PC repair, Microsoft Office and basically every computer course I could convince my parents to pay for.",
-  ]),
+  milestone(
+    "learning",
+    "1998–2000",
+    "LEARNING EVERYTHING I COULD",
+    [
+      "PC repair, Microsoft Office and basically every computer course I could convince my parents to pay for.",
+    ],
+    [
+      {
+        src: storyAsset("pcrepair.webp"),
+        alt: "PC repair workbench.",
+        fit: "cover",
+      },
+    ],
+  ),
   milestone(
     "slackware",
     "1999",
     "SLACKWARE LINUX",
     [
-      "In high school, a teacher told us Slackware was one of the hardest Linux distributions to install at the time. Naturally, I chose that one.",
+      "A teacher told us Slackware was one of the hardest Linux distributions to install at the time. Naturally, I chose that one.",
       "I installed it on a Celeron 300, fought with the sound configuration, and eventually got Sid Meier's Alpha Centauri running on it.",
       "With sound.",
     ],
@@ -132,10 +147,32 @@ export const storyMilestones: readonly StoryMilestone[] = Object.freeze([
       },
     ],
   ),
-  milestone("technical-school", "2001", "TECHNICAL SECONDARY SCHOOL", [
-    "Técnico en Informática Personal y Profesional",
-  ]),
-  milestone("unicen", "2002", "UNICEN", ["I started studying at UNICEN."]),
+  milestone(
+    "technical-school",
+    "2001",
+    "TECHNICAL HIGH SCHOOL",
+    ["Técnico en Informática Personal y Profesional"],
+    [
+      {
+        src: storyAsset("enet2.webp"),
+        alt: "Technical high school learning environment.",
+        fit: "cover",
+      },
+    ],
+  ),
+  milestone(
+    "unicen",
+    "2002",
+    "UNICEN",
+    ["I started studying at UNICEN."],
+    [
+      {
+        src: storyAsset("Unicen.jpg"),
+        alt: "UNICEN campus.",
+        fit: "cover",
+      },
+    ],
+  ),
   milestone(
     "c",
     "2004",
@@ -148,7 +185,18 @@ export const storyMilestones: readonly StoryMilestone[] = Object.freeze([
       },
     ],
   ),
-  milestone("cpp", "2005", "C++", []),
+  milestone(
+    "cpp",
+    "2005",
+    "C++",
+    [],
+    [
+      {
+        src: storyAsset("c++.png"),
+        alt: "C++ programming language reference.",
+      },
+    ],
+  ),
   milestone(
     "java",
     "2006",

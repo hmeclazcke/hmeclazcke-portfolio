@@ -12,23 +12,69 @@ import {
   relationships,
   technologies,
 } from "../../data/portfolio-data";
-import { projectTechnologyGraph } from "./graphProjection";
+import {
+  projectTechnologyGraph,
+  sharedContextHeading,
+} from "./graphProjection";
+import { mobileTechnologyFamilies } from "./mobileTechnologyExplorer";
 import TechnologyGraph from "./TechnologyGraph";
+import { constrainGraphPoint } from "./graphBounds";
 import styles from "./TechnologyGraph.module.css";
 
 afterEach(cleanup);
+
+test("derives each mobile explorer family from canonical graph metadata", () => {
+  const graph = projectTechnologyGraph({
+    technologies,
+    contexts,
+    relationships,
+  });
+  const families = mobileTechnologyFamilies({
+    nodes: graph.nodes,
+    contexts,
+    relationships,
+  });
+  const visibleTechnologyIds = families.flatMap((family) =>
+    family.technologies.map(({ id }) => id),
+  );
+
+  expect(visibleTechnologyIds).toHaveLength(graph.nodes.length);
+  expect(new Set(visibleTechnologyIds)).toHaveLength(graph.nodes.length);
+  expect(families.find(({ id }) => id === "languages")?.technologies).toEqual(
+    expect.arrayContaining([expect.objectContaining({ id: "java" })]),
+  );
+
+  const java = families
+    .flatMap((family) => family.technologies)
+    .find(({ id }) => id === "java");
+  expect(java?.contextGroups).toEqual(
+    expect.arrayContaining([
+      expect.objectContaining({
+        heading: "Learned & used at",
+        contexts: expect.arrayContaining([expect.stringContaining("UNICEN")]),
+      }),
+    ]),
+  );
+});
 
 test("renders technology-only graph details and canonical focus information", () => {
   render(<TechnologyGraph />);
 
   const section = screen.getByRole("region", { name: "Technology Graph" });
   expect(within(section).getByText("Technology Graph")).toBeInTheDocument();
-  expect(within(section).getAllByText("Node.js")).toHaveLength(1);
+  expect(
+    within(section).getByText(
+      "Connections reflect technologies I've used together across work, studies, and projects. They show shared context, not technical dependency.",
+    ),
+  ).toBeInTheDocument();
+  expect(
+    within(section).getAllByText("Node.js", { selector: "text" }),
+  ).toHaveLength(1);
   expect(
     within(section).queryByText("Unitech", { selector: "circle" }),
   ).not.toBeInTheDocument();
   expect(
-    within(section).queryByText("PROGRAMMING LANGUAGES"),
+    within(section).queryByText("PROGRAMMING LANGUAGES", { selector: "text" }),
   ).not.toBeInTheDocument();
   expect(section.querySelectorAll("[data-family-hub]")).toHaveLength(0);
   expect(section.querySelectorAll("[data-family-edge]")).toHaveLength(0);
@@ -146,6 +192,17 @@ test("drags a technology node without a graph camera transform", async () => {
   ).not.toHaveAttribute("transform");
 });
 
+test("keeps dragged nodes and right-hand labels within label-aware graph bounds", () => {
+  const constrained = constrainGraphPoint(
+    { x: 1099, y: 559 },
+    "Spring WebFlux / Project Reactor",
+    { width: 1100, height: 560 },
+  );
+
+  expect(constrained.x).toBeLessThan(900);
+  expect(constrained.y).toBeLessThan(550);
+});
+
 test("keeps the structured context companion offscreen rather than visibly rendered", () => {
   render(<TechnologyGraph />);
 
@@ -155,4 +212,123 @@ test("keeps the structured context companion offscreen rather than visibly rende
   expect(
     screen.getByRole("heading", { name: "Technology context details" }),
   ).toBeInTheDocument();
+});
+
+test("provides a family-based mobile explorer with deduplicated context detail", () => {
+  render(<TechnologyGraph />);
+
+  const explorer = screen.getByTestId("mobile-technology-explorer");
+  expect(
+    within(explorer).getByText("PROGRAMMING LANGUAGES"),
+  ).toBeInTheDocument();
+  expect(within(explorer).getByText("DATABASES / DATA")).toBeInTheDocument();
+  expect(
+    within(explorer).queryByRole("heading", {
+      name: "Technology context details",
+    }),
+  ).not.toBeInTheDocument();
+
+  fireEvent.click(
+    within(explorer).getByRole("button", { name: /Java.*Current/i }),
+  );
+  expect(within(explorer).getByText("Learned & used at")).toBeInTheDocument();
+  expect(within(explorer).getAllByText("UNICEN \u2014 Learning")).toHaveLength(
+    1,
+  );
+
+  fireEvent.click(within(explorer).getByRole("button", { name: "C++" }));
+  expect(
+    within(explorer).getByRole("heading", { name: "C++", level: 4 }),
+  ).toBeInTheDocument();
+  expect(
+    within(explorer).queryByText("Java", { selector: "h4" }),
+  ).not.toBeInTheDocument();
+});
+
+test("propagates concrete project context corrections into the mobile explorer", () => {
+  render(<TechnologyGraph />);
+
+  const explorer = screen.getByTestId("mobile-technology-explorer");
+  fireEvent.click(
+    within(explorer).getByRole("button", { name: "Docker Compose" }),
+  );
+
+  expect(
+    within(explorer).getByText("job-search-platform \u2014 Portfolio"),
+  ).toBeInTheDocument();
+});
+
+test("explains a hovered visible edge without clearing persistent node selection", () => {
+  render(<TechnologyGraph />);
+
+  const graph = projectTechnologyGraph({
+    technologies,
+    contexts,
+    relationships,
+  });
+  const edge = graph.edges.find((item) => item.sharedContexts.length === 1)!;
+  const unrelatedEdge = graph.edges.find(
+    (item) => item.sourceId !== "java" && item.targetId !== "java",
+  )!;
+  const java = screen.getByRole("button", { name: /Java technology/i });
+  fireEvent.click(java);
+  expect(
+    screen.getByTestId(`technology-visible-edge-${unrelatedEdge.id}`),
+  ).toHaveAttribute("data-active", "false");
+  fireEvent.mouseEnter(screen.getByTestId(`technology-edge-${edge.id}`));
+
+  const tooltip = screen.getByRole("complementary", {
+    name: "Shared context details",
+  });
+  expect(within(tooltip).getByText("Shared context")).toBeInTheDocument();
+  expect(
+    within(tooltip).getByText(
+      /(Learning|Professional|Portfolio|Personal project)/,
+    ),
+  ).toBeInTheDocument();
+  expect(tooltip).toHaveTextContent("\u2014");
+  expect(tooltip).not.toHaveTextContent("â");
+  expect(java).toHaveAttribute("data-selected", "true");
+
+  fireEvent.mouseLeave(screen.getByTestId(`technology-edge-${edge.id}`));
+  expect(
+    screen.queryByRole("complementary", { name: "Shared context details" }),
+  ).not.toBeInTheDocument();
+  expect(
+    screen.getByRole("complementary", { name: "Focused technology details" }),
+  ).toBeInTheDocument();
+});
+
+test("uses singular and plural shared-context headings", () => {
+  const graph = projectTechnologyGraph({
+    technologies,
+    contexts,
+    relationships,
+  });
+  const singular = graph.edges.find(
+    (edge) => edge.sharedContexts.length === 1,
+  )!;
+  const plural = graph.edges.find((edge) => edge.sharedContexts.length > 1)!;
+
+  expect(sharedContextHeading(singular.sharedContexts)).toBe("Shared context");
+  expect(sharedContextHeading(plural.sharedContexts)).toBe("Shared contexts");
+});
+
+test("shows compact context labels only for direct visible edges of a selection", () => {
+  render(<TechnologyGraph />);
+
+  const graph = projectTechnologyGraph({
+    technologies,
+    contexts,
+    relationships,
+  });
+  const directEdges = graph.edges.filter(
+    ({ sourceId, targetId }) => sourceId === "java" || targetId === "java",
+  );
+
+  fireEvent.click(screen.getByRole("button", { name: /Java technology/i }));
+
+  expect(screen.getAllByTestId(/technology-edge-context-/)).toHaveLength(
+    directEdges.length,
+  );
 });

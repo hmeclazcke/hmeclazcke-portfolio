@@ -1,6 +1,6 @@
 .navigation {
   position: fixed;
-  z-index: 3;
+  z-index: 20;
   right: max(0.85rem, env(safe-area-inset-right));
   bottom: max(0.85rem, env(safe-area-inset-bottom));
   display: grid;
@@ -9,9 +9,9 @@
 
 .navigation button {
   display: grid;
-  width: 2rem;
-  height: 2rem;
-  padding: 0 0 0.1rem;
+  width: 2.125rem;
+  height: 2.125rem;
+  padding: 0;
   border: 1px solid
     color-mix(
       in srgb,
@@ -22,25 +22,43 @@
   place-items: center;
   background: color-mix(in srgb, var(--color-bg-canvas) 88%, transparent);
   color: var(--color-accent-primary);
-  font-family: var(--font-sans);
-  font-size: 1rem;
-  line-height: 1;
+  place-content: center;
+  transition:
+    border-color 160ms ease,
+    background 160ms ease,
+    box-shadow 160ms ease,
+    color 160ms ease;
+}
+
+.navigation svg {
+  display: block;
+  width: 0.9rem;
+  height: 0.9rem;
+  stroke-width: 1.65;
 }
 
 .navigation button:hover:not(:disabled) {
+  border-color: var(--color-accent-primary);
+  background: color-mix(in srgb, var(--color-bg-surface) 92%, transparent);
   box-shadow: var(--shadow-accent);
+}
+
+.navigation button:focus-visible {
+  border-color: var(--color-focus);
+  outline: 2px solid color-mix(in srgb, var(--color-focus) 75%, transparent);
+  outline-offset: 2px;
 }
 
 .navigation button:disabled {
   cursor: default;
-  border-color: color-mix(in srgb, var(--color-border-subtle) 70%, transparent);
+  border-color: color-mix(in srgb, var(--color-border-subtle) 55%, transparent);
   color: var(--color-text-muted);
-  opacity: 0.42;
+  opacity: 0.34;
 }
 
 @media (max-width: 47.999rem) {
   .navigation button {
-    width: 2.4rem;
-    height: 2.4rem;
+    width: 2.5rem;
+    height: 2.5rem;
   }
 }

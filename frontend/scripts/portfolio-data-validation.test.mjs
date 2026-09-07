@@ -45,6 +45,16 @@ describe("portfolio data structural validation", () => {
     expectInvalid(data, /contexts.*type/i);
   });
 
+  test("accepts the optional graph-edge eligibility policy only as a boolean", () => {
+    const excluded = validData();
+    excluded.contexts[0].graphEdgeEligible = false;
+    expect(() => validatePortfolioData(excluded)).not.toThrow();
+
+    const invalid = validData();
+    invalid.contexts[0].graphEdgeEligible = "false";
+    expectInvalid(invalid, /contexts.*graphEdgeEligible/i);
+  });
+
   test("rejects malformed relationship records", () => {
     const data = validData();
     data.relationships = [{ id: "java-learning", technologyId: "java" }];
@@ -113,6 +123,17 @@ describe("portfolio data semantic validation", () => {
     });
 
     expectInvalid(data, /duplicate technology ID.*java/i);
+  });
+
+  test("rejects duplicate technology names regardless of casing", () => {
+    const data = validData();
+    data.technologies.push({
+      id: "java-alias",
+      name: "java",
+      category: "language",
+    });
+
+    expectInvalid(data, /duplicate technology name.*java/i);
   });
 
   test("rejects duplicate context IDs", () => {

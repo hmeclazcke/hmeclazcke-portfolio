@@ -382,5 +382,239 @@
     "technologyId": "apache-tomcat",
     "contextId": "teracode",
     "meanings": ["used"]
+  },
+  {
+    "id": "ollama-reactive-rag-document-processor",
+    "technologyId": "ollama",
+    "contextId": "reactive-rag-document-processor",
+    "meanings": ["used"]
+  },
+  {
+    "id": "qwen-reactive-rag-document-processor",
+    "technologyId": "qwen",
+    "contextId": "reactive-rag-document-processor",
+    "meanings": ["used"]
+  },
+  {
+    "id": "git-hmeclazcke-portfolio",
+    "technologyId": "git",
+    "contextId": "hmeclazcke-portfolio",
+    "meanings": ["used"]
+  },
+  {
+    "id": "jenkins-unitech",
+    "technologyId": "jenkins",
+    "contextId": "unitech",
+    "meanings": ["used"]
+  },
+  {
+    "id": "github-actions-hmeclazcke-portfolio",
+    "technologyId": "github-actions",
+    "contextId": "hmeclazcke-portfolio",
+    "meanings": ["used"]
+  },
+  {
+    "id": "postman-teracode",
+    "technologyId": "postman",
+    "contextId": "teracode",
+    "meanings": ["used"]
+  },
+  {
+    "id": "selenium-unitech",
+    "technologyId": "selenium",
+    "contextId": "unitech",
+    "meanings": ["used"]
+  },
+  {
+    "id": "kibana-unitech",
+    "technologyId": "kibana",
+    "contextId": "unitech",
+    "meanings": ["used"]
+  },
+  {
+    "id": "java-job-search-platform",
+    "technologyId": "java",
+    "contextId": "job-search-platform",
+    "meanings": ["used"]
+  },
+  {
+    "id": "spring-boot-job-search-platform",
+    "technologyId": "spring-boot",
+    "contextId": "job-search-platform",
+    "meanings": ["used"]
+  },
+  {
+    "id": "apache-kafka-job-search-platform",
+    "technologyId": "apache-kafka",
+    "contextId": "job-search-platform",
+    "meanings": ["used"]
+  },
+  {
+    "id": "redis-job-search-platform",
+    "technologyId": "redis",
+    "contextId": "job-search-platform",
+    "meanings": ["used"]
+  },
+  {
+    "id": "mongodb-job-search-platform",
+    "technologyId": "mongodb",
+    "contextId": "job-search-platform",
+    "meanings": ["used"]
+  },
+  {
+    "id": "docker-job-search-platform",
+    "technologyId": "docker",
+    "contextId": "job-search-platform",
+    "meanings": ["used"]
+  },
+  {
+    "id": "docker-compose-job-search-platform",
+    "technologyId": "docker-compose",
+    "contextId": "job-search-platform",
+    "meanings": ["used"]
+  },
+  {
+    "id": "openapi-swagger-job-search-platform",
+    "technologyId": "openapi-swagger",
+    "contextId": "job-search-platform",
+    "meanings": ["used"]
+  },
+  {
+    "id": "resilience4j-job-search-platform",
+    "technologyId": "resilience4j",
+    "contextId": "job-search-platform",
+    "meanings": ["used"]
+  },
+  {
+    "id": "microsoft-sql-server-teracode",
+    "technologyId": "microsoft-sql-server",
+    "contextId": "teracode",
+    "meanings": ["used"]
+  },
+  {
+    "id": "keycloak-unitech",
+    "technologyId": "keycloak",
+    "contextId": "unitech",
+    "meanings": ["used"]
+  },
+  {
+    "id": "maven-unitech",
+    "technologyId": "maven",
+    "contextId": "unitech",
+    "meanings": ["used"]
+  },
+  {
+    "id": "maven-teracode",
+    "technologyId": "maven",
+    "contextId": "teracode",
+    "meanings": ["used"]
+  },
+  {
+    "id": "maven-job-search-platform",
+    "technologyId": "maven",
+    "contextId": "job-search-platform",
+    "meanings": ["used"]
+  },
+  {
+    "id": "gradle-unitech",
+    "technologyId": "gradle",
+    "contextId": "unitech",
+    "meanings": ["used"]
+  },
+  {
+    "id": "gradle-reactive-rag-document-processor",
+    "technologyId": "gradle",
+    "contextId": "reactive-rag-document-processor",
+    "meanings": ["used"]
+  },
+  {
+    "id": "junit-unitech",
+    "technologyId": "junit",
+    "contextId": "unitech",
+    "meanings": ["used"]
+  },
+  {
+    "id": "junit-teracode",
+    "technologyId": "junit",
+    "contextId": "teracode",
+    "meanings": ["used"]
+  },
+  {
+    "id": "junit-job-search-platform",
+    "technologyId": "junit",
+    "contextId": "job-search-platform",
+    "meanings": ["used"]
+  },
+  {
+    "id": "junit-reactive-rag-document-processor",
+    "technologyId": "junit",
+    "contextId": "reactive-rag-document-processor",
+    "meanings": ["used"]
+  },
+  {
+    "id": "mockito-job-search-platform",
+    "technologyId": "mockito",
+    "contextId": "job-search-platform",
+    "meanings": ["used"]
+  },
+  {
+    "id": "mockito-reactive-rag-document-processor",
+    "technologyId": "mockito",
+    "contextId": "reactive-rag-document-processor",
+    "meanings": ["used"]
+  },
+  {
+    "id": "testcontainers-reactive-rag-document-processor",
+    "technologyId": "testcontainers",
+    "contextId": "reactive-rag-document-processor",
+    "meanings": ["used"]
+  },
+  {
+    "id": "postman-unitech",
+    "technologyId": "postman",
+    "contextId": "unitech",
+    "meanings": ["used"]
+  },
+  {
+    "id": "postman-job-search-platform",
+    "technologyId": "postman",
+    "contextId": "job-search-platform",
+    "meanings": ["used"]
+  },
+  {
+    "id": "postman-reactive-rag-document-processor",
+    "technologyId": "postman",
+    "contextId": "reactive-rag-document-processor",
+    "meanings": ["used"]
+  },
+  {
+    "id": "git-unitech",
+    "technologyId": "git",
+    "contextId": "unitech",
+    "meanings": ["used"]
+  },
+  {
+    "id": "git-teracode",
+    "technologyId": "git",
+    "contextId": "teracode",
+    "meanings": ["used"]
+  },
+  {
+    "id": "git-reactive-rag-document-processor",
+    "technologyId": "git",
+    "contextId": "reactive-rag-document-processor",
+    "meanings": ["used"]
+  },
+  {
+    "id": "git-job-search-platform",
+    "technologyId": "git",
+    "contextId": "job-search-platform",
+    "meanings": ["used"]
+  },
+  {
+    "id": "jenkins-teracode",
+    "technologyId": "jenkins",
+    "contextId": "teracode",
+    "meanings": ["used"]
   }
 ]

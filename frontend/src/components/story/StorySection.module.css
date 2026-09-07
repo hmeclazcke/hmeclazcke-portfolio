@@ -1,6 +1,8 @@
 .scrollSpace {
+  position: relative;
+  z-index: 0;
   margin-top: clamp(4rem, 12vh, 8rem);
-  scroll-margin-top: 1rem;
+  scroll-margin-top: var(--site-header-height);
 }
 .stage {
   padding: clamp(1.5rem, 4vw, 3rem);
@@ -170,9 +172,9 @@
   }
   .scrollSpace[data-desktop-presentation="true"] .stage {
     position: sticky;
-    top: 1rem;
+    top: calc(var(--site-header-height) + 0.5rem);
     display: grid;
-    height: calc(100svh - 2rem);
+    height: calc(100dvh - var(--site-header-height) - 1rem);
     padding: clamp(0.75rem, 1.25vw, 1.25rem);
     align-content: center;
   }

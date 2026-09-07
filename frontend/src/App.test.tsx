@@ -14,6 +14,11 @@ test("renders the approved Home content within the semantic shell", () => {
   render(<App />);
 
   expect(screen.getByRole("banner")).toBeInTheDocument();
+  const workInProgress = screen.getByRole("status", {
+    name: /WORK IN PROGRESS.*BUILDING THIS IN PUBLIC/,
+  });
+  expect(workInProgress).toBeInTheDocument();
+  expect(workInProgress.parentElement?.firstElementChild).toBe(workInProgress);
   expect(screen.getByRole("main")).toBeInTheDocument();
   expect(screen.getByRole("contentinfo")).toBeInTheDocument();
   expect(screen.getByText("Hernán Meclazcke")).toBeInTheDocument();
@@ -44,6 +49,9 @@ test("renders the approved Home content within the semantic shell", () => {
   expect(
     screen.getByRole("link", { name: "Explore My Story" }),
   ).toHaveAttribute("href", "#about");
+  expect(
+    screen.getByRole("link", { name: "Explore Technology Graph" }),
+  ).toHaveAttribute("href", "#technology-graph");
   expect(screen.getByRole("link", { name: "Story" })).toHaveAttribute(
     "href",
     "#about",
@@ -52,7 +60,7 @@ test("renders the approved Home content within the semantic shell", () => {
     "href",
     "#technology-graph",
   );
-  expect(screen.queryAllByRole("link")).toHaveLength(3);
+  expect(screen.queryAllByRole("link")).toHaveLength(4);
   expect(
     screen.queryByRole("button", { name: "Previous milestone" }),
   ).not.toBeInTheDocument();

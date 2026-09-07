@@ -101,5 +101,67 @@
   { "id": "jdeveloper", "name": "JDeveloper", "category": "tool" },
   { "id": "toad", "name": "Toad", "category": "tool" },
   { "id": "maven", "name": "Maven", "category": "tool" },
-  { "id": "gradle", "name": "Gradle", "category": "tool" }
+  { "id": "gradle", "name": "Gradle", "category": "tool" },
+  {
+    "id": "ollama",
+    "name": "Ollama",
+    "category": "platform",
+    "relevance": "current"
+  },
+  {
+    "id": "qwen",
+    "name": "Qwen",
+    "category": "platform",
+    "relevance": "current"
+  },
+  { "id": "git", "name": "Git", "category": "tool", "relevance": "current" },
+  {
+    "id": "jenkins",
+    "name": "Jenkins",
+    "category": "tool",
+    "relevance": "historical"
+  },
+  {
+    "id": "github-actions",
+    "name": "GitHub Actions",
+    "category": "tool",
+    "relevance": "current"
+  },
+  { "id": "junit", "name": "JUnit", "category": "tool" },
+  { "id": "mockito", "name": "Mockito", "category": "tool" },
+  { "id": "testcontainers", "name": "Testcontainers", "category": "tool" },
+  {
+    "id": "postman",
+    "name": "Postman",
+    "category": "tool",
+    "relevance": "historical"
+  },
+  {
+    "id": "selenium",
+    "name": "Selenium",
+    "category": "tool",
+    "relevance": "historical"
+  },
+  { "id": "keycloak", "name": "Keycloak", "category": "platform" },
+  {
+    "id": "docker-compose",
+    "name": "Docker Compose",
+    "category": "platform"
+  },
+  {
+    "id": "kibana",
+    "name": "Kibana",
+    "category": "tool",
+    "relevance": "historical"
+  },
+  {
+    "id": "openapi-swagger",
+    "name": "OpenAPI / Swagger",
+    "category": "protocol"
+  },
+  {
+    "id": "resilience4j",
+    "name": "Resilience4j",
+    "category": "framework"
+  }
 ]
