@@ -27,6 +27,8 @@ Roadmap identifiers are stable references and should remain unchanged once speci
 
 # Phase 1 — Static Portfolio
 
+**Status:** complete
+
 ## Goal
 
 Deliver a complete, useful, publicly accessible portfolio that works without the project backend.
@@ -65,14 +67,16 @@ Phase 1 is complete when:
 | SPEC-010 | Public GitHub Integration | Enrich the portfolio with useful public GitHub information that can be obtained without the project backend. | GitHub information is an enhancement. GitHub failure or rate limiting must not break the static portfolio. | SPEC-004 | deferred |
 | SPEC-011 | How This Portfolio Was Built | Present selected public information about the engineering practices and architecture used to build the portfolio itself. | Public engineering overview only. Internal agent instructions, temporary notes, and implementation planning remain internal. | SPEC-004 | deferred |
 | SPEC-012 | Contact | Provide direct access to the approved LinkedIn and GitHub public profiles. | No email, phone, contact form, or duplicate LinkedIn work history. | SPEC-004 | done |
-| SPEC-013 | Accessibility, Responsive Design and UX Hardening | Validate and improve the current static-release experience across relevant devices, screen sizes, accessibility needs, loading states, and failure states. | Cross-cutting hardening only. No new major product capabilities. | SPEC-005, SPEC-006, SPEC-007, SPEC-012 | in-progress |
-| SPEC-014 | Static Portfolio Release | Validate and release the current Phase 1 static portfolio as the stable public version. | Release readiness, final Phase 1 validation, and deployment only. Deferred specifications and backend capabilities remain outside this release. | SPEC-013 | planned |
+| SPEC-013 | Static Portfolio Hardening & Release | Validate final static-release accessibility, responsiveness, UX, production output, and Pages readiness. | Cross-cutting hardening and release readiness only. No new product capabilities or deployment action. | SPEC-005, SPEC-006, SPEC-007, SPEC-012 | done |
+| SPEC-014 | Static Portfolio Release | Historical roadmap identity; merged into SPEC-013. | No independent future execution requirement. Its release-readiness scope is consolidated into SPEC-013. | SPEC-013 | merged into SPEC-013 |
 
 ---
 
 # Phase 2 — Backend and Dynamic Capabilities
 
-Phase 2 begins after SPEC-014 completes the current static release.
+**Status:** next project phase; not started
+
+Phase 2 may begin only through a newly approved specification after the completed Phase 1 static release.
 
 ## Goal
 

@@ -1,23 +1,5 @@
 @import "./tokens.css";
 
-@font-face {
-  font-family: "Space Grotesk Variable";
-  font-display: swap;
-  font-style: normal;
-  font-weight: 300 700;
-  src: url("@fontsource-variable/space-grotesk/files/space-grotesk-latin-wght-normal.woff2")
-    format("woff2-variations");
-}
-
-@font-face {
-  font-family: "JetBrains Mono Variable";
-  font-display: swap;
-  font-style: normal;
-  font-weight: 100 800;
-  src: url("@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2")
-    format("woff2-variations");
-}
-
 * {
   box-sizing: border-box;
 }

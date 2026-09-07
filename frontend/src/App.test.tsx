@@ -1,5 +1,6 @@
 import { cleanup, render, screen, within } from "@testing-library/react";
 import { afterEach, expect, test } from "vitest";
+import documentTemplate from "../index.html?raw";
 import App from "./App";
 import SiteShell from "./components/shell/SiteShell";
 import { storyMilestones } from "./components/story/storyMilestones";
@@ -9,6 +10,16 @@ afterEach(cleanup);
 
 const escapeRegularExpression = (value: string) =>
   value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+test("provides release-ready document metadata", () => {
+  expect(documentTemplate).toContain('<html lang="en">');
+  expect(documentTemplate).toContain(
+    "Hernán Meclazcke | Senior Backend Java Developer",
+  );
+  expect(documentTemplate).toContain(
+    "Hernán Meclazcke — Senior Backend Java Developer. Java, Spring Boot, microservices, Oracle, PL/SQL, and REST APIs.",
+  );
+});
 
 test("renders the approved Home content within the semantic shell", () => {
   render(<App />);

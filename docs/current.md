@@ -8,11 +8,11 @@ This document provides a concise snapshot of the current development state. Deta
 
 **Name:** hmeclazcke-portfolio
 
-**Current phase:** Phase 1 - Static Portfolio
+**Current phase:** Phase 2 - Backend and Dynamic Capabilities (not started)
 
-**Active specification:** SPEC-013 - Accessibility, Responsive Design and UX Hardening
+**Active specification:** None
 
-**Workflow stage:** Specification next
+**Workflow stage:** Phase 1 static portfolio release complete
 
 ## Current Development Environment
 
@@ -24,7 +24,7 @@ This document provides a concise snapshot of the current development state. Deta
 
 ## Current Objective
 
-SPEC-007 - Technology Graph and SPEC-012 - Contact are complete and owner-approved. SPEC-008 through SPEC-011 remain deferred. SPEC-013 is the active next specification; SPEC-014 follows before Phase 2/backend work.
+Phase 1 - Static Portfolio is complete. SPEC-013 - Static Portfolio Hardening & Release is complete with owner final visual acceptance passed; SPEC-014 remains merged into SPEC-013. SPEC-008 through SPEC-011 remain deferred. Phase 2/backend is the next project phase but has not started.
 
 ## Completed Foundation
 
@@ -35,7 +35,8 @@ SPEC-007 - Technology Graph and SPEC-012 - Contact are complete and owner-approv
 - SPEC-006 is complete: owner-approved Explore My Story navigation, responsive chronology, supplied local media, and base-safe favicon wiring are integrated.
 - SPEC-007 is complete: owner-approved canonical technology inventory, context-derived force graph, responsive family explorer, and accessible relationship details are integrated.
 - SPEC-012 is complete: the owner-approved footer Contact destination provides LinkedIn and GitHub links over the decorative Piedra Movediza composition; Home → Story → Technology Graph → Contact navigation is complete, including Contact Previous → Graph and unavailable Contact Next. The owner-review stacking-context hit-testing issue was resolved by placing floating SectionNavigation at the shell overlay level above the footer.
+- SPEC-013 is complete: owner-approved static portfolio accessibility, responsive/UX, navigation, production-build, Pages-path, and local-font loading verification are complete; Phase 1 is formally closed.
 
 ## Next Step
 
-Define and accept SPEC-013 - Accessibility, Responsive Design and UX Hardening. Then proceed to SPEC-014; keep SPEC-008 through SPEC-011 deferred.
+Begin Phase 2 only through a newly approved specification. Keep SPEC-008 through SPEC-011 deferred unless the owner explicitly reprioritizes them.
