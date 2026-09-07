@@ -26,7 +26,7 @@ The portfolio should instead focus on:
 
 ## Core Experience
 
-The core public portfolio must remain fully usable without a project backend.
+The current static release must remain fully usable without a project backend.
 
 It includes:
 
@@ -35,9 +35,9 @@ It includes:
 - the interactive technology graph;
 - project-owned structured technology and relationship data;
 - company, learning-context, and portfolio-project relationships;
-- base portfolio project information;
-- contact information and external-profile links;
-- public information explaining how the portfolio itself was built.
+- approved external-profile links;
+
+Portfolio Projects, Public GitHub Integration, and How This Portfolio Was Built remain valid future Phase 1 capabilities but are deferred from the current static release.
 
 The main experience should include:
 

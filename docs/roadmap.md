@@ -45,10 +45,7 @@ Phase 1 is complete when:
 - Home and About Me are available;
 - the technology graph is interactive and driven by structured portfolio data;
 - technologies can be related to professional, portfolio, and learning contexts;
-- selected portfolio projects can be explored;
-- relevant public GitHub information can be shown without becoming a dependency of the core experience;
 - contact and external-profile links are available;
-- the portfolio explains relevant aspects of how it was engineered;
 - the site behaves appropriately across supported screen sizes and interaction modes;
 - applicable quality gates pass.
 
@@ -64,16 +61,18 @@ Phase 1 is complete when:
 | SPEC-006 | About Me | Present a personal but professionally focused introduction, including the intended use of personal visual material. | Does not duplicate LinkedIn professional history. | SPEC-004 | done |
 | SPEC-007 | Technology Graph | Build the interactive graph representing technologies and their relationships to professional, portfolio, and learning contexts. | Core graph visualization and relationship navigation only. Must run without the backend. | SPEC-003, SPEC-004 | done |
 | SPEC-008 | Technology Graph Exploration | Add richer graph interaction such as exploration, selection, filtering, and contextual detail where justified by the product design. | Extends the existing graph without introducing backend-dependent intelligence. | SPEC-007 | deferred |
-| SPEC-009 | Portfolio Projects | Present selected portfolio projects and connect them to technologies and public source repositories. | Does not duplicate full professional employment history. | SPEC-003, SPEC-004 | planned |
-| SPEC-010 | Public GitHub Integration | Enrich the portfolio with useful public GitHub information that can be obtained without the project backend. | GitHub information is an enhancement. GitHub failure or rate limiting must not break the static portfolio. | SPEC-004 | planned |
-| SPEC-011 | How This Portfolio Was Built | Present selected public information about the engineering practices and architecture used to build the portfolio itself. | Public engineering overview only. Internal agent instructions, temporary notes, and implementation planning remain internal. | SPEC-004 | planned |
-| SPEC-012 | Contact and External Profiles | Provide clear access to approved external destinations such as LinkedIn, GitHub, and email. | No downloadable résumé and no duplicate LinkedIn work history by default. | SPEC-004 | planned |
-| SPEC-013 | Accessibility, Responsive Design and UX Hardening | Validate and improve the completed Phase 1 experience across relevant devices, screen sizes, accessibility needs, loading states, and failure states. | Cross-cutting hardening only. No new major product capabilities. | SPEC-005 through SPEC-012 as applicable | planned |
-| SPEC-014 | Static Portfolio Release | Validate and release the complete Phase 1 portfolio as the stable public version. | Release readiness, final Phase 1 validation, and deployment only. Backend capabilities remain outside this phase. | All required Phase 1 specifications | planned |
+| SPEC-009 | Portfolio Projects | Present selected portfolio projects and connect them to technologies and public source repositories. | Does not duplicate full professional employment history. | SPEC-003, SPEC-004 | deferred |
+| SPEC-010 | Public GitHub Integration | Enrich the portfolio with useful public GitHub information that can be obtained without the project backend. | GitHub information is an enhancement. GitHub failure or rate limiting must not break the static portfolio. | SPEC-004 | deferred |
+| SPEC-011 | How This Portfolio Was Built | Present selected public information about the engineering practices and architecture used to build the portfolio itself. | Public engineering overview only. Internal agent instructions, temporary notes, and implementation planning remain internal. | SPEC-004 | deferred |
+| SPEC-012 | Contact | Provide direct access to the approved LinkedIn and GitHub public profiles. | No email, phone, contact form, or duplicate LinkedIn work history. | SPEC-004 | in-progress |
+| SPEC-013 | Accessibility, Responsive Design and UX Hardening | Validate and improve the current static-release experience across relevant devices, screen sizes, accessibility needs, loading states, and failure states. | Cross-cutting hardening only. No new major product capabilities. | SPEC-005, SPEC-006, SPEC-007, SPEC-012 | planned |
+| SPEC-014 | Static Portfolio Release | Validate and release the current Phase 1 static portfolio as the stable public version. | Release readiness, final Phase 1 validation, and deployment only. Deferred specifications and backend capabilities remain outside this release. | SPEC-013 | planned |
 
 ---
 
 # Phase 2 — Backend and Dynamic Capabilities
+
+Phase 2 begins after SPEC-014 completes the current static release.
 
 ## Goal
 

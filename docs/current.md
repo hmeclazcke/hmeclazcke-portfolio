@@ -10,9 +10,9 @@ This document provides a concise snapshot of the current development state. Deta
 
 **Current phase:** Phase 1 - Static Portfolio
 
-**Active specification:** None - SPEC-007 is complete
+**Active specification:** SPEC-012 - Contact (draft ready for acceptance)
 
-**Workflow stage:** SPEC-009 Portfolio Projects is the next planned work
+**Workflow stage:** Specification draft awaiting acceptance
 
 ## Current Development Environment
 
@@ -24,7 +24,7 @@ This document provides a concise snapshot of the current development state. Deta
 
 ## Current Objective
 
-SPEC-007 - Technology Graph is complete and owner-approved. The next planned work is SPEC-009 - Portfolio Projects. SPEC-008 remains deferred; no specification is active until SPEC-009 is authorized.
+SPEC-007 - Technology Graph is complete and owner-approved. SPEC-008 through SPEC-011 are deferred. SPEC-012 - Contact is the active next work; SPEC-013 and SPEC-014 follow before Phase 2/backend work.
 
 ## Completed Foundation
 
@@ -37,4 +37,4 @@ SPEC-007 - Technology Graph is complete and owner-approved. The next planned wor
 
 ## Next Step
 
-Begin SPEC-009 Portfolio Projects planning only when authorized. Keep SPEC-008 deferred.
+Obtain acceptance of the SPEC-012 Contact draft before creating its implementation plan. After SPEC-012, proceed to SPEC-013 and then SPEC-014; keep SPEC-008 through SPEC-011 deferred.

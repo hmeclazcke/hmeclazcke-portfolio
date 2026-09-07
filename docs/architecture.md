@@ -214,7 +214,7 @@ The graph's current implementation uses a feature-local browser force-layout dep
 
 ## Static Core and Dynamic Enhancements
 
-The core public portfolio is a static-capable frontend experience. It includes the Home and About Me experience, personal visual identity, interactive technology graph, project-owned structured technology and relationship data, company, learning-context, and portfolio-project relationships, base portfolio project information, contact and external-profile links, and public information about how the portfolio was built.
+The current static release is a static-capable frontend experience. It includes the Home and About Me experience, personal visual identity, interactive technology graph, project-owned structured technology and relationship data, company, learning-context, and portfolio-project relationships, and contact and external-profile links. Portfolio Projects, Public GitHub Integration, and How This Portfolio Was Built remain valid future Phase 1 capabilities but are deferred from this release.
 
 Dynamic or server-side capabilities are optional enhancements to this core, not prerequisites for its use. Examples include backend APIs, AI/LLM functionality, MCP-based capabilities, authentication or administration, and server-side integrations.
 
