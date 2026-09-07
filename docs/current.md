@@ -10,9 +10,9 @@ This document provides a concise snapshot of the current development state. Deta
 
 **Current phase:** Phase 1 - Static Portfolio
 
-**Active specification:** SPEC-012 - Contact (draft ready for acceptance)
+**Active specification:** SPEC-013 - Accessibility, Responsive Design and UX Hardening
 
-**Workflow stage:** Specification draft awaiting acceptance
+**Workflow stage:** Specification next
 
 ## Current Development Environment
 
@@ -24,7 +24,7 @@ This document provides a concise snapshot of the current development state. Deta
 
 ## Current Objective
 
-SPEC-007 - Technology Graph is complete and owner-approved. SPEC-008 through SPEC-011 are deferred. SPEC-012 - Contact is the active next work; SPEC-013 and SPEC-014 follow before Phase 2/backend work.
+SPEC-007 - Technology Graph and SPEC-012 - Contact are complete and owner-approved. SPEC-008 through SPEC-011 remain deferred. SPEC-013 is the active next specification; SPEC-014 follows before Phase 2/backend work.
 
 ## Completed Foundation
 
@@ -34,7 +34,8 @@ SPEC-007 - Technology Graph is complete and owner-approved. SPEC-008 through SPE
 - SPEC-005 is complete: the public Home introduction is owner-approved.
 - SPEC-006 is complete: owner-approved Explore My Story navigation, responsive chronology, supplied local media, and base-safe favicon wiring are integrated.
 - SPEC-007 is complete: owner-approved canonical technology inventory, context-derived force graph, responsive family explorer, and accessible relationship details are integrated.
+- SPEC-012 is complete: the owner-approved footer Contact destination provides LinkedIn and GitHub links over the decorative Piedra Movediza composition; Home → Story → Technology Graph → Contact navigation is complete, including Contact Previous → Graph and unavailable Contact Next. The owner-review stacking-context hit-testing issue was resolved by placing floating SectionNavigation at the shell overlay level above the footer.
 
 ## Next Step
 
-Obtain acceptance of the SPEC-012 Contact draft before creating its implementation plan. After SPEC-012, proceed to SPEC-013 and then SPEC-014; keep SPEC-008 through SPEC-011 deferred.
+Define and accept SPEC-013 - Accessibility, Responsive Design and UX Hardening. Then proceed to SPEC-014; keep SPEC-008 through SPEC-011 deferred.

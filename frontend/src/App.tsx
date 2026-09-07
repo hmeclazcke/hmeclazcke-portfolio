@@ -6,11 +6,10 @@ import TechnologyGraph from "./components/technology-graph/TechnologyGraph";
 
 function App() {
   return (
-    <SiteShell contentWidth="wide">
+    <SiteShell contentWidth="wide" floatingNavigation={<SectionNavigation />}>
       <HomeHero />
       <StorySection />
       <TechnologyGraph />
-      <SectionNavigation />
     </SiteShell>
   );
 }

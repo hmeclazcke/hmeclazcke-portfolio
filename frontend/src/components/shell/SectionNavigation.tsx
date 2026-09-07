@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type PointerEvent } from "react";
 import {
   activeMajorSectionIndex,
   majorSectionIds,
-  majorSectionTarget,
   type MajorSectionStarts,
 } from "./sectionNavigationModel";
 import { siteHeaderHeight } from "./siteHeaderHeight";
@@ -27,7 +26,10 @@ const sectionStarts = (): MajorSectionStarts | null => {
 const currentMajorSection = () => {
   const starts = sectionStarts();
   return starts
-    ? activeMajorSectionIndex(window.scrollY, siteHeaderHeight(), starts)
+    ? activeMajorSectionIndex(window.scrollY, siteHeaderHeight(), starts, {
+        documentHeight: document.documentElement.scrollHeight,
+        viewportHeight: window.innerHeight,
+      })
     : 0;
 };
 
@@ -59,30 +61,51 @@ function SectionNavigation() {
     };
   }, []);
 
-  const goTo = (index: number) => {
-    const starts = sectionStarts();
-    if (!starts) return;
-    const top = majorSectionTarget(
-      majorSectionIds[index]!,
-      starts,
-      siteHeaderHeight(),
-    );
-    window.scrollTo({ top, behavior: scrollBehavior() });
+  const goToRelativeSection = (direction: -1 | 1) => {
+    const activeSection = currentMajorSection();
+    const targetIndex = activeSection + direction;
+    if (targetIndex < 0 || targetIndex >= majorSectionIds.length) return;
+
+    const targetId = majorSectionIds[targetIndex]!;
+    const target = document.getElementById(targetId);
+    if (!target) return;
+
+    target.scrollIntoView({
+      behavior: scrollBehavior(),
+      block: "start",
+      inline: "nearest",
+    });
   };
 
+  const preventUnavailablePointerInteraction = (
+    event: PointerEvent<HTMLElement>,
+  ) => {
+    if ((event.target as Element).closest("button:disabled")) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  };
+
+  const previousAvailable = activeIndex > 0;
+  const nextAvailable = activeIndex < majorSectionIds.length - 1;
+
   return (
-    <nav className={styles.navigation} aria-label="Section navigation">
+    <nav
+      className={styles.navigation}
+      aria-label="Section navigation"
+      onPointerDownCapture={preventUnavailablePointerInteraction}
+    >
       <button
         aria-label="Previous section"
-        disabled={activeIndex === 0}
-        onClick={() => goTo(activeIndex - 1)}
+        disabled={!previousAvailable}
+        onClick={previousAvailable ? () => goToRelativeSection(-1) : undefined}
       >
         <Chevron direction="up" />
       </button>
       <button
         aria-label="Next section"
-        disabled={activeIndex === majorSectionIds.length - 1}
-        onClick={() => goTo(activeIndex + 1)}
+        disabled={!nextAvailable}
+        onClick={nextAvailable ? () => goToRelativeSection(1) : undefined}
       >
         <Chevron direction="down" />
       </button>

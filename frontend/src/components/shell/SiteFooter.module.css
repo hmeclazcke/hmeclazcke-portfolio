@@ -1,12 +1,76 @@
 .footer {
   position: relative;
   z-index: 1;
-  padding: var(--space-4) clamp(1.25rem, 5vw, 4rem);
+  min-height: 8rem;
+  padding: var(--space-5) clamp(1.25rem, 5vw, 4rem);
 }
 
-.rule {
-  width: min(100%, var(--content-width-wide));
-  height: 1px;
-  margin-inline: auto;
-  background: var(--color-border-subtle);
+.contactCluster {
+  position: relative;
+  display: grid;
+  width: clamp(8.5rem, 18vw, 12rem);
+  min-height: 5rem;
+  isolation: isolate;
+  place-items: center;
+}
+
+.piedra {
+  position: absolute;
+  z-index: 0;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  opacity: 0.2;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  user-select: none;
+}
+
+.profileLinks {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.profileLink {
+  display: grid;
+  width: 2.75rem;
+  min-width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 50%;
+  place-items: center;
+  background: color-mix(in srgb, var(--color-bg-surface) 78%, transparent);
+  transition:
+    border-color 160ms ease,
+    background 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.profileLink:hover {
+  border-color: var(--color-accent-primary);
+  background: color-mix(in srgb, var(--color-bg-surface) 94%, transparent);
+  box-shadow: var(--shadow-accent);
+}
+
+.profileLink img {
+  display: block;
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.profileLink:focus-visible {
+  border-color: var(--color-focus);
+}
+
+@media (max-width: 47.999rem) {
+  .footer {
+    min-height: 7.5rem;
+  }
+
+  .piedra {
+    opacity: 0.16;
+  }
 }

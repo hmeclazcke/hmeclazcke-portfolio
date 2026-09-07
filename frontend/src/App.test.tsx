@@ -20,7 +20,16 @@ test("renders the approved Home content within the semantic shell", () => {
   expect(workInProgress).toBeInTheDocument();
   expect(workInProgress.parentElement?.firstElementChild).toBe(workInProgress);
   expect(screen.getByRole("main")).toBeInTheDocument();
-  expect(screen.getByRole("contentinfo")).toBeInTheDocument();
+  const footer = screen.getByRole("contentinfo");
+  const sectionNavigation = screen.getByRole("navigation", {
+    name: "Section navigation",
+  });
+  expect(footer).toBeInTheDocument();
+  expect(sectionNavigation.closest("main")).toBeNull();
+  expect(
+    footer.compareDocumentPosition(sectionNavigation) &
+      Node.DOCUMENT_POSITION_FOLLOWING,
+  ).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
   expect(screen.getByText("Hernán Meclazcke")).toBeInTheDocument();
   expect(screen.getByText("hmeclazcke")).toBeInTheDocument();
   expect(screen.getByText("HELLO, I'M HERNÁN.")).toBeInTheDocument();
@@ -60,7 +69,7 @@ test("renders the approved Home content within the semantic shell", () => {
     "href",
     "#technology-graph",
   );
-  expect(screen.queryAllByRole("link")).toHaveLength(4);
+  expect(screen.queryAllByRole("link")).toHaveLength(6);
   expect(
     screen.queryByRole("button", { name: "Previous milestone" }),
   ).not.toBeInTheDocument();

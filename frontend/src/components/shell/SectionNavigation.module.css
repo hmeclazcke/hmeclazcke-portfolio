@@ -1,6 +1,7 @@
 .navigation {
   position: fixed;
   z-index: 20;
+  isolation: isolate;
   right: max(0.85rem, env(safe-area-inset-right));
   bottom: max(0.85rem, env(safe-area-inset-bottom));
   display: grid;
@@ -28,6 +29,7 @@
     background 160ms ease,
     box-shadow 160ms ease,
     color 160ms ease;
+  touch-action: manipulation;
 }
 
 .navigation svg {
@@ -54,6 +56,7 @@
   border-color: color-mix(in srgb, var(--color-border-subtle) 55%, transparent);
   color: var(--color-text-muted);
   opacity: 0.34;
+  pointer-events: auto;
 }
 
 @media (max-width: 47.999rem) {

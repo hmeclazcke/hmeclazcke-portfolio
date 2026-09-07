@@ -9,9 +9,14 @@ type SiteShellContentWidth = "readable" | "wide" | "full";
 type SiteShellProps = {
   children: ReactNode;
   contentWidth?: SiteShellContentWidth;
+  floatingNavigation?: ReactNode;
 };
 
-function SiteShell({ children, contentWidth = "readable" }: SiteShellProps) {
+function SiteShell({
+  children,
+  contentWidth = "readable",
+  floatingNavigation,
+}: SiteShellProps) {
   return (
     <div className={styles.shell}>
       <SiteHeader />
@@ -26,6 +31,7 @@ function SiteShell({ children, contentWidth = "readable" }: SiteShellProps) {
         </div>
       </main>
       <SiteFooter />
+      {floatingNavigation}
     </div>
   );
 }
