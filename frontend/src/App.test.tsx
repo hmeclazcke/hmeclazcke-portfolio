@@ -25,11 +25,9 @@ test("renders the approved Home content within the semantic shell", () => {
   render(<App />);
 
   expect(screen.getByRole("banner")).toBeInTheDocument();
-  const workInProgress = screen.getByRole("status", {
-    name: /WORK IN PROGRESS.*BUILDING THIS IN PUBLIC/,
-  });
-  expect(workInProgress).toBeInTheDocument();
-  expect(workInProgress.parentElement?.firstElementChild).toBe(workInProgress);
+  expect(
+    screen.queryByText(/WORK IN PROGRESS.*BUILDING THIS IN PUBLIC/),
+  ).not.toBeInTheDocument();
   expect(screen.getByRole("main")).toBeInTheDocument();
   const footer = screen.getByRole("contentinfo");
   const sectionNavigation = screen.getByRole("navigation", {

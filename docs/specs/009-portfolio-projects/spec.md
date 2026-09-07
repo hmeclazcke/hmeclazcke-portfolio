@@ -2,10 +2,12 @@
 
 **ID:** SPEC-009
 **Phase:** Phase 1 - Static Portfolio
-**Status:** Deferred - preserved for future work
+**Status:** Archived - not part of final product scope
 **Depends on:** SPEC-003 - Portfolio Data Model; SPEC-004 - Site Shell and Visual Foundation
 **Relevant constraints:** SPEC-006 - About Me; SPEC-007 - Technology Graph
-**Deferred boundary:** SPEC-008 - Technology Graph Exploration; SPEC-010 - Public GitHub Integration
+**Historical boundaries:** SPEC-008 - Technology Graph Exploration; SPEC-010 - Public GitHub Integration
+
+> **Final-scope note:** This preserved specification records a historical proposal. It is not an active or scheduled product commitment in the completed static portfolio.
 
 ## Overview
 

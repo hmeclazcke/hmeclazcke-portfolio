@@ -576,11 +576,9 @@ The project is not required to produce every C4 diagram.
 
 ---
 
-# Future Backend and API References
+# Archived Exploratory References
 
-These references are recorded now because they correspond to planned Phase 2 directions.
-
-They do not represent implemented Phase 1 dependencies.
+These references preserve historical exploration of possible backend, API, and agent-oriented directions. They are not implemented dependencies, current commitments, or a roadmap for the completed static portfolio.
 
 ## OpenAPI Specification
 
@@ -589,7 +587,7 @@ They do not represent implemented Phase 1 dependencies.
 **Source:** OpenAPI Specification  
 **Domain:** spec.openapis.org
 
-**Potential use:**
+**Historical potential use:**
 
 - application-owned HTTP API contracts;
 - machine-readable API definitions;
@@ -607,7 +605,7 @@ OpenAPI should only become an active project dependency when an application-owne
 **Source:** Model Context Protocol specification  
 **Domain:** modelcontextprotocol.io
 
-**Potential use:**
+**Historical potential use:**
 
 - controlled agent access to tools and resources;
 - repository-aware intelligent portfolio capabilities;
@@ -624,14 +622,14 @@ MCP must not be used as a replacement for ordinary API integration when a standa
 **Source:** Spring Boot reference documentation  
 **Domain:** docs.spring.io
 
-**Potential future use:**
+**Historical potential use:**
 
-- Phase 2 backend implementation;
+- server-side implementation;
 - Spring application architecture;
 - backend testing;
 - integration testing.
 
-Exact backend technology decisions remain subject to the relevant Phase 2 specifications.
+No server-side technology decision is currently committed.
 
 ---
 

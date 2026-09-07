@@ -8,7 +8,7 @@ Quality gates apply in addition to the acceptance criteria defined by each speci
 
 A specification is not complete merely because its visible functionality appears to work.
 
-The exact commands used to enforce these gates will evolve as the frontend, backend, and development tooling are introduced.
+The current commands enforce the validation required by the completed static portfolio.
 
 ---
 
@@ -51,13 +51,11 @@ The project follows Test-Driven Development as defined in `AGENTS.md`.
 
 Applicable automated tests must pass before work is considered complete.
 
-Testing should progressively include, where relevant:
+Testing includes, where relevant:
 
 - unit tests;
 - component tests;
 - integration tests;
-- API contract tests;
-- architecture tests;
 - regression tests;
 - end-to-end tests for critical user flows.
 
@@ -75,11 +73,7 @@ Bug fixes should include a regression test whenever reasonably possible.
 
 Any affected deployable component must build successfully.
 
-Examples include:
-
-- frontend production build;
-- backend application build;
-- generated deployment artifacts.
+The static portfolio requires a frontend production build and its generated deployment artifact.
 
 A successful development server or local preview does not replace a production build check when a production build exists.
 
@@ -93,7 +87,7 @@ Source code and supported project files must comply with the project's configure
 
 Formatting should be deterministic and automated where practical.
 
-Formatting tools and commands will be defined when the relevant frontend and backend tooling is introduced.
+Formatting commands are defined for the current frontend under **Current Gate Commands**.
 
 Formatting failures must be resolved before completion unless an explicit documented exception exists.
 
@@ -103,14 +97,10 @@ Formatting failures must be resolved before completion unless an explicit docume
 
 Applicable linting and static-analysis checks must pass.
 
-These may progressively include:
+Current checks include:
 
 - frontend linting;
 - TypeScript type checking;
-- Java static analysis;
-- architecture validation;
-- dependency rules;
-- security-oriented checks.
 
 Tools must only be introduced when their value and maintenance cost are justified.
 
@@ -134,10 +124,7 @@ Changes must remain consistent with `docs/architecture.md`.
 
 Validation should confirm, where applicable, that:
 
-- the static portfolio remains independent from backend availability;
 - project-owned portfolio data remains separate from presentation implementation;
-- external systems remain explicit architectural boundaries;
-- backend functionality does not become a hidden requirement for the static core;
 - new infrastructure or dependencies are justified by an approved requirement;
 - framework-specific concerns do not leak across intended architectural boundaries.
 
@@ -147,17 +134,15 @@ Automated architecture tests may be introduced where they provide clear value.
 
 ## Static Portfolio Availability
 
-For Phase 1, the core portfolio must remain usable without the project backend.
+The completed static portfolio must remain usable without runtime external dependencies.
 
 Applicable validation should confirm that:
 
 - static content loads successfully;
 - the technology graph can operate from project-owned structured data;
 - core navigation remains usable;
-- failure of optional dynamic integrations does not cause the overall portfolio to fail;
-- unavailable dynamic capabilities expose an understandable degraded, loading, retry, or unavailable state where relevant.
 
-This is a required Phase 1 quality characteristic.
+This is a required quality characteristic of the completed static portfolio.
 
 ---
 
@@ -202,7 +187,7 @@ Do not duplicate detailed information across documentation files unnecessarily.
 
 Specifications that affect deployment must validate the relevant deployment path.
 
-For Phase 1, this may include:
+For the completed static portfolio, deployment validation includes:
 
 - successful frontend production build;
 - successful GitHub Actions workflow;
@@ -214,7 +199,6 @@ A local build alone is not sufficient evidence that a deployment specification i
 
 The implemented Pages workflow runs `npm ci`, then `npm run format:check`, `npm run lint`, `npm run typecheck`, `npm run validate:data`, `npm run test:run`, and `npm run build` from `frontend/`. Only a successful build job uploads `frontend/dist/`; the dependent deployment job then publishes that artifact to GitHub Pages. Deployment validation requires a successful real workflow run and a successful public HTTPS and project-path asset check, in addition to the local gates.
 
-For future backend capabilities, backend deployment will have its own applicable gates and must remain independent from the static frontend deployment.
 
 ---
 
@@ -243,11 +227,9 @@ At minimum:
 
 - secrets must never be committed to the repository;
 - browser-delivered code must not contain private credentials;
-- sensitive server-side credentials must remain server-side;
 - dependencies should not be introduced from untrusted or unexplained sources;
-- authentication and authorization requirements, when introduced, must be validated explicitly.
 
-More specific security gates should be added when backend, authentication, or privileged functionality is introduced.
+Any future owner-approved capability must define proportional security validation before implementation.
 
 ---
 
@@ -258,8 +240,6 @@ Not every gate applies to every change.
 Examples:
 
 - a documentation-only change may not require a frontend production build;
-- a frontend-only change should not require backend tests when the backend is unaffected;
-- a backend-only change should not require unrelated frontend checks;
 - a deployment change must validate the deployment path it modifies.
 
 Run the smallest set of gates that fully validates the affected scope.
@@ -302,7 +282,7 @@ Run frontend commands from `frontend/`.
 
 This document should evolve with the project.
 
-When a new tool or component introduces a repeatable validation command:
+If a future owner-approved change introduces a repeatable validation command:
 
 1. document the command here;
 2. define when it must be run;

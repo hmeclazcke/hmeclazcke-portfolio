@@ -45,4 +45,4 @@ SPEC-013 may be marked complete only after owner final visual acceptance, succes
 
 ## Closure
 
-Owner final visual acceptance passed. The static portfolio release, including desktop and narrow layouts, Story, Technology Graph, Contact navigation, footer composition, floating-navigation hit testing, and local font loading, is approved. The established automated checks, production build, preview smoke checks, and production font requests passed. Phase 1 is complete; Phase 2 remains not started.
+Owner final visual acceptance passed. The static portfolio release, including desktop and narrow layouts, Story, Technology Graph, Contact navigation, footer composition, floating-navigation hit testing, and local font loading, is approved. The established automated checks, production build, preview smoke checks, and production font requests passed. The static product scope is complete; no subsequent product phase is committed.

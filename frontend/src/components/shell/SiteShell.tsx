@@ -2,7 +2,6 @@ import type { ReactNode } from "react";
 import styles from "./SiteShell.module.css";
 import SiteFooter from "./SiteFooter";
 import SiteHeader from "./SiteHeader";
-import WorkInProgressBanner from "./WorkInProgressBanner";
 
 type SiteShellContentWidth = "readable" | "wide" | "full";
 
@@ -26,7 +25,6 @@ function SiteShell({
         data-content-width={contentWidth}
       >
         <div className={`${styles.content} ${styles[contentWidth]}`}>
-          <WorkInProgressBanner />
           {children}
         </div>
       </main>
