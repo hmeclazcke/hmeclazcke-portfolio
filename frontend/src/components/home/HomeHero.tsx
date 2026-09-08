@@ -15,10 +15,10 @@ function HomeHero() {
         together.
       </p>
       <div className={styles.actions}>
-        <a className={styles.storyLink} href="#about">
+        <a className={styles.actionLink} href="#about">
           Explore My Story
         </a>
-        <a className={styles.graphLink} href="#technology-graph">
+        <a className={styles.actionLink} href="#technology-graph">
           Explore Technology Graph
         </a>
       </div>

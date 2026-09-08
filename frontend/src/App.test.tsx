@@ -64,12 +64,14 @@ test("renders the approved Home content within the semantic shell", () => {
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     ),
   ).not.toBeInTheDocument();
-  expect(
-    screen.getByRole("link", { name: "Explore My Story" }),
-  ).toHaveAttribute("href", "#about");
-  expect(
-    screen.getByRole("link", { name: "Explore Technology Graph" }),
-  ).toHaveAttribute("href", "#technology-graph");
+  const storyCta = screen.getByRole("link", { name: "Explore My Story" });
+  const graphCta = screen.getByRole("link", {
+    name: "Explore Technology Graph",
+  });
+
+  expect(storyCta).toHaveAttribute("href", "#about");
+  expect(graphCta).toHaveAttribute("href", "#technology-graph");
+  expect(graphCta).toHaveClass(storyCta.className);
   expect(screen.getByRole("link", { name: "Story" })).toHaveAttribute(
     "href",
     "#about",
