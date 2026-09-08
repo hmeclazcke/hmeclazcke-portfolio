@@ -74,11 +74,13 @@ export const mobileTechnologyFamilies = ({
       }));
   };
 
-  return technologyFamilies.map(({ id, label }) => ({
-    id,
-    label,
-    technologies: nodes
-      .filter((node) => node.familyId === id)
-      .map((node) => ({ ...node, contextGroups: contextGroups(node.id) })),
-  }));
+  return technologyFamilies
+    .map(({ id, label }) => ({
+      id,
+      label,
+      technologies: nodes
+        .filter((node) => node.familyId === id)
+        .map((node) => ({ ...node, contextGroups: contextGroups(node.id) })),
+    }))
+    .filter(({ technologies }) => technologies.length > 0);
 };

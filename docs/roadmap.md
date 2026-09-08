@@ -17,6 +17,7 @@
 | SPEC-007 | Technology Graph | done |
 | SPEC-012 | Contact | done |
 | SPEC-013 | Static Portfolio Hardening & Release | done |
+| SPEC-015 | Technology Graph Search | done |
 
 SPEC-014 — Static Portfolio Release — is preserved as a historical roadmap identity and **merged into SPEC-013**. It creates no independent outstanding work.
 

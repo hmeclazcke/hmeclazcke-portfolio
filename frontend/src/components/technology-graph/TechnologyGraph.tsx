@@ -19,6 +19,7 @@ import {
   projectTechnologyGraph,
   sharedContextHeading,
 } from "./graphProjection";
+import { filterTechnologyGraph } from "./graphSearch";
 import {
   mobileTechnologyFamilies,
   type MobileTechnologyFamily,
@@ -98,14 +99,19 @@ function TechnologyGraph() {
     () => projectTechnologyGraph({ technologies, contexts, relationships }),
     [],
   );
+  const [query, setQuery] = useState("");
+  const visibleGraph = useMemo(
+    () => filterTechnologyGraph(graph, query),
+    [graph, query],
+  );
   const mobileFamilies = useMemo(
     () =>
       mobileTechnologyFamilies({
-        nodes: graph.nodes,
+        nodes: visibleGraph.nodes,
         contexts,
         relationships,
       }),
-    [graph.nodes],
+    [visibleGraph.nodes],
   );
   const surfaceRef = useRef<HTMLDivElement>(null);
   const simulationRef = useRef<Simulation<LayoutNode, undefined> | null>(null);
@@ -131,7 +137,7 @@ function TechnologyGraph() {
   }, []);
 
   useEffect(() => {
-    const nodes: LayoutNode[] = graph.nodes.map((node, index) => {
+    const nodes: LayoutNode[] = visibleGraph.nodes.map((node, index) => {
       const target = familyTarget(node.familyId, dimensions);
       return {
         id: node.id,
@@ -179,7 +185,7 @@ function TechnologyGraph() {
       .force(
         "link",
         forceLink<LayoutNode, { source: string; target: string }>(
-          graph.edges.map(({ sourceId, targetId }) => ({
+          visibleGraph.edges.map(({ sourceId, targetId }) => ({
             source: sourceId,
             target: targetId,
           })),
@@ -208,17 +214,28 @@ function TechnologyGraph() {
     return () => {
       simulation.stop();
     };
-  }, [dimensions, graph]);
+  }, [dimensions, visibleGraph]);
 
   const focusedId = selectedId ?? hoveredId;
-  const focusedNode = graph.nodes.find(({ id }) => id === focusedId);
-  const hoveredEdge = graph.edges.find(({ id }) => id === hoveredEdgeId);
-  const neighborIds = directNeighborIds(focusedId, graph.edges);
+  const focusedNode = visibleGraph.nodes.find(({ id }) => id === focusedId);
+  const hoveredEdge = visibleGraph.edges.find(({ id }) => id === hoveredEdgeId);
+  const neighborIds = directNeighborIds(focusedId, visibleGraph.edges);
   const positionOf = (id: string) =>
     positions[id] ?? { x: dimensions.width / 2, y: dimensions.height / 2 };
   const clearSelection = () => {
     setSelectedId(null);
     setHoveredId(null);
+  };
+  const updateQuery = (nextQuery: string) => {
+    const nextGraph = filterTechnologyGraph(graph, nextQuery);
+    const visibleIds = new Set(nextGraph.nodes.map(({ id }) => id));
+    const visibleEdgeIds = new Set(nextGraph.edges.map(({ id }) => id));
+    setQuery(nextQuery);
+    if (selectedId && !visibleIds.has(selectedId)) setSelectedId(null);
+    if (hoveredId && !visibleIds.has(hoveredId)) setHoveredId(null);
+    if (hoveredEdgeId && !visibleEdgeIds.has(hoveredEdgeId)) {
+      setHoveredEdgeId(null);
+    }
   };
   const startDrag = (event: React.PointerEvent<SVGGElement>, id: string) => {
     if (event.pointerType && event.pointerType !== "mouse") return;
@@ -269,8 +286,32 @@ function TechnologyGraph() {
         <p className={styles.eyebrow}>CONNECTIONS IN CONTEXT</p>
         <h2 id="technology-graph-heading">Technology Graph</h2>
         <p>{publicDescription}</p>
+        <div className={styles.searchControl}>
+          <label className={styles.searchLabel} htmlFor="technology-search">
+            Search technologies
+          </label>
+          <input
+            id="technology-search"
+            className={styles.searchInput}
+            type="search"
+            value={query}
+            placeholder="Search technology..."
+            onChange={(event) => updateQuery(event.target.value)}
+            onKeyDown={(event) => {
+              if (event.key === "Escape" && query.trim()) {
+                event.preventDefault();
+                event.stopPropagation();
+                updateQuery("");
+              }
+            }}
+          />
+        </div>
       </div>
-      <div className={styles.graphSurface} ref={surfaceRef}>
+      <div
+        className={styles.graphSurface}
+        data-empty={visibleGraph.nodes.length === 0 || undefined}
+        ref={surfaceRef}
+      >
         <svg
           className={styles.visualGraph}
           viewBox={`0 0 ${dimensions.width} ${dimensions.height}`}
@@ -284,7 +325,7 @@ function TechnologyGraph() {
           }}
         >
           <g aria-hidden="true">
-            {graph.edges.map((edge) => {
+            {visibleGraph.edges.map((edge) => {
               const source = positionOf(edge.sourceId);
               const target = positionOf(edge.targetId);
               const active =
@@ -319,7 +360,7 @@ function TechnologyGraph() {
             })}
           </g>
           <g aria-hidden="true">
-            {graph.edges.map((edge) => {
+            {visibleGraph.edges.map((edge) => {
               const source = positionOf(edge.sourceId);
               const target = positionOf(edge.targetId);
               return (
@@ -338,7 +379,7 @@ function TechnologyGraph() {
               );
             })}
           </g>
-          {graph.nodes.map((node) => {
+          {visibleGraph.nodes.map((node) => {
             const point = positionOf(node.id);
             const active =
               !focusedId || node.id === focusedId || neighborIds.has(node.id);
@@ -416,15 +457,23 @@ function TechnologyGraph() {
             ) : null}
             <ContextList
               heading="Used at"
-              values={graph.contextDetailsByTechnology[focusedNode.id]!.usedAt}
+              values={
+                visibleGraph.contextDetailsByTechnology[focusedNode.id]!.usedAt
+              }
             />
             <ContextList
               heading="Learned at"
               values={
-                graph.contextDetailsByTechnology[focusedNode.id]!.learnedAt
+                visibleGraph.contextDetailsByTechnology[focusedNode.id]!
+                  .learnedAt
               }
             />
           </aside>
+        ) : null}
+        {visibleGraph.nodes.length === 0 ? (
+          <p className={styles.emptyState} role="status">
+            No technologies found
+          </p>
         ) : null}
       </div>
       <MobileTechnologyExplorer
@@ -441,11 +490,15 @@ function TechnologyGraph() {
       >
         <h3>Technology context details</h3>
         <ul>
-          {graph.nodes.map((node) => (
+          {visibleGraph.nodes.map((node) => (
             <li key={node.id}>
               {node.name}:{" "}
-              {graph.contextDetailsByTechnology[node.id]!.usedAt.join(", ")}{" "}
-              {graph.contextDetailsByTechnology[node.id]!.learnedAt.join(", ")}
+              {visibleGraph.contextDetailsByTechnology[node.id]!.usedAt.join(
+                ", ",
+              )}{" "}
+              {visibleGraph.contextDetailsByTechnology[node.id]!.learnedAt.join(
+                ", ",
+              )}
             </li>
           ))}
         </ul>

@@ -35,6 +35,35 @@
   color: var(--color-text-muted);
 }
 
+.searchControl {
+  width: min(17rem, 100%);
+  margin-top: var(--space-3);
+}
+
+.searchLabel {
+  display: block;
+  margin-bottom: var(--space-1);
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-meta);
+}
+
+.searchInput {
+  width: 100%;
+  min-height: 2.4rem;
+  padding: 0.45rem 0.65rem;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-surface);
+  color: var(--color-text-primary);
+  font: inherit;
+}
+
+.searchInput:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
 .graphSurface {
   position: relative;
   height: clamp(17rem, calc(100svh - 12.5rem), 40rem);
@@ -75,6 +104,17 @@
   width: 100%;
   height: 100%;
   touch-action: pan-y;
+}
+
+.emptyState {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-meta);
 }
 
 .edge {
@@ -234,6 +274,11 @@
 @media (max-width: 47.999rem) {
   .graphSurface {
     display: none;
+  }
+
+  .graphSurface[data-empty="true"] {
+    display: block;
+    min-height: 17rem;
   }
 
   .mobileExplorer {

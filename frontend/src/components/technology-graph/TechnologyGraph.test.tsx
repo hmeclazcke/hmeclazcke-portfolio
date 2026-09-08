@@ -95,6 +95,77 @@ test("renders technology-only graph details and canonical focus information", ()
   expect(within(tooltip).getByText("Current")).toBeInTheDocument();
 });
 
+test("filters graph and mobile explorer from one accessible query and clears it with Escape", () => {
+  render(<TechnologyGraph />);
+
+  const input = screen.getByRole("searchbox", { name: "Search technologies" });
+  input.focus();
+  fireEvent.change(input, { target: { value: "Spr" } });
+
+  expect(input).toHaveFocus();
+  expect(
+    screen.getByRole("button", { name: /Spring Boot technology/i }),
+  ).toBeInTheDocument();
+  expect(
+    screen.queryByRole("button", { name: /Java technology/i }),
+  ).not.toBeInTheDocument();
+  expect(
+    within(screen.getByTestId("mobile-technology-explorer")).queryByText(
+      "PROGRAMMING LANGUAGES",
+    ),
+  ).not.toBeInTheDocument();
+
+  fireEvent.keyDown(input, { key: "Escape" });
+  expect(input).toHaveValue("");
+  expect(
+    screen.getByRole("button", { name: /Java technology/i }),
+  ).toBeInTheDocument();
+});
+
+test("clears hidden selection and shows then clears the no-results state", () => {
+  render(<TechnologyGraph />);
+
+  fireEvent.click(screen.getByRole("button", { name: /Java technology/i }));
+  const input = screen.getByRole("searchbox", { name: "Search technologies" });
+  fireEvent.change(input, { target: { value: "zzzzzzzz" } });
+
+  expect(screen.getByText("No technologies found")).toBeInTheDocument();
+  expect(
+    screen.queryByRole("complementary", { name: "Focused technology details" }),
+  ).not.toBeInTheDocument();
+  expect(screen.queryByTestId("technology-node-java")).not.toBeInTheDocument();
+  expect(
+    within(screen.getByTestId("mobile-technology-explorer")).queryAllByRole(
+      "heading",
+      { level: 3 },
+    ),
+  ).toHaveLength(0);
+
+  fireEvent.change(input, { target: { value: "" } });
+  expect(screen.queryByText("No technologies found")).not.toBeInTheDocument();
+  expect(screen.getByTestId("technology-node-java")).toBeInTheDocument();
+});
+
+test("preserves a selected technology that remains visible after filtering", () => {
+  render(<TechnologyGraph />);
+
+  const springBoot = screen.getByRole("button", {
+    name: /Spring Boot technology/i,
+  });
+  fireEvent.click(springBoot);
+  fireEvent.change(
+    screen.getByRole("searchbox", { name: "Search technologies" }),
+    {
+      target: { value: "spr" },
+    },
+  );
+
+  expect(springBoot).toHaveAttribute("data-selected", "true");
+  expect(
+    screen.getByRole("complementary", { name: "Focused technology details" }),
+  ).toHaveTextContent("Spring Boot");
+});
+
 test("supports persistent selection and keyboard clearing", () => {
   render(<TechnologyGraph />);
 
